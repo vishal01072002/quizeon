@@ -1,0 +1,44 @@
+pages And Link also
+1. loading page
+2. error page
+
+service api testing
+1. send otp 
+2. verify otp
+3. signup
+4. login
+
+apis
+1. reset password
+2. forgot password
+
+routing
+1.personalize routing / authorization
+2. private route (token expires)
+3. public route
+
+redux and slices
+1. add token and expire in auth Slice
+2. make combine reducer and store to proved in index.js
+3. write redux initialization
+
+features
+1. logout features
+
+profile edit features
+1. api in backend
+2. integrate with frontend
+
+new page
+1. update/reset password
+2. forgot password
+
+make quiz
+1. name
+2. category
+3. duration
+4. status - draft/public
+5. ques type ObjId
+6. public or private
+7. link for private
+

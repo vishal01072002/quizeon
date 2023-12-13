@@ -1,38 +1,26 @@
+
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.label-style {
+  @apply text-[14px] text-gray-400;
+}
+.form-style {
+  @apply rounded-2xl bg-blue-100 px-4 py-3 text-[14px] leading-[24px] text-gray-900 shadow-[0_1px_0_0] shadow-white/50 placeholder:text-gray-600 placeholder:text-lg placeholder:font-medium text-xl text-left font-medium focus:outline-none
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.quiz-label {
+  @apply flex flex-col text-lg font-medium items-start bg-white w-full gap-2 p-4 rounded-md
+}
+
+.quiz-input {
+  @apply px-1 pt-2 pb-1 text-lg font-normal leading-[24px] text-gray-900 shadow-[0_1px_0_0] shadow-white/50 placeholder:text-gray-500 w-1/2 border-b-2 border-black focus:outline-none
+}
+
+.appearance-remove::-webkit-inner-spin-button,
+.appearance-remove::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+    appearance: none;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
