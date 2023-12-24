@@ -14,6 +14,6 @@ const ProfileSchema = new mongoose.Schema({
     dateOfBirth:{
         type:Date,
     }
-});
+},{timestamps:true});
 
 module.exports = mongoose.model("Profile",ProfileSchema);

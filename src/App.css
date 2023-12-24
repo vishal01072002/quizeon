@@ -12,11 +12,22 @@
 }
 
 .quiz-label {
-  @apply flex flex-col text-lg font-medium items-start bg-white w-full gap-2 p-4 rounded-md
+  @apply flex flex-col relative text-lg font-medium items-start bg-white w-full gap-2 p-4 rounded-md
 }
 
 .quiz-input {
   @apply px-1 pt-2 pb-1 text-lg font-normal leading-[24px] text-gray-900 shadow-[0_1px_0_0] shadow-white/50 placeholder:text-gray-500 w-1/2 border-b-2 border-black focus:outline-none
+}
+
+.my-quiz-input {
+  @apply px-1 pt-2 pb-1 text-xl font-normal leading-[24px] text-gray-100 bg-transparent w-min focus:outline-none
+}
+
+.quiz-label-option{
+  @apply flex flex-col relative text-lg font-medium items-start bg-white w-full px-4 py-2 rounded-md 
+}
+.quiz-option {
+  @apply px-1 text-lg font-normal leading-[24px] text-gray-900 shadow-[0_1px_0_0] shadow-white/50 placeholder:text-gray-500 w-1/2 border-b-2 border-black focus:outline-none
 }
 
 .appearance-remove::-webkit-inner-spin-button,

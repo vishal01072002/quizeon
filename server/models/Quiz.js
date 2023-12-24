@@ -10,7 +10,7 @@ const QuizSchema = new mongoose.Schema({
     },
     category: {
         //array of strings
-        type: [String],
+        type: String,
         trim: true,
         required: true,
         enum: [
@@ -45,7 +45,11 @@ const QuizSchema = new mongoose.Schema({
     questions:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:QuizQues,
+    }],
+    scoreList:[{
+        type:mongoose.Schema.Types.ObjectId,
+        //ref:Score,
     }]
-});
+},{timestamps:true});
 
 module.exports = mongoose.model("Quiz",QuizSchema);

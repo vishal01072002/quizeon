@@ -4,8 +4,12 @@ const {connect} = require("./config/database");
 const {cloudinaryConnect} = require("./config/cloudinary")
 const dotenv = require("dotenv");
 const cors = require("cors");
+
+// import Routes
 const userRoute = require("./routes/user");
 const profileRoute = require("./routes/profile");
+const quizRoute = require("./routes/quiz");
+const quizQuesRoute = require("./routes/quizQues");
 
 const app = express();
 
@@ -34,6 +38,8 @@ cloudinaryConnect();
 // mounting routes
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/user", profileRoute);
+app.use("/api/v1/quiz", quizRoute);
+app.use("/api/v1/quiz", quizQuesRoute);
 
 // Test Route
 app.get("/", (req, res) => {

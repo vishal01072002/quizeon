@@ -14,3 +14,19 @@ export const profileEndpoints = {
     EDIT_PROFILE : BASE_URL + "/user/auth/editprofile",
     RESET_PASSWORD : BASE_URL + "/user/auth/resetpassword",
 }
+
+// QUIZ ENDPOINTS
+export const quizEndpoints = {
+    MAKE_QUIZ : BASE_URL + "/quiz/makequiz",
+    UPDATE_QUIZ : BASE_URL + "/quiz/updatequiz",
+    DELETE_QUIZ : BASE_URL + "/quiz/deletequiz",
+    FETCH_ALL_QUIZ : BASE_URL + "/quiz/fetchallquiz",
+    FETCH_ONE_QUIZ : BASE_URL + "/quiz/fetchonequiz",
+}
+
+// QUESTION ENDPOINTS
+export const questionEndpoints = {
+    ADD_QUES : BASE_URL + "/quiz/addQuizQues",
+    REMOVE_QUES : BASE_URL + "/quiz/removeQuizQues",
+    EDIT_QUES : BASE_URL + "/quiz/editQuizQues",
+}

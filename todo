@@ -42,3 +42,20 @@ make quiz
 6. public or private
 7. link for private
 
+my Quiz
+1. fetch all quiz
+2. show all quiz
+3. make them editable
+4. expire date (valid date for quiz)
+
+edit make quiz
+1. use Slice
+2. fetch edited quiz & store in slice
+
+
+socre schema
+1. attempted by
+2. quiz id
+3. correct ques
+4. incorrect ques
+5. marks

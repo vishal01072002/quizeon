@@ -11,6 +11,11 @@ const QuizQuesSchema = mongoose.Schema({
         trim: true,
         required: true,
     }],
+    correct:{
+        type: String,
+        trim: true,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model("QuizQues",QuizQuesSchema);

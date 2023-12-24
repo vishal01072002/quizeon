@@ -1,5 +1,6 @@
 const Jwt =  require("jsonwebtoken");
 require("dotenv").config();
+const User = require("../models/User");
 
 // verify token for authentication
 // request aayi hai
@@ -42,3 +43,45 @@ exports.auth = async(req,res,next)=>{
         });
     }
 }
+
+exports.isStudent = async(req,res,next)=>{
+    try {
+        const userDetails = await User.findOne({ email: req.user.email });
+
+		if (userDetails.account !== "Student") {
+			return res.status(401).json({
+				success: false,
+				message: "This is a Protected Route for Students",
+			});
+		}
+		next();
+    } catch (error) {
+        return res.status(500).json({
+            success: false, message: `User Role Can't be Verified`,
+            error: error.message,
+        });
+    }
+}
+
+exports.isInstructor = async (req, res, next) => {
+	try {
+		const userDetails = await User.findOne({ email: req.user.email });
+		console.log(userDetails);
+
+		console.log(userDetails.account);
+
+		if (userDetails.account !== "Instructor") {
+			return res.status(401).json({
+				success: false,
+				message: "This is a Protected Route for Instructor",
+			});
+		}
+		next();
+	} catch (error) {
+		return res.status(500).json({
+            success: false, 
+            message: `User Role Can't be Verified`,
+            error: error.message
+        });
+	}
+};

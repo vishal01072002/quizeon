@@ -120,7 +120,7 @@ export const Profile = () => {
                     </div>
                     <button className='mt-3 rounded-md bg-blue-100 px-3 py-1'>Change Profile</button>
                 </div>
-
+                <Link to={"/dashboard/myquiz"}>My Quiz</Link>
                 <div className='flex gap-2 mt-4 text-2xl font-medium'>
                     <p className=''>{displayData.firstName}</p>
                     <p>{displayData.lastName}</p>

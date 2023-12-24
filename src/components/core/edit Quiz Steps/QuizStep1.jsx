@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux';
+import { makeQuiz, updateQuiz } from '../../../services/operations/quiz';
+import { useNavigate } from 'react-router-dom';
+import { FaChevronDown,FaChevronUp } from "react-icons/fa";
+import { toast } from 'react-toastify';
+import { setStep } from '../../../slice/quizSlice';
+import { ShowQues } from './ShowQues';
 
-export const MakeQuiz = () => {
-  const Categories = [{
+export const QuizStep1 = () => {
+  const Categories = [
+  {
     _id : 1,
     name: "cpp"
-  }];
+  },
+  {
+    _id : 2,
+    name: "java"
+  },
+  {
+    _id : 3,
+    name: "c"
+  },
+  ];
 
   const {
     register,
@@ -15,14 +32,64 @@ export const MakeQuiz = () => {
     formState : {errors},
   } = useForm();
 
-  const submitHandler = (data)=>{
-    console.log(data);
+  const {token} = useSelector((state) => state.auth);
+  const {user} = useSelector((state) => state.profile);
+  const {step, editMode, editQuiz} = useSelector((state) => state.quiz);
+  const dispatch = useDispatch();
+  const [showQues, setShowQues] = useState(false);
+  const navigate = useNavigate();
+
+  const isChange = (newData,oldData) =>{
+    console.log(newData,oldData);
+    if(newData.quizName !== oldData.quizName) return true;
+    if(newData.category !== oldData.category) return true;
+    if(newData.duration !== oldData.duration) return true;
+    if(newData.access !== oldData.access) return true
+    return false;
   }
 
+  const submitHandler = (data)=>{
+    if(!editMode){
+      //first time quiz is created 
+      console.log(data);
+      const newData = {...data,email:user.email};
+      console.log(newData);
+      dispatch(makeQuiz(newData,token));
+    }
+    else{
+      // this is for update quiz
+      if(isChange(data,editQuiz)){
+        // api call for update
+        const newData = {...data,quizId:editQuiz._id,status:editQuiz.status};
+        console.log(newData);
+        dispatch(updateQuiz(newData,token));
+      }
+      else{
+        toast.error("No Changes happen");
+      }
+    }
+  }
+
+  const scrolls = () =>{
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+  useEffect(()=>{
+    // if edit mode fill the form
+    //console.log(editQuiz);
+    if(editMode && editQuiz){
+      setValue("quizName", editQuiz.quizName);
+      setValue("category", editQuiz.category);
+      setValue("duration", editQuiz.duration);
+      setValue("access", editQuiz.access);
+    }
+  });
   return (
     <div className='w-full h-full'>
-    <div className='relative flex-col p-5 w-full gap-5 items-center flex min-h-full  bg-slate-300'>
-    <p className='text-xl font-bold'>Make Quiz in very easy & efficient way</p>
+      <div className='relative flex-col p-5 w-full gap-5 items-center flex min-h-full  bg-slate-300'>
+      <p className='text-xl font-bold'>Make Quiz in very easy & efficient way</p>
         <form onSubmit={handleSubmit(submitHandler)} className='flex flex-col gap-5 p-4 items-start min-w-[756px]'>
             <label className="quiz-label">
               Quiz Name
@@ -68,7 +135,6 @@ export const MakeQuiz = () => {
               type="radio"
               value={"Public"}
               {...register("access",{required:true})}
-              checked= "true"
             />
             Public
             </label>
@@ -103,7 +169,7 @@ export const MakeQuiz = () => {
               Choose a Category
             </option>
             {Categories?.map((category, indx) => (
-              <option key={indx} value={category?._id}>
+              <option key={indx} value={category?.name}>
                 {category?.name}
               </option>
             ))}
@@ -114,9 +180,19 @@ export const MakeQuiz = () => {
           )}
           </div>
 
-          <button type='submit' className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'>Next</button>
+          <div className='flex w-full items-center justify-between'>
+            <button type='submit' className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'>{editMode ? "Save Changes" : "Next"}</button>
+          
+            <button type='button' onClick={()=>{setShowQues(!showQues); scrolls();}} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>{showQues ? <span className='flex items-center gap-2'><FaChevronUp/>Hide All Question</span> : <span className='flex items-center gap-2'><FaChevronDown/>Show All Question</span>}</button>
+
+            <button type='button' onClick={()=>dispatch(setStep(2))} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>Add question</button>
+          </div>
         </form>
-    </div>
+        
+        {
+          showQues && <ShowQues/>
+        }
+      </div>
     </div>
   )
 }
