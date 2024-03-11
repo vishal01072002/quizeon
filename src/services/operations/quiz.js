@@ -3,7 +3,8 @@ import {apiConnector} from "../apiConnector"
 import {quizEndpoints} from "../apis"
 import {questionEndpoints} from "../apis"
 import { setLoading, setViewQuiz } from "../../slice/viewQuizSlice";
-import { setEditMode, setQuiz, setStep,setEditQuesMode,setQues } from "../../slice/quizSlice";
+import { setEditMode, setQuiz, setStep,setEditQuesMode,setQues, setEditQuizLoading } from "../../slice/quizSlice";
+import { setQuizPlatformLoading } from "../../slice/quizPlatformSlice";
 
 
 // MAKE QUIZ API
@@ -40,7 +41,7 @@ export const makeQuiz = (data,token)=>{
 export const updateQuiz = (data,token)=>{
     return async(dispatch)=>{
         const toastId = toast.loading("Loading");
-        //dispatch(setLoading(true));
+        dispatch(setEditQuizLoading(true));
         try {
             const response = await apiConnector("POST",quizEndpoints.UPDATE_QUIZ,data,{Authorization: `bearer ${token}`});
 
@@ -60,7 +61,35 @@ export const updateQuiz = (data,token)=>{
             toast.error("Update Quiz Error");
             console.log(error);
         }
-        //dispatch(setLoading(false));
+        dispatch(setEditQuizLoading(false));
+        toast.dismiss(toastId);
+    }
+}
+
+// PUBLISH QUIZ API
+export const publishQuiz = (data,token)=>{
+    return async(dispatch)=>{
+        const toastId = toast.loading("Loading");
+        dispatch(setEditQuizLoading(true));
+        try {
+            const response = await apiConnector("POST",quizEndpoints.PUBLISH_QUIZ,data,{Authorization: `bearer ${token}`});
+
+            console.log("PUBLISH QUIZ API RESPONSE............", response);
+
+          if(! response.data.success){
+              throw new Error(response.data.message);
+          }
+
+          dispatch(setQuiz(response.data.quiz));
+          dispatch(setEditMode(true));
+          toast.success("Quiz Publish Sucessful");
+
+        } catch (error) {
+            console.log("PUBLISH QUIZ API ERROR............", error);
+            toast.error("Publish Quiz Error");
+            console.log(error);
+        }
+        dispatch(setEditQuizLoading(false));
         toast.dismiss(toastId);
     }
 }
@@ -138,7 +167,7 @@ export const fetchOneQuiz = (data,navigate)=>{
 
           dispatch(setQuiz(response.data.quiz));
           dispatch(setEditMode(true));
-          navigate("/makeQuiz")
+          navigate("/dashboard/makeQuiz")
           toast.success(response.data.message);
 
         } catch (error) {
@@ -151,7 +180,52 @@ export const fetchOneQuiz = (data,navigate)=>{
     }
 }
 
+// FETCH QUIZES API
+export const fetchQuizes = async(token,pageNo)=>{
+    
+    const toastId = toast.loading("Loading");
+    let result = [[],[]];
+    try {
+        const response = await apiConnector("POST",quizEndpoints.FETCH_QUIZES,{pageNo:pageNo},{Authorization: `bearer ${token}`});
 
+        console.log("FETCH QUIZES API RESPONSE............", response);
+
+        if(! response.data.success){
+            throw new Error(response.data.message);
+        }
+        else{
+            result[0] = (response.data.quiz);
+            result[1] = (response.data.totalPages);
+        }
+    } catch (error) {
+        console.log("FETCH QUIZES API ERROR............", error);
+    }
+    
+    toast.dismiss(toastId);
+    return result;
+}
+
+// FETCH ATTEMPT QUIZ API
+export const fetchAttemptQuiz = async(data,token) => {
+    const toastId = toast.loading("Loading");
+    let result = null;
+    try {
+        const response = await apiConnector("POST",quizEndpoints.FETCH_ATTEMPT_QUIZ,data,{Authorization: `bearer ${token}`});
+
+        console.log("FETCH ATTEMPT QUIZES API RESPONSE............", response);
+
+        if(! response.data.success){
+            throw new Error(response.data.message);
+        }
+        else{
+            result = (response.data.quiz);
+        }
+    } catch (error) {
+        console.log("FETCH ATTEMPT QUIZES API ERROR............", error);
+    }
+    toast.dismiss(toastId);
+    return result;
+}
 
 // CREATE QUESTION API
 export const addQuestion = (data,navigate)=>{
@@ -171,7 +245,7 @@ export const addQuestion = (data,navigate)=>{
           dispatch(setEditMode(true));
           dispatch(setStep(1));
           toast.success("Question added Sucessful");
-          navigate("/makeQuiz");
+          navigate("/dashboard/makeQuiz");
         } catch (error) {
             console.log("ADD QUES API ERROR............", error);
             toast.error("Add Ques Error");
@@ -241,4 +315,24 @@ export const editQuestion = (data)=>{
         //dispatch(setLoading(false));
         toast.dismiss(toastId);
     }
+}
+
+// SUBMIT QUIZ API
+export const submitQuiz = async(data,dispatch) => {
+    const toastId = toast.loading("Loading");
+    dispatch(setQuizPlatformLoading(true));
+    try {
+        const response = await apiConnector("POST",quizEndpoints.SUBMIT_QUIZ,data);
+
+        console.log("SUBMIT QUIZES API RESPONSE............", response);
+
+        if(! response.data.success){
+            throw new Error(response.data.message);
+        }
+        toast.success("Quiz Submitted!")
+    } catch (error) {
+        console.log("SUBMIT QUIZES API ERROR............", error);
+    }
+    dispatch(setQuizPlatformLoading(false));
+    toast.dismiss(toastId);
 }

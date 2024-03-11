@@ -91,7 +91,7 @@ export const QuizStep2 = () => {
   return (
     <div>
       QuizStep2
-      <div >
+      <div className='min-h-[85vh]'>
       <form onSubmit={handleSubmit(submitHandler)} className='flex flex-col gap-5 p-4 items-start max-w-[756px] mx-auto border'>
       <OneQues name={"question"} register={register} placeholder={"Question "} errors={errors} setValue={setValue}/>
 

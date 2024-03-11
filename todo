@@ -52,10 +52,14 @@ edit make quiz
 1. use Slice
 2. fetch edited quiz & store in slice
 
-
 socre schema
 1. attempted by
 2. quiz id
 3. correct ques
 4. incorrect ques
 5. marks
+
+attempt quiz 
+1. quiz List 
+2. update fetch all quiz in sorted manner new first
+3. add quiz owner in quiz

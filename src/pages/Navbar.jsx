@@ -3,7 +3,7 @@ import quizon from "../assets/photo-20230918-114700removebgpreview-1@2x.png";
 import signin from "../assets/sign-1@2x.png";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {setToken,setTokenExpires} from "../slice/authSlice"
+import {setToken,setTokenExpires,logOut} from "../slice/authSlice"
 import {setUser} from "../slice/profileSlice"
 import { toast } from "react-toastify";
 
@@ -12,12 +12,12 @@ export const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {token} = useSelector((state)=> state.auth);
+  const {user} = useSelector((state)=> state.profile);
   // console.log(token);
 
   // logout function
   const logout = () =>{
-    dispatch(setToken(null));
-    dispatch(setTokenExpires(null));
+    dispatch(logOut());
     dispatch(setUser(null));
     toast.success("Log Out Successful");
     navigate("/");
@@ -30,8 +30,10 @@ export const Navbar = () => {
         <img className="w-[188px] h-[58.93px]" alt="" src={quizon} />
         <div className="text-white font-medium text-lg gap-14 flex items-center justify-between group">
           <Link to={"/"} className="cursor-pointer hidden lg:block">Home</Link>
-          <Link to={"/signup"} className="cursor-pointer hidden lg:block">Attempt quiz</Link>
-          <Link to={"/makeQuiz"} className="cursor-pointer hidden lg:block">Create Quiz</Link>
+
+          {(!token || (user && user.account === "Student")) && <Link to={"/dashboard/AttemptQuiz/page/1"} className="cursor-pointer hidden lg:block">Attempt quiz</Link>}
+
+          {(!token || (user && user.account === "Instructor")) && <Link to={"/dashboard/MakeQuiz"} className="cursor-pointer hidden lg:block">Create Quiz</Link>}
 
           {
             token ? <Link to={"/dashboard/profile"} className="cursor-pointer hidden lg:block">Profile</Link> :

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const QuizQues = require("./QuizQues");
-
+const User = require("./User");
+const Score = require("./Score");
 
 const QuizSchema = new mongoose.Schema({
     quizName:{
@@ -14,17 +15,17 @@ const QuizSchema = new mongoose.Schema({
         trim: true,
         required: true,
         enum: [
-            'cpp',
-            'java',
-            'c',
-            'general'        
+            'Cpp',
+            'Java',
+            'C',
+            'General'       
         ],
     },
     duration:{
         // in minutes
         type: Number,
         required: true,
-        min: 15,
+        min: 5,
         max: 120,
     },
     status:{
@@ -48,8 +49,12 @@ const QuizSchema = new mongoose.Schema({
     }],
     scoreList:[{
         type:mongoose.Schema.Types.ObjectId,
-        //ref:Score,
-    }]
+        ref:Score,
+    }],
+    quizOwner:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref :'User',
+    },
 },{timestamps:true});
 
 module.exports = mongoose.model("Quiz",QuizSchema);

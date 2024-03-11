@@ -13,15 +13,21 @@ export const authEndpoints = {
 export const profileEndpoints = {
     EDIT_PROFILE : BASE_URL + "/user/auth/editprofile",
     RESET_PASSWORD : BASE_URL + "/user/auth/resetpassword",
+    UPLOAD_PROFILE_PICTURE : BASE_URL + "/user/uploadProfile",
+    DELETE_ACCOUNT : BASE_URL
 }
 
 // QUIZ ENDPOINTS
 export const quizEndpoints = {
     MAKE_QUIZ : BASE_URL + "/quiz/makequiz",
     UPDATE_QUIZ : BASE_URL + "/quiz/updatequiz",
+    PUBLISH_QUIZ : BASE_URL + "/quiz/publishquiz",
     DELETE_QUIZ : BASE_URL + "/quiz/deletequiz",
     FETCH_ALL_QUIZ : BASE_URL + "/quiz/fetchallquiz",
     FETCH_ONE_QUIZ : BASE_URL + "/quiz/fetchonequiz",
+    FETCH_QUIZES : BASE_URL + "/quiz/fetchquizes",
+    FETCH_ATTEMPT_QUIZ : BASE_URL + "/quiz/fetchAttemptQuiz",
+    SUBMIT_QUIZ : BASE_URL + "/quiz/submitQuiz",
 }
 
 // QUESTION ENDPOINTS

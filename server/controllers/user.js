@@ -27,7 +27,8 @@ exports.sendOtp = async(req,res)=> {
     console.log(otp,otpToken);
 
     // if user exist then cant signup
-    const user = User.findOne({email:email});
+    const user = await User.findOne({email:email});
+    // console.log(user);
     if(user){
       return res.status(400).json({
         success: false,
@@ -208,7 +209,7 @@ exports.login = async (req,res) => {
   
       // check user exist or not
       const user = await User.findOne({email:email}).populate("additionalDetail").exec();
-      if(!user){
+      if(!user || user.account !== account){
         return res.status(500).json({
             success: false,
             message: "invalid user email",

@@ -23,7 +23,7 @@ exports.auth = async(req,res,next)=>{
         // decode token
         try {
             const decodedToken = Jwt.verify(token,process.env.JWT_SECRET_KEY);
-            console.log(decodedToken);
+            // console.log(decodedToken);
             req.user = decodedToken;
         } catch (error) {
             return res.status(401).json({

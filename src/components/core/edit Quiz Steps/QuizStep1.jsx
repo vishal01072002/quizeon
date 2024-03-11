@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
-import { makeQuiz, updateQuiz } from '../../../services/operations/quiz';
+import { makeQuiz, publishQuiz, updateQuiz } from '../../../services/operations/quiz';
 import { useNavigate } from 'react-router-dom';
 import { FaChevronDown,FaChevronUp } from "react-icons/fa";
 import { toast } from 'react-toastify';
@@ -12,15 +12,19 @@ export const QuizStep1 = () => {
   const Categories = [
   {
     _id : 1,
-    name: "cpp"
+    name: "Cpp"
   },
   {
     _id : 2,
-    name: "java"
+    name: "Java"
   },
   {
     _id : 3,
-    name: "c"
+    name: "C"
+  },
+  {
+    _id : 4,
+    name: "General"
   },
   ];
 
@@ -76,6 +80,11 @@ export const QuizStep1 = () => {
       behavior: 'smooth'
     });
   }
+
+  const publishingQuiz = () => {
+    dispatch(publishQuiz({quizId:editQuiz._id},token))
+  }
+
   useEffect(()=>{
     // if edit mode fill the form
     //console.log(editQuiz);
@@ -115,7 +124,7 @@ export const QuizStep1 = () => {
               valueAsNumber: true,
               validate:{always: (value)=> value >= 1 || "Duration is required"},
               max :{ value: 120, message: "maximum duration can be 2 Hour"},
-              min :{ value: 15, message: "minimum duration can be 15 minutes"},
+              min :{ value: 5, message: "minimum duration can be 5 minutes"},
               pattern: {
                 value: /^(0|[1-9]\d*)(\.\d+)?$/, message:"Enter only number"
               },})}
@@ -181,11 +190,13 @@ export const QuizStep1 = () => {
           </div>
 
           <div className='flex w-full items-center justify-between'>
-            <button type='submit' className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'>{editMode ? "Save Changes" : "Next"}</button>
+            {editMode && editQuiz.status === "Draft" && <button type='submit' className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'>{editMode ? "Save Changes" : "Next"}</button>}
           
             <button type='button' onClick={()=>{setShowQues(!showQues); scrolls();}} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>{showQues ? <span className='flex items-center gap-2'><FaChevronUp/>Hide All Question</span> : <span className='flex items-center gap-2'><FaChevronDown/>Show All Question</span>}</button>
 
-            <button type='button' onClick={()=>dispatch(setStep(2))} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>Add question</button>
+            {editMode && editQuiz.status === "Draft" && <button type='button' onClick={()=>dispatch(setStep(2))} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>Add question</button>}
+            
+            <button type='button' disabled={editMode && editQuiz.status === "Publish"} onClick={()=> publishingQuiz()} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>{editMode && editQuiz.status === "Publish" ? "Already Published" : "Publish"}</button>
           </div>
         </form>
         

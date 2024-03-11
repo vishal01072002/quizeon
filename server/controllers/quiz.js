@@ -42,6 +42,9 @@ exports.makeQuiz = async(req,res)=>{
             });
         }
 
+        const quizOwner = user._id;
+        quizz.quizOwner = quizOwner;
+        await quizz.save();
         // return all quiz
         
         return res.status(200).json({
@@ -81,7 +84,7 @@ exports.updateQuiz = async(req,res)=>{
             duration:duration,
             category:category,
             access: access,
-        },{new:true});
+        },{new:true}).populate("questions").exec();
 
         return res.status(200).json({
             success:true,
@@ -99,6 +102,32 @@ exports.updateQuiz = async(req,res)=>{
     }
 }
 
+// @desc   publish quiz for instructor
+// route   POST /api/v1/quiz/publishQuiz
+// access  Private
+exports.publishQuiz = async(req,res)=>{
+    try {
+        const{quizId} = req.body;
+
+        const quizz = await Quiz.findOneAndUpdate({_id:quizId},{
+            status : "Publish",
+        },{new:true}).populate("questions").exec();
+
+        return res.status(200).json({
+            success:true,
+            message:"Quiz publish sucessful",
+            quiz:quizz,
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            success:false,
+            message:"internal server error in publish quiz",
+            error:error.message,
+        });
+    }
+}
 
 // @desc   fetch all quiz for User
 // route   POST /api/v1/quiz/fetchAllQuiz
@@ -118,7 +147,7 @@ exports.fetchAllQuiz = async(req,res)=>{
         }
 
         // return quizes according to user account type
-        let quizes ;
+        let quizes = [];
         if(user.account === "Student"){
             quizes = user?.attemptedQuiz;
         }
@@ -143,7 +172,7 @@ exports.fetchAllQuiz = async(req,res)=>{
 }
 
 // @desc   fetch one quiz for edit
-// route   POST /api/v1/quiz/fetchAllQuiz
+// route   POST /api/v1/quiz/fetchOneQuiz
 // access  Private (instructor)
 exports.fetchOneQuiz = async(req,res)=>{
     try {
@@ -231,6 +260,83 @@ exports.deleteQuiz = async(req,res)=>{
         return res.status(400).json({
             success:false,
             message:"internal server error in deleting quiz",
+            error:error.message,
+        });
+    }
+}
+
+// @desc   fetch all quiz for student
+// route   POST /api/v1/quiz/fetchQuizes
+// access  Private (Student)
+
+exports.fetchQuizes = async(req,res) => {
+    try {
+        const {pageNo} = req.body;
+        const quizPerPage = 2; // show 10 quiz perpage
+        const skip = (pageNo - 1) * quizPerPage
+
+        // reverse order for new first
+        const numbers = await Quiz.countDocuments({status:"Publish"});
+        const allQuiz = await Quiz.find({status:"Publish"}).sort({createdAt : -1}).skip(skip).limit(quizPerPage).exec();
+        
+        let pages = Math.ceil(numbers / quizPerPage);
+        
+        if(!allQuiz){
+            return res.status(404).json({
+                success: false,
+                message: "quizes not found",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Quiz fetched successful",
+            quiz: allQuiz,
+            totalPages: pages,
+        });
+
+    } catch (error) {
+        return res.status(400).json({
+            success:false,
+            message:"internal server error in fetching quizes for student",
+            error:error.message,
+        });
+    }
+}
+
+// @desc   fetch attempting quiz for student
+// route   POST /api/v1/quiz/fetchAttemptQuiz
+// access  Private (Student)
+exports.fetchAttemptQuiz = async(req,res) => {
+    try {
+        const {quizId} = req.body ;
+        // const userId = req.user.id ;
+
+        if(!quizId){
+            return res.status(404).json({
+                success: false,
+                message: "fill all required field",
+            });
+        }
+
+        const quiz = await Quiz.findById({_id:quizId}).populate("questions").exec();
+
+        if(!quiz){
+            return res.status(404).json({
+                success: false,
+                message: "quizes not found",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Quiz deleted successful",
+            quiz: quiz,
+        });
+    } catch (error) {
+        return res.status(400).json({
+            success:false,
+            message:"internal server error in fetching attempt quiz for student",
             error:error.message,
         });
     }

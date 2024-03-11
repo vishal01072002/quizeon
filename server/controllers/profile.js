@@ -3,6 +3,7 @@ const User =  require("../models/User");
 const bcrypt = require("bcrypt");
 const mailsender = require("../utils/mailsernder");
 const passwordReset = require("../utils/mailtemplate/passwordReset");
+const cloudinaryFileUpload = require("../utils/fileUpload")
 
 
 // @desc   edit profile information
@@ -102,6 +103,54 @@ exports.resetPassword = async(req,res)=>{
         return res.status(500).json({
             success: false,
             message: "error in reset password",
+            error: error.message,
+        });
+    }
+}
+
+// @desc   Upload profile picture
+// route   PUT /api/v1/user/auth/uploadProfile
+// access  Private
+
+exports.uploadProfile = async(req,res) =>{
+    try {
+        const profilePicture = req.file.profilePicture
+        const userId = req.user.id;
+
+        if(!profilePicture){
+            return res.status(404).json({
+                success: false,
+                message: "file not found in body",
+            });
+        }
+
+        const image = await cloudinaryFileUpload(
+            profilePicture,
+            process.env.FOLDER_NAME,
+            1000,
+            100,
+        )
+
+        // update in user
+        const updatedUser = await User.findByIdAndUpdate({_id:userId},{image:image.secure_url},{new:true});
+
+        if(!updatedUser){
+            return res.status(404).json({
+                success: false,
+                message: "error in update picture in user profile",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile picture updated",
+            data: updatedUser,
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "error in upload Profile",
             error: error.message,
         });
     }

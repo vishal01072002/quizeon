@@ -1,41 +1,26 @@
-.quiz-container {
-    max-width: 400px;
-    margin: 0 auto;
+.my-quiz-container {
+    /* max-width: 400px; */
     padding: 20px;
     background-color: #f9f9f9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
   }
+    /* background-color: #2ecc71; */
   
-  .question-container {
-    margin-top: 20px;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .quiz-option {
-    cursor: pointer;
-    padding: 10px;
-    margin: 5px;
-    background-color: #3498db;
-    color: #fff;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .quiz-option:hover {
-    background-color: #2980b9;
-  }
-  
-  .quiz-option.selected {
-    background-color: #2ecc71;
-  }
-  
-  .score {
-    margin-top: 20px;
-    font-weight: bold;
-  }
-  
+.fadeIn-card{
+  animation: fadeInCard 1500ms;
+}
+
+.fadeOut-card{
+  animation: fadeOutCard 1500ms;
+}
+
+@keyframes fadeInCard {
+  0% { opacity: 0%;}
+  100% { opacity: 100%;}
+}
+
+@keyframes fadeOutCard {
+  0% { opacity: 100%;}
+  90% { opacity: 0%;}
+}

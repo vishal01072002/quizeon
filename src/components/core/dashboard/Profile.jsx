@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form'
 import { editProfile } from '../../../services/operations/profile'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
+import { GiClick } from "react-icons/gi"
+import { UploadProfilePic } from './settings/UploadProfilePic'
 
 const dummy = {
     firstName:"Vishal",
@@ -16,9 +18,7 @@ const dummy = {
     dateOfBirth:"01/04/2003"
 }
 
-// profile , full name , email
-// about
-// 
+ 
 export const Profile = () => {
     // featch user info from slice
     const {user,loading} = useSelector((state) => state.profile);
@@ -115,13 +115,9 @@ export const Profile = () => {
             {/* left sections */}
             <div className='flex flex-col w-[30%] gap-5 items-center px-6 py-8 text-lg font-medium border-purple-200 bg-white rounded-md shadow-gray-300 shadow-xl'>
                 <div>
-                    <div className='w-[200px] h-[200px] bg-gray-500 rounded-md'>
-                        <img alt='profile' className='rounded-lg' src={displayData.image}/>
-                    </div>
-                    <button className='mt-3 rounded-md bg-blue-100 px-3 py-1'>Change Profile</button>
+                    <UploadProfilePic profile={displayData.image} altName={displayData.firstName + " " + displayData.lastName}/>
                 </div>
-                <Link to={"/dashboard/myquiz"}>My Quiz</Link>
-                <div className='flex gap-2 mt-4 text-2xl font-medium'>
+                <div className='flex gap-2 mt-14 text-2xl font-medium'>
                     <p className=''>{displayData.firstName}</p>
                     <p>{displayData.lastName}</p>
                 </div>
@@ -254,7 +250,7 @@ export const Profile = () => {
                 <div className='py-3 px-4 flex items-center gap-12 bg-white rounded-md shadow-xl'>
                     <h3 className='text-left text-xl font-medium'>Reset Your Password</h3>
                     <div className='flex  items-center gap-7'> 
-                        <Link to={"/resetpassword"} className='text-left bg-yellow-300 px-1 rounded-sm py-[0.5px] font-ubuntu font-medium'>Click Here</Link>
+                        <Link to={"/resetpassword"} className='text-left bg-yellow-300 px-1 flex items-center gap-2 rounded-sm py-[0.5px] font-ubuntu font-semibold'>Click Here <GiClick fontSize={23}/></Link>
                     </div>
                 </div>
 

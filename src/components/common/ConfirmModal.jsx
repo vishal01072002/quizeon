@@ -9,7 +9,7 @@ export default function ConfirmationModal({ modalData }) {
         <p className="mt-3 mb-5 leading-6 text-gray-200">
           {modalData?.text2}
         </p>
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center justify-center gap-x-4">
           <button type="button" className="text-white bg-red-600 py-[8px] px-[20px] rounded-md" onClick={modalData?.btn1Handler}>
             {modalData?.btn1Text}
           </button>

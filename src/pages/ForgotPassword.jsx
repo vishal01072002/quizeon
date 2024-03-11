@@ -59,7 +59,7 @@ export const ForgotPassword = () => {
             <div className="absolute bg-slate-50 top-0 left-1/2 -translate-x-1/2 mx-auto w-[570px] min-w-[512px] px-8 py-8 mt-[175px] rounded-md flex flex-col gap-5 items-center justify-between">
 
               <p className="text-5xl font-bold text-blue-700">{!sentEmail ? "Reset Your Password" : "Check Email"}</p>
-              <p className="text-lg -mt-2 mb-3 text-sky-900">{!sentEmail ? "Have no fear. We will email you instructions to reset your password.If you dont have access to your email we can try account recovery." : `We have sent the reset email to ${formEmail} `}</p>
+              <p className="text-lg -mt-2 mb-3 text-sky-900">{!sentEmail ? "Have no fear. We will email you instructions to reset your password.If you dont have access to your email we can try account recovery." : `We have sent the reset email to Your email} `}</p>
 
                 
               <form onSubmit = {handleSubmit(submitHandler)} className="w-full flex flex-col gap-6">

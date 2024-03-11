@@ -23,14 +23,14 @@ export const ShowQues = () => {
                 <div>No Questions found</div> : 
     
                 editQuiz && editQuiz.questions.map((question,indx) => (
-                <details className={`bg-white w-full text-start px-2 py-2 rounded-md`} key={question._id}>
+                <details className={`bg-white w-full cursor-pointer text-start px-2 py-2 rounded-md`} key={question._id}>
                     <summary className='text-slate-800 text-lg flex justify-between items-center'>
                         <p>
                             <FaChevronDown className='inline-block mr-3'/>
                             Question {indx+1}. 
                         </p>
 
-                        <div className='flex items-center gap-4 mr-3'>
+                        {editQuiz && editQuiz.status === "Draft" && <div className='flex items-center gap-4 mr-3'>
                             <button onClick={() => {
                                 dispatch(setQues(question));
                                 dispatch(setStep(2));
@@ -45,7 +45,7 @@ export const ShowQues = () => {
                                 btn1Handler: () => handleDeleleQues(editQuiz._id,question._id),
                                 btn2Handler: () => setModal(null)})
                             }}><MdDelete size={21} className='text-red-600'/></button>
-                        </div>
+                        </div>}
                     </summary>
                     <div className='w-[95%] ml-2 bg-black h-[1px] my-[8px]'></div>
                     <div className='pl-4 flex flex-col gap-4'>

@@ -20,8 +20,8 @@ export const Home = () => {
     if(tokenExpires - Date.now() < 0){
       //logOut
       dispatch(logOut());
-      toast.success("Token Expires");
-      toast.success("Logout Sucessful");
+      // toast.success("Token Expires");
+      // toast.success("Logout Sucessful");
     }
   });
 

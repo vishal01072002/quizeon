@@ -58,3 +58,36 @@ export const resetPassword = (data,token,navigate)=>{
         toast.dismiss(toastId);
     }
 }
+
+// UPLOAD PROFILE PICTURE
+export const uploadProfilePicture = (data,token,navigate)=>{
+    return async(dispatch)=>{
+        const toastId = toast.loading("Uploading...");
+        dispatch(setLoading(true));
+        try {
+            const response = await apiConnector("PUT",profileEndpoints.UPLOAD_PROFILE_PICTURE,data,
+            {
+                "Content-Type": "multipart/form-data",
+                Authorization: `bearer ${token}`,
+            });
+
+            console.log("UPLOAD PROFILE PICTURE API RESPONSE............", response);
+
+          if(! response.data.success){
+              throw new Error(response.data.message);
+          }
+          else{
+              setUser(response.data.data);
+              toast.success("ProfilePicture Updated Sucessful");
+          }
+
+        } catch (error) {
+            console.log("UPLOAD PROFILE PICTURE API ERROR............", error);
+            toast.error("Profile Picture Error");
+            console.log(error);
+        }
+        navigate("/dashboard/profile");
+        dispatch(setLoading(false));
+        toast.dismiss(toastId);
+    }
+}
