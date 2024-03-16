@@ -38,7 +38,7 @@ export const QuizStep1 = () => {
 
   const {token} = useSelector((state) => state.auth);
   const {user} = useSelector((state) => state.profile);
-  const {step, editMode, editQuiz} = useSelector((state) => state.quiz);
+  const {step, editMode, viewMode, editQuiz} = useSelector((state) => state.quiz);
   const dispatch = useDispatch();
   const [showQues, setShowQues] = useState(false);
   const navigate = useNavigate();
@@ -88,7 +88,7 @@ export const QuizStep1 = () => {
   useEffect(()=>{
     // if edit mode fill the form
     //console.log(editQuiz);
-    if(editMode && editQuiz){
+    if((viewMode || editMode) && editQuiz){
       setValue("quizName", editQuiz.quizName);
       setValue("category", editQuiz.category);
       setValue("duration", editQuiz.duration);
@@ -104,6 +104,7 @@ export const QuizStep1 = () => {
               Quiz Name
             <input 
               id="quizName"
+              disabled={viewMode}
               type="text"
               placeholder='Enter Quiz Name'
               {...register("quizName",{require:true, minLength:1,
@@ -118,6 +119,7 @@ export const QuizStep1 = () => {
             Duration of Quiz (in Minutes)
             <input 
               id="duration"
+              disabled={viewMode}
               type="number"
               placeholder='duration in Minutes'
               {...register("duration",{require: true,
@@ -140,6 +142,7 @@ export const QuizStep1 = () => {
             <label className='font-normal'>
             <input 
               id="public"
+              disabled={viewMode}
               name="accessMode"
               type="radio"
               value={"Public"}
@@ -173,6 +176,7 @@ export const QuizStep1 = () => {
             defaultValue=""
             id="category"
             className="quiz-input"
+            disabled={viewMode}
           >
             <option value="" disabled>
               Choose a Category
@@ -192,11 +196,11 @@ export const QuizStep1 = () => {
           <div className='flex w-full items-center justify-between'>
             {editMode && editQuiz.status === "Draft" && <button type='submit' className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'>{editMode ? "Save Changes" : "Next"}</button>}
           
-            <button type='button' onClick={()=>{setShowQues(!showQues); scrolls();}} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>{showQues ? <span className='flex items-center gap-2'><FaChevronUp/>Hide All Question</span> : <span className='flex items-center gap-2'><FaChevronDown/>Show All Question</span>}</button>
+            <button type='button' onClick={()=>{setShowQues(!showQues); scrolls();}} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && !viewMode && "hidden"}`}>{showQues ? <span className='flex items-center gap-2'><FaChevronUp/>Hide All Question</span> : <span className='flex items-center gap-2'><FaChevronDown/>Show All Question</span>}</button>
 
             {editMode && editQuiz.status === "Draft" && <button type='button' onClick={()=>dispatch(setStep(2))} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>Add question</button>}
             
-            <button type='button' disabled={editMode && editQuiz.status === "Publish"} onClick={()=> publishingQuiz()} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>{editMode && editQuiz.status === "Publish" ? "Already Published" : "Publish"}</button>
+            {!viewMode && <button type='button' disabled={editMode && editQuiz.status === "Publish"} onClick={()=> publishingQuiz()} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>{editMode && editQuiz.status === "Publish" ? "Already Published" : "Publish"}</button>}
           </div>
         </form>
         

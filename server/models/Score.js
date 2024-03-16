@@ -7,9 +7,17 @@ const ScoreSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
+    studentName:{
+        type:String,
+        trim:true,
+    },
     completedTime:{
         // in [minutes, second]
         type: Array,
+    },
+    gender:{
+        type:String,
+        enum:["Male","Female",null]
     },
     score:{
         type: Number,

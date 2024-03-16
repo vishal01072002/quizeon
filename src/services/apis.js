@@ -28,6 +28,7 @@ export const quizEndpoints = {
     FETCH_QUIZES : BASE_URL + "/quiz/fetchquizes",
     FETCH_ATTEMPT_QUIZ : BASE_URL + "/quiz/fetchAttemptQuiz",
     SUBMIT_QUIZ : BASE_URL + "/quiz/submitQuiz",
+    ANALYSE_QUIZ : BASE_URL + "/quiz/quizAnalytic",
 }
 
 // QUESTION ENDPOINTS

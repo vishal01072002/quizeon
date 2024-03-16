@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react'
 import './yoho.css'; // Import the CSS file
-import BG1 from "../assets/quizBG.jpg"
-import BG2 from "../assets/QuizBG2.jpg"
-import BG3 from "../assets/QuizBG3.jpg"
+//import BG1 from "../assets/quizBG.jpg"
+//import BG2 from "../assets/QuizBG2.jpg"
+//import BG3 from "../assets/QuizBG3.jpg"
 import { toast } from 'react-toastify';
 
 export const Yoho = () => {
@@ -49,7 +49,7 @@ export const Yoho = () => {
         }, */
     ]
 
-    const [yourname, setYourName] = useState("");
+    //const [yourname, setYourName] = useState("");
     const [showScores, setShowScores] = useState(null);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedOption, setSelectedOption] = useState([null,0,false,true]);

@@ -25,6 +25,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {setEditMode,setEditQuesMode,setQues,setQuiz} from "./slice/quizSlice"
 import { useEffect } from 'react';
 import { QuizPlatform } from './components/core/dashboard/quiz/attemptQuizPlatform/QuizPlatform';
+import { QuizAnalysis } from './components/core/dashboard/instructor/QuizAnalysis';
+import { LeaderBoard } from './pages/LeaderBoard';
 
 function App() {
 
@@ -70,6 +72,10 @@ function App() {
 
         </Route>
         
+        {/* instructor analytics dashboard */}
+        {user && user.account === "Instructor" && (<Route path="/analytic/:quizId" element={<PrivateRoute><QuizAnalysis/></PrivateRoute>} />)}
+        
+        <Route path='/leaderBoard/quiz/:quizId' element={<PrivateRoute><LeaderBoard/></PrivateRoute>} />
         <Route path='/attemptquiz/quiz/:quizId' element={<PrivateRoute><QuizPlatform/></PrivateRoute>} />
 
         <Route path='/error' element={<Error/>}/>

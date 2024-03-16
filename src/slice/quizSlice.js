@@ -8,6 +8,7 @@ const initialState = {
     editQues : localStorage.getItem("editQues") ? 
             JSON.parse(localStorage.getItem("editQues")) : null,
     editMode: false,
+    viewMode : false,
     editQuesMode: false,
     editQuizLoading : false,
     step: 1,
@@ -35,11 +36,14 @@ const quizSlice = createSlice({
         setEditMode(state,value){
             state.editMode = value.payload;
         },
+        setViewMode(state,value){
+            state.viewMode = value.payload;
+        },
         setEditQuesMode(state,value){
             state.editQuesMode = value.payload;
         },
     }
 });
 
-export const {setEditMode,setEditQuizLoading,setQuiz,setQues,setStep,setEditQuesMode} = quizSlice.actions;
+export const {setEditMode,setViewMode,setEditQuizLoading,setQuiz,setQues,setStep,setEditQuesMode} = quizSlice.actions;
 export default quizSlice.reducer;

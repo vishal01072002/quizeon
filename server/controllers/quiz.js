@@ -1,6 +1,7 @@
 const Quiz = require("../models/Quiz");
 const crypto = require("crypto");
 const User = require("../models/User");
+const Score = require("../models/Score");
 
 // @desc   make quiz for instructor
 // route   POST /api/v1/quiz/makeQuiz/
@@ -137,7 +138,15 @@ exports.fetchAllQuiz = async(req,res)=>{
         const userId = req.user.id;
 
         // find user
-        const user = await User.findById({_id:userId}).populate("attemptedQuiz").populate("createdQuiz");
+        const user = await User.findById({_id:userId}).populate("createdQuiz").populate({
+            path : "attemptedQuiz",
+            model : Quiz,
+            populate : {
+                path : "scoreList",
+                model : Score,
+                match : {studentId : {$in : [userId]}},
+            }
+        });
 
         if(!user){
             return res.status(500).json({

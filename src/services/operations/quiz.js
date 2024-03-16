@@ -3,7 +3,7 @@ import {apiConnector} from "../apiConnector"
 import {quizEndpoints} from "../apis"
 import {questionEndpoints} from "../apis"
 import { setLoading, setViewQuiz } from "../../slice/viewQuizSlice";
-import { setEditMode, setQuiz, setStep,setEditQuesMode,setQues, setEditQuizLoading } from "../../slice/quizSlice";
+import { setEditMode, setQuiz, setStep,setEditQuesMode,setQues, setEditQuizLoading, setViewMode } from "../../slice/quizSlice";
 import { setQuizPlatformLoading } from "../../slice/quizPlatformSlice";
 
 
@@ -152,7 +152,7 @@ export const fetchAllQuiz = (token)=>{
 
 
 // FETCH ONE QUIZ API
-export const fetchOneQuiz = (data,navigate)=>{
+export const fetchOneQuiz = (data,navigate,isViewMode)=>{
     return async(dispatch)=>{
         const toastId = toast.loading("Loading");
         dispatch(setLoading(true));
@@ -166,7 +166,14 @@ export const fetchOneQuiz = (data,navigate)=>{
           }
 
           dispatch(setQuiz(response.data.quiz));
-          dispatch(setEditMode(true));
+          if(isViewMode){
+              dispatch(setEditMode(false));
+              dispatch(setViewMode(true));
+            }
+          else{
+            dispatch(setViewMode(false));
+            dispatch(setEditMode(true));
+          }
           navigate("/dashboard/makeQuiz")
           toast.success(response.data.message);
 
@@ -335,4 +342,26 @@ export const submitQuiz = async(data,dispatch) => {
     }
     dispatch(setQuizPlatformLoading(false));
     toast.dismiss(toastId);
+}
+
+// ANALYSE QUIZ
+export const quizAnalytics = async(data,token) => {
+    const toastId = toast.loading("Loading");
+    let result = null;
+    try {
+        const response = await apiConnector("POST",quizEndpoints.ANALYSE_QUIZ,data,{Authorization: `bearer ${token}`});
+
+        console.log("ANALYSE QUIZ API RESPONSE............", response);
+
+        if(! response.data.success){
+            throw new Error(response.data.message);
+        }
+        else{
+            result = (response.data);
+        }
+    } catch (error) {
+        console.log("ANALYSE QUIZ API ERROR............", error);
+    }
+    toast.dismiss(toastId);
+    return result;
 }

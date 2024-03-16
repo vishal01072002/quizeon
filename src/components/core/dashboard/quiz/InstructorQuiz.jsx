@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchOneQuiz,deleteQuiz } from '../../../../services/operations/quiz';
 import { Loader } from "../../../common/Loader"
 import { useNavigate } from 'react-router-dom';
-import {FaRegEdit, FaEye} from "react-icons/fa"
+import {FaRegEdit, FaEye, FaChartPie} from "react-icons/fa"
 import { FaChevronDown,FaChevronUp } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import ConfirmationModal from '../../../common/ConfirmModal';
@@ -78,7 +78,12 @@ export const InstructorQuiz = () => {
     
     // if click on edit quiz
     function editQuiz(quizId){
-        dispatch(fetchOneQuiz({quizId:quizId},navigate));
+        dispatch(fetchOneQuiz({quizId:quizId},navigate,false));
+    }
+    
+    // if click on view mode
+    function viewQuiz(quizId){
+        dispatch(fetchOneQuiz({quizId:quizId},navigate,true));
     }
     
     function deleteQuizz(quizId){
@@ -126,6 +131,7 @@ export const InstructorQuiz = () => {
                         className="my-quiz-input"
                         onClick={HandleFilter}
                       > 
+                        <FaChevronDown/>
                         <option className='text-black' value="All">
                           All
                         </option>
@@ -164,8 +170,13 @@ export const InstructorQuiz = () => {
                     <td className='py-2'>{quiz.duration} min</td>
                     <td className='py-2  content-start' >
                         <div className='flex justify-around'>
-                        <button onClick={()=> editQuiz(quiz._id)} className=' w-min rounded-md'><FaEye className='text-blue-800' size={23}/></button>
-                        <button onClick={()=> editQuiz(quiz._id)} className=' w-min rounded-md'><FaRegEdit className='text-green-700' size={21}/></button>
+                        <button onClick={()=> viewQuiz(quiz._id)} className=' w-min rounded-md'><FaEye className='text-blue-800' size={23}/></button>
+
+                        {quiz.status !== "Publish" ? <button onClick={()=> editQuiz(quiz._id)} className='w-min rounded-md'><FaRegEdit className='text-green-700' size={21}/></button> : 
+                        <button className='w-min rounded-md' onClick={() => navigate(`/analytic/${quiz._id}`)}>
+                          <FaChartPie className='text-purple-500'/>
+                        </button>}
+                        
                         <button onClick={()=> 
                             setModal({
                                 text1: "Delete this Quiz?",

@@ -20,7 +20,7 @@
 }
 
 .my-quiz-input {
-  @apply px-1 pt-2 pb-1 text-xl font-normal leading-[24px] text-gray-100 bg-transparent w-min focus:outline-none
+  @apply px-1 pt-2 pb-1 text-xl font-normal leading-[24px] text-gray-100 bg-transparent max-w-full focus:outline-none
 }
 
 .quiz-label-option{

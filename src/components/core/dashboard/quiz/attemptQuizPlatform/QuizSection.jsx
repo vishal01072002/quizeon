@@ -138,8 +138,10 @@ export const QuizSection = memo(({setShowScores }) => {
     const data = {
       quizId : quizes._id,
       studentId : user._id, 
+      studentName : user?.firstName + " " + user?.lastName,
       completedTime : [completedTimeMin,completedTimeSec], 
       score : score, 
+      gender: user?.additionalDetail?.gender,
       correct : correctOrNot[0], 
       wrong : correctOrNot[1],
       unAttempted : (quizes.questions.length - correctOrNot[0] - correctOrNot[1]),
