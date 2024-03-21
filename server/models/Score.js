@@ -12,8 +12,8 @@ const ScoreSchema = new mongoose.Schema({
         trim:true,
     },
     completedTime:{
-        // in [minutes, second]
-        type: Array,
+        // in minutes:second
+        type: String,
     },
     gender:{
         type:String,

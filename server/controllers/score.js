@@ -18,8 +18,11 @@ exports.createScore = async(req,res) => {
             });
         }
 
+        // modify completed time
+        const complete = (completedTime[0]).toString() + "," + (completedTime[1]).toString() 
+
         // create entry
-        const newScore = await Score.create({studentId, studentName, completedTime, score, correct, wrong, unAttempted, totalQuestion, totalTime});
+        const newScore = await Score.create({studentId, studentName, completedTime:complete, score, correct, wrong, unAttempted, totalQuestion, totalTime});
 
         // add in quiz about new score of student
         const updatedquiz = await Quiz.findByIdAndUpdate({_id: quizId},{
@@ -96,8 +99,8 @@ exports.instructorAnalytics = async(req,res) => {
         let female = 0;
 
         quiz.scoreList.forEach((scores) => {
-            totalMin += scores.completedTime[0];
-            totalSec += scores.completedTime[1];
+            totalMin += (Number(scores.completedTime?.split(",").at(0)));
+            totalSec += (Number(scores.completedTime?.split(",").at(1)));
             if(scores?.gender === "Male"){
                 male++;
             }
@@ -236,7 +239,7 @@ exports.instructorAnalytics = async(req,res) => {
         });
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return res.status(400).json({
             success: false,
             message: "internal server error in Analytical",
@@ -247,8 +250,51 @@ exports.instructorAnalytics = async(req,res) => {
 
 exports.quizLeaderBoard = async(req,res) => {
     try {
+        const {quizId,pageNo} = req.body;
+        const scorePerPage = 5; // show 5 score perpage
+        const skip = (pageNo - 1) * scorePerPage;
+
+        if(!quizId){
+            return res.status(404).json({
+                success: false,
+                message: "quizId is empty",
+            });
+        }
         
+        const tempQuiz = await Quiz.findById({_id:quizId});
+        const totalStudent = tempQuiz.scoreList.length;
+        let pages = Math.ceil(totalStudent / scorePerPage);
+
+        const quiz = await Quiz.findById({_id:quizId}).populate({
+            path : "scoreList",
+            model: Score,
+            options : {sort : {"score" : -1, "completedTime" : 1}, 
+                       skip : skip, 
+                       limit : scorePerPage,
+                    },
+        }).exec();
+
+        if(!quiz ){
+            return res.status(404).json({
+                success: false,
+                message: "Quiz not Found",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "leaderBoard data fetched",
+            quiz: quiz,
+            totalStudent:totalStudent,
+            totalPage: pages,
+            scorePerPage,
+        });
+
     } catch (error) {
-        
+        return res.status(400).json({
+            success: false,
+            message: "internal server error in Analytical",
+            error: error.message,
+        });
     }
 }

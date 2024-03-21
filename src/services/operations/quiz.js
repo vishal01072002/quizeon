@@ -365,3 +365,25 @@ export const quizAnalytics = async(data,token) => {
     toast.dismiss(toastId);
     return result;
 }
+
+// LEADERBOARD QUIZ
+export const leaderBoardQuiz = async(data) => {
+    const toastId = toast.loading("Loading");
+    let result = null;
+    try {
+        const response = await apiConnector("POST",quizEndpoints.QUIZ_LEADERBOARD,data);
+
+        console.log("LEADERBOARD QUIZ API RESPONSE............", response);
+
+        if(! response.data.success){
+            throw new Error(response.data.message);
+        }
+        else{
+            result = (response.data);
+        }
+    } catch (error) {
+        console.log("LEADERBOARD QUIZ API ERROR............", error);
+    }
+    toast.dismiss(toastId);
+    return result;
+}

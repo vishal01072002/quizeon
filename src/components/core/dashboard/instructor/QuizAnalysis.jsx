@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Chart, registerables} from "chart.js"
-import { Pie, Bar, Doughnut, Line ,PolarArea } from "react-chartjs-2"
+import { Bar, Doughnut, Line } from "react-chartjs-2"
 import { BsPatchQuestion } from "react-icons/bs";
 import { MdOutlineTimer, MdOutlineWorkspacePremium } from "react-icons/md";
-import { RiMedalFill } from "react-icons/ri";
 import { TbHexagonNumber1,TbHexagonNumber2,TbHexagonNumber3 } from "react-icons/tb";
-import { toast } from 'react-toastify';
-import { ShowQues } from '../../edit Quiz Steps/ShowQues';
 import { Loader } from '../../../common/Loader';
 import { quizAnalytics } from '../../../../services/operations/quiz';
 import winner from "../../../../assets/winner-previews.png"
@@ -16,24 +13,11 @@ import winner from "../../../../assets/winner-previews.png"
 Chart.register(...registerables)
 export const QuizAnalysis = () => {
 
-  /*
-    top div total student , total time spend , today students
-    avg time , avg score, quiz categary
-    top 3 student 
-    pie chart of genders
-    perDay barchart of per/day user give quiz from starting
-    score based bar/pie chart bases of 0-100score 101-200score ---- 901-1000score
-    all student leader board
-  */
-
-
   const [loading, setLoading] = useState(true);
   const [anlyticalData,setAnlyticalData] = useState(null);
   const [isGenderBar, setIsGenderBar] = useState(false);
   const {token} = useSelector((state) => state.auth);
-  const {user} = useSelector((state) => state.profile);
   const {quizId} = useParams();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const fetchAnalyseData = async() => {
@@ -53,7 +37,7 @@ export const QuizAnalysis = () => {
       const color = `hsl(${Math.random() * 360}, 100%, 68%)`
       colors.push(color)
     }
-    return colors
+    return colors;
   }
 
   const genderBarData = {
@@ -97,7 +81,6 @@ export const QuizAnalysis = () => {
   
   const perDaycolor = generateRandomColors(1)[0];
   const perDayBg = perDaycolor.slice(0,perDaycolor.length-1) + ", 0.5)";
-  console.log(perDayBg);
   const perDayChartData = {
     labels : anlyticalData?.perDayChart?.map((perday) => {
       let temp = perday[0].split("-");
@@ -124,6 +107,7 @@ export const QuizAnalysis = () => {
 
   useEffect(()=>{
     fetchAnalyseData();
+    // eslint-disable-next-line
   },[location.pathname]);
 
   return (
@@ -171,7 +155,7 @@ export const QuizAnalysis = () => {
             <div className='flex gap-5 mb-5 w-full justify-between'>
               <div className='bg-gray-50 w-[35%] shadow-md py-6 px-8 gap-6 rounded-sm flex items-center flex-col'>
                 <img className='w-11/12' src={winner} alt="winner"/>
-                <p className='text-purple-600 flex mx-auto gap-1 text-xl font-semibold'>Top <p className='text-2xl flex items-center justify-center p-1 h-7 w-7 rounded-full text-white bg-purple-600'>3</p> Participants</p>
+                <p className='text-purple-600 flex mx-auto gap-1 text-xl font-semibold'>Top <span className='text-2xl flex items-center justify-center p-1 h-7 w-7 rounded-full text-white bg-purple-600'>3</span> Participants</p>
                 <div className='flex text-white flex-col items-start w-full gap-2'>{
                   anlyticalData?.topThree?.map((student,indx) => (
                   <div key={indx} className='flex w-full flex-col gap-3'>
@@ -189,7 +173,7 @@ export const QuizAnalysis = () => {
                   </div>))
                 }</div>
                 {anlyticalData?.totalStudent === 0 && <div className='mb-5 text-xl font-semibold text-red-600'>No Student attempt Quiz</div>}
-                <button className='px-5 py-[6px] rounded-sm bg-purple-500 text-white text-lg font-semibold hover:bg-purple-600 duration-300'>Go To LeaderBoard</button>
+                <button onClick={() => navigate(`/leaderBoard/quiz/${quizId}/page/1`)} className='px-5 py-[6px] rounded-sm bg-purple-500 text-white text-lg font-semibold hover:bg-purple-600 duration-300'>Go To LeaderBoard</button>
               </div>
 
               <div className='w-full'>

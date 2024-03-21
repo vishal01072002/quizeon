@@ -2,7 +2,7 @@ const Router = require("express");
 const router = Router();
 
 const {makeQuiz,updateQuiz, publishQuiz, fetchAllQuiz,fetchOneQuiz,deleteQuiz,fetchQuizes,fetchAttemptQuiz} = require("../controllers/quiz");
-const {createScore, instructorAnalytics} = require("../controllers/score");
+const {createScore, instructorAnalytics, quizLeaderBoard} = require("../controllers/score");
 const {auth,isInstructor, isStudent} = require("../middlewares/auth");
 
 
@@ -34,6 +34,7 @@ router.post("/fetchAttemptQuiz",auth, isStudent, fetchAttemptQuiz);
 
 // ===================   Score   =======================
 router.post("/submitQuiz", createScore);
+router.post("/quizLeaderBoard", quizLeaderBoard);
 router.post("/quizAnalytic",auth, isInstructor, instructorAnalytics);
 
 module.exports = router;

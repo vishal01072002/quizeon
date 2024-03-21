@@ -75,7 +75,7 @@ function App() {
         {/* instructor analytics dashboard */}
         {user && user.account === "Instructor" && (<Route path="/analytic/:quizId" element={<PrivateRoute><QuizAnalysis/></PrivateRoute>} />)}
         
-        <Route path='/leaderBoard/quiz/:quizId' element={<PrivateRoute><LeaderBoard/></PrivateRoute>} />
+        <Route path='/leaderBoard/quiz/:quizId/page/:pageNo' element={<PrivateRoute><LeaderBoard/></PrivateRoute>} />
         <Route path='/attemptquiz/quiz/:quizId' element={<PrivateRoute><QuizPlatform/></PrivateRoute>} />
 
         <Route path='/error' element={<Error/>}/>
