@@ -24,10 +24,10 @@ export const Navbar = () => {
   }
   
   return (
-    <div className="mx-auto py-0 max-w-[100vw] ">
+    <div className="mx-auto py-0 max-w-[100vw]">
     <div className="bg-gradient-to-r from-[#5B32B5] via-[#5b36a5] to-[#8169b3] shadow-lg w-full relative z-10">
       <div className="w-11/12 mx-auto max-w-[1600px] px-0 py-2 text-richblack-100 flex items-center justify-between">
-        <img className="w-[188px] h-[58.93px]" alt="" src={quizon} />
+        <img className="w-[155px] md:w-[188px] md:h-[58.93px]" alt="" src={quizon} />
         <div className="text-white font-medium text-lg gap-14 flex items-center justify-between group">
           <Link to={"/"} className="cursor-pointer hidden lg:block">Home</Link>
 
@@ -41,7 +41,7 @@ export const Navbar = () => {
           }
 
           {
-            token ? <button onClick={logout} className="text-blue-400 bg-white p-2 rounded-md px-4 hover:text-blue-500 duration-150">Log Out</button> :
+            token ? <button onClick={logout} className="text-blue-400 bg-white p-1 sm:p-2 rounded-md px-3 sm:px-4 hover:text-blue-500 duration-150">Log Out</button> :
             <Link to={"/signup"}>
             <img
               loading="lazy"

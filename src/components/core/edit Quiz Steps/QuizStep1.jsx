@@ -97,9 +97,9 @@ export const QuizStep1 = () => {
   });
   return (
     <div className='w-full h-full'>
-      <div className='relative flex-col p-5 w-full gap-5 items-center flex min-h-full  bg-slate-300'>
-      <p className='text-xl font-bold'>Make Quiz in very easy & efficient way</p>
-        <form onSubmit={handleSubmit(submitHandler)} className='flex flex-col gap-5 p-4 items-start min-w-[756px]'>
+      <div className='relative flex-col p-5 pr-0 lg:pr-5 w-full gap-5 items-center flex min-h-full  bg-slate-300'>
+      <p className='text-xl pl-8 lg:p-0 font-bold'>Make Quiz in very easy & efficient way</p>
+        <form onSubmit={handleSubmit(submitHandler)} className='flex flex-col gap-5 p-4 pl-8 lg:pl-4 items-start w-full lg:max-w-[756px]'>
             <label className="quiz-label">
               Quiz Name
             <input 
@@ -116,7 +116,7 @@ export const QuizStep1 = () => {
             </label>
 
           <label className='quiz-label'>
-            Duration of Quiz (in Minutes)
+            <p className='text-start'>Duration of Quiz (in Minutes)</p>
             <input 
               id="duration"
               disabled={viewMode}
@@ -136,7 +136,7 @@ export const QuizStep1 = () => {
           </label>
           
           <div className='quiz-label'>
-            <p>
+            <p className='text-start'>
               Choosse the mode of quiz <span className='font-normal text-gray-700'> (private only access by link)</span>
             </p>
             <label className='font-normal'>
@@ -168,7 +168,7 @@ export const QuizStep1 = () => {
           </div>
 
           <div className="quiz-label">
-          <label className="text-sm text-richblack-5" htmlFor="category">
+          <label className="text-lg text-richblack-5" htmlFor="category">
             Category <sup className="text-pink-900">*</sup>
           </label>
           <select
@@ -193,14 +193,14 @@ export const QuizStep1 = () => {
           )}
           </div>
 
-          <div className='flex w-full items-center justify-between'>
-            {editMode && editQuiz.status === "Draft" && <button type='submit' className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'>{editMode ? "Save Changes" : "Next"}</button>}
-          
-            <button type='button' onClick={()=>{setShowQues(!showQues); scrolls();}} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && !viewMode && "hidden"}`}>{showQues ? <span className='flex items-center gap-2'><FaChevronUp/>Hide All Question</span> : <span className='flex items-center gap-2'><FaChevronDown/>Show All Question</span>}</button>
+          <div className='flex flex-wrap w-full items-center justify-between'>
+            {!viewMode && <button type='submit' className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'>{editMode && editQuiz.status === "Draft"? "Save Changes" : "Next"}</button>}
 
             {editMode && editQuiz.status === "Draft" && <button type='button' onClick={()=>dispatch(setStep(2))} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>Add question</button>}
             
             {!viewMode && <button type='button' disabled={editMode && editQuiz.status === "Publish"} onClick={()=> publishingQuiz()} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>{editMode && editQuiz.status === "Publish" ? "Already Published" : "Publish"}</button>}
+
+            <button type='button' onClick={()=>{setShowQues(!showQues); scrolls();}} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && !viewMode && "hidden"}`}>{showQues ? <span className='flex items-center gap-2'><FaChevronUp/>Hide All Question</span> : <span className='flex items-center gap-2'><FaChevronDown/>Show All Question</span>}</button>
           </div>
         </form>
         

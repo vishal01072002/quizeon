@@ -34,7 +34,7 @@ export const Login = () => {
       <div className="max-h-screen flex w-full">
         <img
           loading="lazy"
-          className="max-h-[90vh] rounded-8xs w-1/2 object-cover"
+          className="min-h-screen sm:max-h-[90vh] rounded-8xs w-1/2 object-cover"
           alt=""
           src={cool}
         />
@@ -56,8 +56,8 @@ export const Login = () => {
         </div>
       </div>
 
-      <div className="absolute bg-slate-50 top-0 left-1/2 -translate-x-1/2 mx-auto min-w-[512px] px-16 py-4 mt-5 rounded-md flex flex-col gap-5 items-center justify-between">
-        <p className="text-5xl font-bold text-blue-800">Welcome Back</p>
+      <div className="absolute bg-slate-50 top-0 left-1/2 -translate-x-1/2 mx-auto min-w-[20rem] xs:min-w-[400px] sm:min-w-[512px] px-5 xs:px-8 sm:px-16 py-4 mt-5 rounded-md flex flex-col gap-3 sm:gap-5 items-center justify-between">
+        <p className="text-4xl md:text-5xl font-bold text-blue-800">Welcome Back</p>
 
         {/* student and instructor switch tab */}
       <div className="p-1 bg-blue-100 text-lg font-medium rounded-full flex justify-between max-w-max mt-4 mb-2 gap-2">
@@ -87,7 +87,7 @@ export const Login = () => {
           Instructor
         </button>
       </div>
-        <form onSubmit = {handleSubmit(submitHandler)} className="w-full flex flex-col gap-6">
+        <form onSubmit = {handleSubmit(submitHandler)} className="w-full flex flex-col gap-4 sm:gap-6">
         <div className=" w-full">
               <input 
               id='email'

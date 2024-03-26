@@ -69,7 +69,7 @@ function removeOption(){
         </label>
         
         <>
-            <div className='px-4 flex gap-5 text-lg font-medium'>
+            <div className='px-2 sm:px-4 flex gap-5 text-lg font-medium'>
               <p className=''>Options</p> 
               <button type="button" onClick={addOption} className='text-3xl font-medium bg-sky-300 rounded-full w-7 h-7 flex items-center justify-center'>+</button>
               <button type="button" onClick={removeOption} className='text-3xl font-medium bg-sky-300 rounded-full w-7 h-7 flex items-center justify-center'> <span className="-mt-7">_</span> </button>
@@ -77,7 +77,7 @@ function removeOption(){
             {
                 optionsNum.map((num)=>(<QuizOption key={num} placeholder={`Option ${num}`} name={`Option${num}`} register={register} errors={errors} num={num} lenght={optionsNum.length}/>))
             }
-            <div className='px-4'>
+            <div className='px-2 sm:px-4'>
               <p>Choose correct option</p>
               <label className='flex relative text-lg font-medium items-center bg-white w-full gap-4 p-4 rounded-md'>
               {

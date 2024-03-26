@@ -7,7 +7,7 @@ import { removeQuestion } from '../../../services/operations/quiz';
 import { setQues, setStep, setEditQuesMode } from '../../../slice/quizSlice';
 export const ShowQues = () => {
   
-  const {editQuiz} = useSelector((state) => state.quiz);
+  const {editQuiz, viewMode} = useSelector((state) => state.quiz);
   const [modal,setModal] = useState(null);
   const dispatch = useDispatch();
 
@@ -18,7 +18,7 @@ export const ShowQues = () => {
   }
 
   return (
-    <div className='p-4 min-w-[756px] flex flex-col items-start gap-3'>
+    <div className='p-4 w-[98%] ml-6 lg:mx-0 lg:max-w-[756px] flex flex-col items-start gap-3'>
         {   !editQuiz || editQuiz.questions.length === 0 ? 
                 <div>No Questions found</div> : 
     
@@ -30,12 +30,17 @@ export const ShowQues = () => {
                             Question {indx+1}. 
                         </p>
 
-                        {editQuiz && editQuiz.status === "Draft" && <div className='flex items-center gap-4 mr-3'>
+                        {viewMode === false && editQuiz && editQuiz.status === "Draft" && <div className='flex relative items-center gap-4 mr-3 group'>
                             <button onClick={() => {
                                 dispatch(setQues(question));
                                 dispatch(setStep(2));
                                 dispatch(setEditQuesMode(true));
-                            }}><FaRegEdit/></button>
+                            }}>
+                                <FaRegEdit/>
+                                <div className='invisible opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100'>
+                                <div className='h-4 absolute z-[2] left-1 -top-5 w-4 rotate-45 bg-gray-100 cursor-default '></div><span className='absolute z-[2] w-max bg-gray-100 cursor-default text-gray-700 font-normal px-2 -top-10 right-0 rounded-lg'>edit Ques</span>
+                                </div>  
+                            </button>
                             <button onClick={()=>{
                                 setModal({
                                 text1: "Delete this Question?",
@@ -48,7 +53,7 @@ export const ShowQues = () => {
                         </div>}
                     </summary>
                     <div className='w-[95%] ml-2 bg-black h-[1px] my-[8px]'></div>
-                    <div className='pl-4 flex flex-col gap-4'>
+                    <div className='pl-1 sm:pl-4 flex flex-col gap-4'>
                         <div>
                             <p className='text-lg font-medium'>Question</p>
                             <p>{question.question}</p>

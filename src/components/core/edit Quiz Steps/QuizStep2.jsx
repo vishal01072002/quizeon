@@ -91,12 +91,12 @@ export const QuizStep2 = () => {
   return (
     <div>
       QuizStep2
-      <div className='min-h-[85vh]'>
-      <form onSubmit={handleSubmit(submitHandler)} className='flex flex-col gap-5 p-4 items-start max-w-[756px] mx-auto border'>
+      <div className='min-h-[85vh] mx-4 ml-14 lg:mx-0'>
+      <form onSubmit={handleSubmit(submitHandler)} className='flex flex-col gap-5 p-2 sm:p-4 items-start w-full lg:max-w-[756px] mx-auto border'>
       <OneQues name={"question"} register={register} placeholder={"Question "} errors={errors} setValue={setValue}/>
 
       <div className='flex items-center justify-between w-full'>
-        <button className='w-max ml-4 text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'  type='submit'>Save</button>  
+        <button className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'  type='submit'>Save</button>  
 
         <button type='button' className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150`} onClick={()=> {
           dispatch(setStep(1)); 

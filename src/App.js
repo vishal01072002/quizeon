@@ -44,7 +44,7 @@ function App() {
     }
   },[location.pathname])
   return (
-    <div className="App ">
+    <div className="App overflow-x-hidden">
       {/* <Routes>
       <Route path='/yoho' element={<Yoho/>}/>
       </Routes> */}

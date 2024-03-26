@@ -13,15 +13,19 @@ export const QuizList = ({quizes,parentName}) => {
         },
         {
           _id : 1,
-          name: "cpp"
+          name: "Cpp"
         },
         {
           _id : 2,
-          name: "java"
+          name: "Java"
         },
         {
           _id : 3,
-          name: "c"
+          name: "C"
+        },
+        {
+          _id : 4,
+          name: "General"
         },
       ];
     
@@ -31,7 +35,6 @@ export const QuizList = ({quizes,parentName}) => {
     const [data,setData] = useState(quizes);
     const [filters, setFilters] = useState({
       category: "All",
-      status: "All",
       created: "Old",
     });
 
@@ -57,10 +60,6 @@ export const QuizList = ({quizes,parentName}) => {
         newData = newData.filter((quiz) => quiz.category === newFilter.category);
       }
 
-      if(newFilter.status !== "All"){
-        newData = newData.filter((quiz) => quiz.status === newFilter.status);
-      }
-
       setData(newData);
       setFilters(newFilter);
 
@@ -77,7 +76,7 @@ export const QuizList = ({quizes,parentName}) => {
 
     function dateModify(dates){
       let newDate = dates.split("T")[0].split("-");
-      let formatedDate = "" + newDate[2] + " / " + newDate[1] + " / " + newDate[0]; 
+      let formatedDate = "" + newDate[2] + "/" + newDate[1] + "/" + newDate[0]; 
       return formatedDate;
     }
 
@@ -98,9 +97,9 @@ export const QuizList = ({quizes,parentName}) => {
   return (
     <>
         <div className='w-full mx-auto rounded-md h-full space-y-3'>
-            <div className='text-start text-xl h-[50px] font-medium gap-2 border-b-[12px] border-white flex items-center bg-slate-800 text-gray-100'>
+            <div className='text-start text-lg sm:text-xl h-[50px] font-medium border-b-[12px] border-white flex items-center bg-slate-800 text-gray-100'>
                     <p className='p-2 flex-1'>QuizName</p>
-                    <p className='py-2 flex-1 '>
+                    <p className='py-2 flex-1 text-center'>
                       Category 
                       <select
                         className="my-quiz-input"
@@ -108,56 +107,37 @@ export const QuizList = ({quizes,parentName}) => {
                         onChange={HandleFilter}
                       >
                         {Categories?.map((category, indx) => (
-                          <option key={indx} className='text-black' value={category?.name}>
+                          <option key={indx} className='text-black text-lg' value={category?.name}>
                             {category?.name}
                           </option>
                         ))}
                       </select>
                     </p>
-                    <p className='py-2 flex-1 '>
-                      Status 
-                      <select
-                        name='status'
-                        className="my-quiz-input"
-                        onClick={HandleFilter}
-                      > 
-                        <option className='text-black' value="All">
-                          All
-                        </option>
-                        <option className='text-black' value="Draft">
-                          Draft
-                        </option>
-                        <option className='text-black' value="Publish">
-                          Publish
-                        </option>
-                      </select>
-                    </p>
 
-                    <p className='py-2 flex-1 '>
+                    <p className='py-2 flex-1 text-end md:text-center'>
                       Created
                       <select
                         className="my-quiz-input"
                         name='created'
                         onClick={HandleFilter}
                       > 
-                        <option className='text-black' value="Old">
+                        <option className='text-black text-lg' value="Old">
                           Old
                         </option>
-                        <option className='text-black' value="New">
+                        <option className='text-black text-lg' value="New">
                           New
                         </option>
                       </select>
                     </p>
-                    <p className='py-2 flex-1'>Duration</p>
-                    <p className='py-2 flex-1'></p>
+                    <p className='py-2 hidden sm:block flex-1 text-center'>Duration</p>
+                    <p className='py-2 flex-1 text-end pr-3'>Options</p>
             </div>
-            {data.length !== 0 && data.map((quiz,index) => (<div className={`text-start text-lg border-b-2 gap-2 border-white flex pl-4 ${index&1 ? "bg-gray-300" : "bg-gray-200"}`} key={index}>
+            {data.length !== 0 && data.map((quiz,index) => (<div className={`text-start text-lg border-b-2 gap-2 border-white flex sm:pl-4 ${index&1 ? "bg-gray-300" : "bg-gray-200"}`} key={index}>
                     <p className='p-2 flex-1'>{index+1}. {quiz.quizName}</p>
-                    <p className='py-2 flex-1'>{quiz.category}</p>
-                    <p className='py-2 flex-1 '>{quiz.status}</p>
-                    <p className='py-2 flex-1'>{dateModify(quiz.createdAt)}</p>
-                    <p className='py-2 flex-1'>{quiz.duration} min</p>
-                    <div className='py-2 flex-1  content-start' >
+                    <p className='py-2 flex-1 text-center'>{quiz.category}</p>
+                    <p className='py-2 flex-1 text-center'>{dateModify(quiz.createdAt)}</p>
+                    <p className='py-2 flex-1 text-center hidden sm:block'>{quiz.duration} min</p>
+                    <div className='py-2 flex-1 text-end pr-3'>
                       {parentName === "instructorQuiz" && <div className='flex gap-4'>
                         <button onClick={()=> editQuiz(quiz._id)} className=' w-min rounded-md'><FaEye className='text-blue-800' size={23}/></button>
                         <button onClick={()=> editQuiz(quiz._id)} className=' w-min rounded-md'><FaRegEdit className='text-green-700' size={21}/></button>
@@ -176,7 +156,7 @@ export const QuizList = ({quizes,parentName}) => {
                         parentName === "attemptQuiz" && <div>
                             {
                                 isAttempted(quiz._id) ? 
-                                <button>Result</button> : 
+                                <button onClick={() => navigate(`/leaderBoard/quiz/${quiz._id}/page/1`)}>Result</button> : 
                                 <button onClick={() => navigate(`/attemptquiz/quiz/${quiz._id}`)}>Attempt</button>
                             }
                         </div>

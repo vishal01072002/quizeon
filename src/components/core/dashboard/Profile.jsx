@@ -110,10 +110,10 @@ export const Profile = () => {
         {
             loading && <Loader/>
         }
-        <h1 className='w-11/12 max-w-[1200px] mx-auto text-3xl font-medium text-left'>Dashboard/Profile</h1>
-        <div className='flex justify-between w-11/12 gap-6 mt-10 items-start max-w-[1200px] mx-auto'>
+        <h1 className='w-11/12 pl-10 max-w-[1200px] mx-auto text-2xl md:text-3xl font-medium text-left'>Dashboard/Profile</h1>
+        <div className='flex flex-col lg:flex-row justify-between w-11/12 gap-6 mt-10 items-end md:items-center lg:items-start max-w-[1200px] mx-auto'>
             {/* left sections */}
-            <div className='flex flex-col w-[30%] gap-5 items-center px-6 py-8 text-lg font-medium border-purple-200 bg-white rounded-md shadow-gray-300 shadow-xl'>
+            <div className='flex flex-col w-[90%] sm:w-[70%] md:w-[40%] lg:w-[30%] gap-5 items-center px-6 py-8 text-lg font-medium border-purple-200 bg-white rounded-md shadow-gray-300 shadow-xl'>
                 <div>
                     <UploadProfilePic profile={displayData.image} altName={displayData.firstName + " " + displayData.lastName}/>
                 </div>
@@ -128,16 +128,16 @@ export const Profile = () => {
             </div>
 
             {/* right sections */}
-            <div className='w-[60%] flex-col text-lg px-6 py-2 mx-auto'>
+            <div className='w-[90%] md:w-[70%] lg:w-[60%] flex-col text-lg lg:px-6 py-2 mr-0 md:mx-auto'>
 
                 {/* additional information */}
-                <form onSubmit={handleSubmit(editProfileHandler)} className='flex flex-col mb-8 py-4 bg-white rounded-md px-4 pr-10 gap-2 shadow-lg'>
+                <form onSubmit={handleSubmit(editProfileHandler)} className='flex flex-col mb-8 py-4 bg-white rounded-md px-4 md:pr-10 gap-7 sm:gap-2 shadow-lg'>
                     <h3 className='text-left mb-4 text-xl font-medium'>Personal Information</h3>
-                    <div className='flex items-start gap-7'>
+                    <div className='flex flex-col sm:flex-row items-start gap-2 sm:gap-7'>
                         <p className='w-[130px] font-normal text-left mt-0'>About</p>
 
                         {
-                          !editMode ? <p className="p-1 mb-1 px-4 rounded-md w-[calc(100%-155px)] text-left shadow shadow-gray-400">{checkValid(displayData?.about)}</p> : 
+                          !editMode ? <p className="p-1 mb-1 px-4 rounded-md w-full sm:w-[calc(100%-155px)] text-left shadow shadow-gray-400">{checkValid(displayData?.about)}</p> : 
                         
                         
                         <input
@@ -146,25 +146,25 @@ export const Profile = () => {
                         id="about"
                         disabled={!editMode}
                         placeholder="Enter Bio Details"
-                        className={`${editMode && "border-2 border-[#AAB1E9] focus:bg-[#f1f4ff]"} outline-none  text-gray-700 rounded-md p-1 px-4 text-left w-[calc(100%-155px)]`}
+                        className={`${editMode && "border-2 border-[#AAB1E9] focus:bg-[#f1f4ff]"} outline-none  text-gray-700 rounded-md p-1 px-4 text-left w-full sm:w-[calc(100%-155px)]`}
                         {...register("about")}
                         
                       />
                       }
                     </div>
 
-                    <div className='flex items-center gap-7'>
+                    <div className='flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-7'>
                         <p className='w-[130px] font-normal text-left'>Gender</p>
 
                         {
-                          !editMode ? <p className="p-1 mb-1 px-4 rounded-md w-[calc(100%-155px)] text-left shadow shadow-gray-400">{checkValid(displayData?.gender)}</p> : 
+                          !editMode ? <p className="p-1 mb-1 px-4 rounded-md w-full sm:w-[calc(100%-155px)] text-left shadow shadow-gray-400">{checkValid(displayData?.gender)}</p> : 
                         
                         <select
                             type="text"
                             name="gender"
                             id="gender"
                             disabled={!editMode}
-                            className={`${editMode && "border-2 border-[#AAB1E9] focus:bg-[#f5f7ff]"} outline-none bg-[#fbfbfc] text-gray-700 rounded-md p-1 px-4  text-left w-[calc(100%-155px)] ${!editMode && "appearance-none"}`}
+                            className={`${editMode && "border-2 border-[#AAB1E9] focus:bg-[#f5f7ff]"} outline-none bg-[#fbfbfc] text-gray-700 rounded-md p-1 px-4  text-left w-full sm:w-[calc(100%-155px)] ${!editMode && "appearance-none"}`}
                             {...register("gender")}
                             
                             > 
@@ -181,11 +181,11 @@ export const Profile = () => {
                         }
                     </div>
 
-                    <div className='relative flex max-w-full items-center gap-7'>
+                    <div className='relative flex flex-col sm:flex-row max-w-full items-start sm:items-center gap-2 sm:gap-7'>
                         <p className='w-[130px] font-normal text-left'>Mobile Number</p>
 
                         {
-                          !editMode ? <p className="p-1 mb-1 px-4 rounded-md w-[calc(100%-155px)] text-left shadow shadow-gray-400">{checkValid(displayData?.number)}</p> : 
+                          !editMode ? <p className="p-1 mb-1 px-4 rounded-md w-full sm:w-[calc(100%-155px)] text-left shadow shadow-gray-400">{checkValid(displayData?.number)}</p> : 
                         
                         <>
                         <input
@@ -194,7 +194,7 @@ export const Profile = () => {
                             id="number"
                             placeholder="Enter mobile number"
                             disabled={!editMode}
-                            className={`${editMode && "border-2 border-[#AAB1E9] focus:bg-[#f5f7ff]"} outline-none bg-[#fbfbfc] text-gray-700 rounded-md p-1 px-4 appearance-remove text-left min-w-[calc(100%-155px)]`}
+                            className={`${editMode && "border-2 border-[#AAB1E9] focus:bg-[#f5f7ff]"} outline-none bg-[#fbfbfc] text-gray-700 rounded-md p-1 px-4 appearance-remove text-left min w-full-sm:w-[calc(100%-155px)]`}
                             {...register("number", {
                               maxLength: { value: 12, message: "Invalid Contact Number" },
                               minLength: { value: 10, message: "Invalid Contact Number" },
@@ -208,11 +208,11 @@ export const Profile = () => {
                           )} </>
                         }
                     </div>
-                    <div className='relative flex items-center gap-7'>
+                    <div className='relative flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-7'>
                         <p className='w-[130px] font-normal text-left'>Date of Birth</p>
 
                         {
-                          !editMode ? <p className="p-1 mb-1 px-4 rounded-md w-[calc(100%-155px)] text-left shadow shadow-gray-400">{checkValid(displayData?.dateOfBirth).split("T")[0]}</p> : 
+                          !editMode ? <p className="p-1 mb-1 px-4 rounded-md w-full sm:w-[calc(100%-155px)] text-left shadow shadow-gray-400">{checkValid(displayData?.dateOfBirth).split("T")[0]}</p> : 
                         <>
                         <input
                             type="date"
@@ -220,7 +220,7 @@ export const Profile = () => {
                             id="dateOfBirth"
                             placeholder="Enter Date of Birth"
                             disabled={!editMode}
-                            className={`${editMode && "border-2 border-[#AAB1E9] focus:bg-[#f5f7ff]"} outline-none bg-[#fbfbfc] text-gray-700 rounded-md p-1 px-4 appearance-remove text-left w-[calc(100%-155px)]`}
+                            className={`${editMode && "border-2 border-[#AAB1E9] focus:bg-[#f5f7ff]"} outline-none bg-[#fbfbfc] text-gray-700 rounded-md p-1 px-4 appearance-remove text-left w-full sm:w-[calc(100%-155px)]`}
                             {...register("dateOfBirth", {
                               max: {
                                 value: new Date().toISOString().split("T")[0],
@@ -237,7 +237,7 @@ export const Profile = () => {
                         }
                     </div>
 
-                    <div className='flex items-start gap-5'>
+                    <div className='flex flex-row items-start gap-5'>
                         <button type='submit' className='text-left bg-blue-400 my-2 px-2 rounded-md text-lg py-[3px] font-medium w-max hover:bg-blue-500 text-white duration-200'>{editMode ? "Save Changes": "Edit Profile"}</button>
 
                         {
@@ -247,9 +247,9 @@ export const Profile = () => {
                 </form>
 
                 {/* reset password */}
-                <div className='py-3 px-4 flex items-center gap-12 bg-white rounded-md shadow-xl'>
+                <div className='py-3 px-4 flex flex-col sm:flex-row items-center gap-5 sm:gap-12 bg-white rounded-md shadow-xl'>
                     <h3 className='text-left text-xl font-medium'>Reset Your Password</h3>
-                    <div className='flex  items-center gap-7'> 
+                    <div className='flex  items-center gap-2 sm:gap-7'> 
                         <Link to={"/resetpassword"} className='text-left bg-yellow-300 px-1 flex items-center gap-2 rounded-sm py-[0.5px] font-ubuntu font-semibold'>Click Here <GiClick fontSize={23}/></Link>
                     </div>
                 </div>

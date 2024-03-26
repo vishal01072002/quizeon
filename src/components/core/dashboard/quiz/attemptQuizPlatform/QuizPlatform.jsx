@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
-import { IoWarning} from "react-icons/io5"
+import { IoWarning } from "react-icons/io5"
+import { MdOutlineZoomOutMap, MdLaptopMac} from "react-icons/md"
+import { BsPersonX } from "react-icons/bs"
 import { toast } from 'react-toastify';
 import { setPlatformQuiz, setQuizStatus } from '../../../../../slice/quizPlatformSlice';
 import { fetchAttemptQuiz } from '../../../../../services/operations/quiz';
@@ -129,38 +131,59 @@ const generateWarning = () => {
     // 'rgba(76, 175, 80, 0.7)' // Green for correct answer
     // 'rgba(244, 67, 54, 0.7)' // Red for wrong answer
     // 'rgba(33, 150, 243, 0.7)', // Blue for default state
+    // gradient bg-gradient-to-tr from-blue-400 via-purple-400 to-pink-400 to-60%
   
   return (
     <>
       {
         loading ? <Loader/> : 
-         <div ref={fullScreenMode} className='relative flex items-center justify-center flex-col min-h-[88.5vh] overflow-x-hidden w-full bg-gradient-to-tr from-blue-600 via-purple-600 to-pink-500 to-60%'>
+         <div ref={fullScreenMode} className='relative flex items-center flex-col min-h-[88.5vh] overflow-x-hidden w-full bg-violet-950'>
           {
-            quizStatus === "None" && quizes && showScores[0] === null && <div>
+            quizStatus === "None" && quizes && showScores[0] === null && <div className='text-white'>
               {
-                 <div className='px-4 rounded-sm py-3 bg-white flex flex-col gap-5 -mt-20 text-lg bg-opacity-80 drop-shadow-lg'>
-                  <p className='text-2xl'>Quiz Information</p>
-                  <div className='flex gap-3 text-start pb-4'>
-                    <div>
-                      <p>Quiz Name</p>
-                      <p>Quiz Time</p>
-                      <p>Questions</p>
-                    </div>
-                    <div>
-                      <p>:</p>
-                      <p>:</p>
-                      <p>:</p>
-                    </div>
-                    <div>
-                      <p>{quizes.quizName}</p>
-                      <p>{quizes.duration} Min</p>
-                      <p>{quizes.questions.length}</p>
+                <>
+                  <div>
+                    <p className='text-3xl font-semibold mb-5 pt-2'>Rules of the Quiz</p>
+                    <div className='flex gap-10 text-violet-800 text-lg font-semibold leading-5'>
+                      <div className='flex flex-col items-center gap-4 py-3 bg-white rounded-md w-[150px]'>
+                        <div className='flex items-center justify-center bg-pink-400 text-white p-3 rounded-full'><MdLaptopMac fontSize={30}/></div>
+                        <p>Do Not <br/> Switch Tab</p>
+                      </div>
+                      <div className='flex flex-col items-center gap-4 py-3 bg-white rounded-md w-[150px]'>
+                        <div className='flex items-center justify-center bg-amber-400 text-white p-3 rounded-full'><MdOutlineZoomOutMap fontSize={30}/></div>
+                        <p>Do Not Exit FullScreen</p>
+                      </div>
+                      <div className='flex flex-col items-center gap-4 py-3 bg-white rounded-md w-[150px]'>
+                        <div className='flex items-center justify-center bg-purple-400 text-white p-3 rounded-full'><BsPersonX fontSize={30}/></div>
+                        <p>3 Warning Disqualify</p>
+                      </div>
                     </div>
                   </div>
-                 </div>
+                  <div className='px-4 mt-5 rounded-sm py-3 flex flex-col gap-5 text-lg drop-shadow-lg'>
+                    <p className='py-1 border-purple-400 w-max px-2 border-t-2 border-b-2 text-xl mx-auto'>Let's Know something about this Quiz.</p>
+                    <div className='flex gap-3 text-start pb-4'>
+                      <div>
+                        <p>Quiz Name</p>
+                        <p>Quiz Time</p>
+                        <p>Questions</p>
+                      </div>
+                      <div>
+                        <p>:</p>
+                        <p>:</p>
+                        <p>:</p>
+                      </div>
+                      <div>
+                        <p>{quizes.quizName}</p>
+                        <p>{quizes.duration} Min</p>
+                        <p>{quizes.questions.length}</p>
+                      </div>
+                    </div>
+                  </div>
+                </>
               }
               <button type='button' onClick={()=>startQuiz()} className='px-4 py-1 rounded-md mt-5 bg-opacity-90 hover:bg-opacity-100 transition-opacity duration-200 bg-white'>Start</button>
             </div>
+
           }
 
             <QuizSection setShowScores={setShowScores}/>

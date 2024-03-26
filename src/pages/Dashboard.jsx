@@ -40,6 +40,7 @@ export const Dashboard = () => {
     {
       name: "Attempt Quiz",
       links: "/dashboard/attemptQuiz/page/1",
+      path: "/dashboard/attemptQuiz/page",
       user: "Student",
       icon: <IoIosCreate fontSize={25}/>,
     },
@@ -49,7 +50,7 @@ export const Dashboard = () => {
   },[]);
   return (
     <div className='relative min-h-[89vh]'>
-        <div className={` bg-indigo-800 absolute text-white flex flex-col items-end top-0 h-full z-10 w-1/6 text-xl ${open ? "" : "-translate-x-[calc(100%-40px)]"} transition-all duration-700`}>
+        <div className={` bg-indigo-800 absolute text-white flex flex-col items-end top-0 h-full z-10 w-56 text-xl ${open ? "" : "-translate-x-[calc(100%-40px)]"} transition-all duration-700`}>
           <button className={`font-bold m-1 ${!open && "mr-2"}`} onClick={()=>setOpen(!open)}>
             { open ? <RxCross2 fontSize={30}/> : <FiMenu fontSize={27}/>}
           </button>
@@ -59,7 +60,7 @@ export const Dashboard = () => {
             {
               sideBarData.map((side,indx) => (
                 (side.user === "All" || side.user === user.account) && 
-                <Link className={`w-full text-left ${path === side.links && "bg-indigo-900"} rounded-md flex gap-2 items-center py-[2px] px-2`} to={side.links} key={indx}>{side.icon} {side.name}</Link>
+                <Link className={`w-full text-left ${path === side.links && "bg-indigo-900"} ${side.name === "Attempt Quiz" && path?.split("/")?.slice(0,4)?.join("/") === side.path && "bg-indigo-900"} rounded-md flex gap-2 items-center py-[2px] px-2`} to={side.links} key={indx}>{side.icon} {side.name}</Link>
               ))
             }
           </div>

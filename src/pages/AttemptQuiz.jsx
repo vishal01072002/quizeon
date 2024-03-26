@@ -43,18 +43,18 @@ export const AttemptQuiz = () => {
     <>
       {
         loading ? <Loader/> : 
-        <div className='w-4/5 mx-auto'>
+        <div className='w-[95%] sm:w-11/12 md:w-4/5 mx-auto'>
           <p>Available Quiz</p>
           {
             data.length === 0 ? <p>No Quizes are Available to Attempt</p> :
             <>
-              <div>
+              <div className='ml-8 sm:ml-5 md:pl-0'>
                 <QuizList quizes={data} parentName={"attemptQuiz"}/>
               </div>
 
             </>
           }
-          <div className='w-max mt-5 flex gap-4'>
+          <div className='ml-8 sm:ml-5 md:pl-0 w-max mt-5 flex gap-4'>
               <p>{pageNo}/{totalPage}</p>
               {pageNo > 1 && <button disabled={loading} onClick={prevPage}>Previous</button>}
               {pageNo < totalPage && <button disabled={loading} onClick={nextPage}>Next</button>}
