@@ -18,6 +18,18 @@ exports.createScore = async(req,res) => {
             });
         }
 
+        // if already attempted quiz
+        const alreadyAttempted = await Quiz.findById({_id:quizId}).populate("scoreList");
+
+        alreadyAttempted.scoreList.forEach((score) => {
+            if(score.studentId === studentId){
+                return res.status(401).json({
+                    success: false,
+                    message: "already Attempted",
+                });
+            }
+        });
+
         // modify completed time
         const complete = (completedTime[0]).toString() + "," + (completedTime[1]).toString() 
 
@@ -111,9 +123,9 @@ exports.instructorAnalytics = async(req,res) => {
 
         //convert sec into min
         totalSec = (totalSec/60).toFixed(2);
-        totalTimeSpend = totalMin + totalSec;
+        totalTimeSpend = Number(totalMin) + Number(totalSec);
 
-        let todayStudents = quiz.scoreList.reduce((acc,score) => (score.createdAt === Date.now()) ? acc + 1 : acc + 0, 0);
+        let todayStudents = quiz.scoreList.reduce((acc,score) => (score.createdAt.toLocaleDateString() === (new Date()).toLocaleDateString()) ? acc + 1 : acc + 0, 0);
 
         let averageTime = ((totalTimeSpend)/totalStudent).toFixed(2);
         let averageScore = ((quiz.scoreList.reduce((acc, score) => acc + score.score, 0))/totalStudent).toFixed(2);
@@ -148,7 +160,7 @@ exports.instructorAnalytics = async(req,res) => {
         if(quiz.scoreList.length < 10){
             minimumBar = quiz.scoreList.length;
             for(let i=0; i<minimumBar; i++){
-                intervals.push([i]);
+                intervals.push([quiz.scoreList.at(i).score]);
             }    
         }
         else{
@@ -164,7 +176,7 @@ exports.instructorAnalytics = async(req,res) => {
 
         quiz.scoreList.forEach((score,indx) => {
           if(intervals.length < 10 ){
-            temp[intervals.length - indx -1] = score.score;
+            temp[intervals.length - indx -1] = 1;
           }
           else{
             for(let i=0; i<intervals.length; i++){
@@ -220,6 +232,9 @@ exports.instructorAnalytics = async(req,res) => {
                 }
             }
         }
+
+        // handle edge case for last element
+        perDayChart.push([first,count]);
 
         return res.status(200).json({
             success: true,

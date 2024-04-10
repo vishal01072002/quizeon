@@ -8,9 +8,9 @@ import { Twice } from './perks/Twice';
 import { FiftyFifty } from './perks/FiftyFifty';
 import { submitQuiz } from '../../../../../services/operations/quiz';
 
-export const QuizSection = memo(({setShowScores }) => {
+export const QuizSection = memo(({setShowScores, warningCount, setWarningCount}) => {
 
-  const {quizes, quizStatus, perks} = useSelector((state) => state.quizPlatform);
+  const {quizes, quizStatus, perks, warnCount} = useSelector((state) => state.quizPlatform);
   const {user} = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
@@ -109,6 +109,7 @@ export const QuizSection = memo(({setShowScores }) => {
       setFiftyOption([null,true]);
     }
   }
+
   const nextQuestion = () => {
     setFadeTransition("fadeOut-card");
     setTimeout(() => {
@@ -131,6 +132,7 @@ export const QuizSection = memo(({setShowScores }) => {
 
   const handleSubmitQuiz = async() => {
     dispatch(setQuizStatus("End"));
+    setWarningCount(0);
     setShowScores([null,score]);
     console.log(remainTime);
     const completedTimeSec = (remainTime[1] !== 0) ? 60 - remainTime[1] : 0;
@@ -158,15 +160,22 @@ export const QuizSection = memo(({setShowScores }) => {
     }
   },[perks])
 
+  useEffect(() => {
+    if(warningCount === 3){
+      handleSubmitQuiz();
+      // console.log("Submit");
+    }
+  },[warningCount]);
+
   return (
-    <div className='flex w-full justify-center text-lg'>
+    <div className='flex w-full h-full pt-10 pb-16 justify-center text-lg'>
       {
         quizStatus === "Start" && 
-        <div className='flex w-full items-center px-5'>
-          <div>
+        <div className='flex flex-col h-full lg:flex-row gap-12 lg:gap-0 w-full items-center px-2 xs:px-5'>
+          <div className='hidden lg:block'>
             <Twice streek={streek} setStreek={setStreek} perks={perks}/>
           </div>
-          <div className={`${fadeTransition} relative m-2 p-4 md:px-5 md: py-2  w-11/12 sm:w-10/12 md:w-1/2 lg:w-1/3 mt-10 mx-auto bg-gray-100 rounded-sm shadow`}>
+          <div className={`${fadeTransition} relative m-2 p-2 xs:p-4 md:px-5 md:py-2 w-full xs:w-auto xs:min-w-[450px] mt-10 mx-auto bg-gray-100 rounded-sm shadow`}>
             {/* upper header */}
             <div className='flex items-center mb-2 justify-between'> 
               <p className='font-semibold'>{quizes.quizName}</p>
@@ -211,7 +220,12 @@ export const QuizSection = memo(({setShowScores }) => {
               }
             </div>
           </div>
-          <div><FiftyFifty score={score} perks={perks}/></div>
+          <div className='lg:hidden'>
+            <Twice streek={streek} setStreek={setStreek} perks={perks}/>
+          </div>
+          <div>
+            <FiftyFifty score={score} perks={perks}/>
+          </div>
         </div>
       }
     </div>

@@ -69,23 +69,25 @@ export const FiftyFifty = memo(({score}) => {
     handleScoreCount();
   },[score]);
   return (
-    <div>
-      <p className='flex items-center gap-2'><FaChevronRight/> This is 50-50 Power Up</p>
-      <p className='flex items-center gap-2'><FaChevronRight/> In this Quiz can be activated {perksCountCalculate}</p>
+    <div className='text-white'>
+      {/* <p className='flex items-center gap-2'><FaChevronRight/> It can be activated {perksCountCalculate} times</p>
       <p className='flex items-center gap-2'><FaChevronRight/>Need to maintain the Score of {neededScore[perksCountCalculate - perksCount]}%</p>
-      <p className='flex items-center gap-2'><FaChevronRight className='opacity-0'/>correct answers to Activate</p>
-      {perksCount ? <div className='parents relative w-[300px] mx-auto mt-5 h-6 rounded-xl bg-white'>
+      <p className='flex items-center gap-2'><FaChevronRight className='opacity-0'/>correct answers to Activate</p> */}
+      {perksCount ? <>
+        <p className='text-3xl text-center font-extrabold gradient bg-gradient-to-r from-fuchsia-600 to-purple-600 drop-shadow-[2px_0px_1.5px_rgba(0,0,0,1)] bg-clip-text text-transparent'>50-50 Power Up</p>
+        <div className='parents relative w-[300px] mx-auto mt-3 h-6 rounded-xl bg-white'>
         {
           neededScore.map((need,index) => (<div key={index} style={{left : need + "%"}} className='h-full absolute w-1 bg-gray-500 rounded-lg z-[1]'>
           </div>))
         }
         <div style={childs} className={`progress absolute z-[2] h-full rounded-xl transition-all duration-[1500ms]`}></div>
-      </div> : 
-      <div className='text-center'>You use all Perks</div>}
+      </div> 
+      </>: 
+      <div className='text-center text-lg font-bold text-white'>No 50-50 Power Up Left!</div>}
       {
         totalActive > 0 && arr.map((_,indx) => (
           <div key={indx} className='box w-max mt-3 mx-auto'>
-            <button className='btn' onClick={handleActivatePerk}>Acivate 2X</button>
+            <button className='btn' onClick={handleActivatePerk}>Acivate 50-50</button>
             <div className="space">
               <span style={{"--i": 31}} className="star"></span>
               <span style={{"--i": 12}} className="star"></span>

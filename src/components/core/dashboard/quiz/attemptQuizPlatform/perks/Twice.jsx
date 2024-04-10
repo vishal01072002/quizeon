@@ -72,14 +72,16 @@ export const Twice = memo(({streek, setStreek}) => {
   },[streek])
   return (
     <div className='text-start w-[300px]'>
-      <p className='flex items-center gap-2'><FaChevronRight/> This is 2X Power Up</p>
-      <p className='flex items-center gap-2'><FaChevronRight/> In this Quiz can be activated {perksCountCalculate}</p>
+      {/* <p className='flex items-center gap-2'><FaChevronRight/> It can be activated {perksCountCalculate} times</p>
       <p className='flex items-center gap-2'><FaChevronRight/>Need to maintain the Streek of {neededStreek}</p>
-      <p className='flex items-center gap-2'><FaChevronRight className='opacity-0'/>correct answers to Activate</p>
-      {perksCount ? <div className='parents w-[300px] mx-auto mt-5 h-6 rounded-xl bg-white'>
-        <div style={childs} className={`progress h-full rounded-xl transition-all duration-[1500ms]`}></div>
-      </div> : 
-      <div className='text-center'>You use all Perks</div>}
+      <p className='flex items-center gap-2'><FaChevronRight className='opacity-0'/>correct answers to Activate</p> */}
+      {perksCount ? <>
+        <p className='text-3xl text-center font-extrabold gradient bg-gradient-to-r from-red-600 to-orange-600 drop-shadow-[2px_0px_1.5px_rgba(0,0,0,1)] bg-clip-text text-transparent'>2X Power Up</p>
+        <div className='parents w-[300px] mx-auto mt-3 h-6 rounded-xl bg-white'>
+          <div style={childs} className={`progress2 h-full rounded-xl transition-all duration-[1500ms]`}></div>
+        </div>
+      </> : 
+      <div className='text-center text-lg font-bold'>No 2X Power Up Left!</div>}
       {
         totalActive > 0 && arr.map((_,indx) => (
           <div key={indx} className='box w-max mt-3 mx-auto'>

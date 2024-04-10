@@ -46,8 +46,8 @@ export const ShowScoreCard = memo(({scoreData, closeCard}) => {
 
   return (
     <div className='absolute inset-0 bg-gray-800 backdrop-blur-sm bg-opacity-20 flex items-center justify-center'>
-      <div className='bg-[#ededed] text-black p-5 pb-7 rounded-md'>
-        <div className='h-[300px] w-[320px] '>
+      <div className='bg-[#ededed] text-black p-2 xs:p-5 pb-3 xs:pb-7 rounded-md'>
+        <div className='h-[300px] w-[290px] xs:w-[320px] '>
           <div className='flex justify-between mb-5'>
             <button onClick={() => {isBar === true && setIsBar(false)}} className={`bg-fuchsia-500 hover:bg-fuchsia-600 duration-300 text-white px-4 rounded-sm`}>Pie Chart</button>
             <button onClick={() => {isBar === false && setIsBar(true)}} className='bg-purple-500 hover:bg-purple-600 duration-300 text-white px-4 rounded-sm'>Bar Chart</button>

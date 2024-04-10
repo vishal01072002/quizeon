@@ -39,10 +39,6 @@ const QuizSchema = new mongoose.Schema({
         enum:["Public", "Private"],
         required: true,
     },
-    quizLink: {
-        type: String,
-        trim: true,
-    },
     questions:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:QuizQues,

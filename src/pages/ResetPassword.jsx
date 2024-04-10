@@ -16,14 +16,9 @@ export const ResetPassword = () => {
   const {register, handleSubmit, formState : {errors}} = useForm();
   
   const submitHandler = async(data)=> {
-      const newData = {...data, email:user.email};
-      dispatch(resetPassword(newData,token,navigate));
+    const newData = {...data, email:user.email};
+    dispatch(resetPassword(newData,token,navigate));
   }
-
-  // first check signUp data is available in slice or not
-  useEffect(()=>{
-    
-  },[]);
 
   return (
     
@@ -34,7 +29,7 @@ export const ResetPassword = () => {
          <div className="max-h-screen flex w-full">
                 <img
                 loading="lazy"
-                className="max-h-[88.5vh] rounded-8xs w-1/2 object-cover"
+                className="min-h-screen sm:max-h-[90vh] rounded-8xs w-1/2 object-cover"
                 alt=""
                 src={cool}
                 />
@@ -55,11 +50,11 @@ export const ResetPassword = () => {
                 <div className="absolute top-[70%] left-[40%] rounded-[50%] bg-[#242B7A] w-8 h-8" />
                 </div>
             </div>
-            <img loading="lazy" className="absolute left-1/2 mt-6 -translate-x-1/2 w-36 top-0" src={hand} alt="background"/>
-            <div className="absolute bg-slate-50 top-0 left-1/2 -translate-x-1/2 mx-auto min-w-[512px] px-16 py-8 mt-[175px] rounded-md flex flex-col gap-5 items-center justify-between">
+            <img loading="lazy" className="absolute left-1/2 mt-6 -translate-x-1/2 w-28 sm:w-36 top-0" src={hand} alt="background"/>
+            <div className="absolute bg-slate-50 left-1/2 -translate-x-1/2 w-[95vw] sm:max-w-[512px] px-4 xs:px-8 sm:px-16 py-8 top-[160px] sm:top-[175px] rounded-md flex flex-col gap-5 items-center justify-between">
 
-                <p className="text-5xl font-bold text-blue-700">Reset Your Password</p>
-                <p className="text-xl -mt-2 mb-3 text-blue-800">we will Update your password to new One</p>
+                <p className="text-4xl sm:text-5xl font-bold text-blue-700">Reset Your Password</p>
+                <p className="text-lg sm:text-xl -mt-2 mb-3 text-blue-800">we will Update your password to new One</p>
 
                 
                 <form onSubmit = {handleSubmit(submitHandler)} className="w-full flex flex-col gap-6">

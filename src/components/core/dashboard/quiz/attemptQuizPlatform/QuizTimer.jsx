@@ -39,9 +39,9 @@ export const QuizTimer = ({duration,setRemainTime,isLastQuesSelected,handleSubmi
     }
   },[isLastQuesSelected]);
   return (
-    <div className='flex items-center gap-2 bg-slate-300 py-[4px] px-1 pl-2 rounded-sm'>
+    <div className='flex flex-col xs:flex-row items-center gap-0 xs:gap-2 bg-slate-300 py-2 xs:py-[4px] px-1 xs:pl-2 rounded-sm'>
       <p>Time Left</p>
-      <div className='bg-black bg-opacity-80 text-white px-[6px] rounded-sm h-7'>{min < 10 ? "0" + min : min} : {sec <10 ? "0" + sec : sec}</div>
+      <div className='bg-black bg-opacity-80 text-white pb-2 xs:pb-0 px-[6px] rounded-sm h-7'>{min < 10 ? "0" + min : min} : {sec <10 ? "0" + sec : sec}</div>
     </div>
   )
 }

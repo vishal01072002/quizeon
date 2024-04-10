@@ -21,14 +21,8 @@ exports.makeQuiz = async(req,res)=>{
 
         const status = "Draft";
 
-        // if private make link
-        let quizLink = "";
-        if(access == "Private"){
-            quizLink = crypto.randomBytes(25).toString("hex");
-        }
-
         // make entry
-        const quizz = await Quiz.create({quizName,duration,category,status,access,quizLink});
+        const quizz = await Quiz.create({quizName,duration,category,status,access});
         
         // update in user
         const user = await User.findOneAndUpdate({email:email},
@@ -285,8 +279,8 @@ exports.fetchQuizes = async(req,res) => {
         const skip = (pageNo - 1) * quizPerPage
 
         // reverse order for new first
-        const numbers = await Quiz.countDocuments({status:"Publish"});
-        const allQuiz = await Quiz.find({status:"Publish"}).sort({createdAt : -1}).skip(skip).limit(quizPerPage).exec();
+        const numbers = await Quiz.countDocuments({status:"Publish", access:"Public"});
+        const allQuiz = await Quiz.find({status:"Publish", access:"Public"}).sort({createdAt : -1}).skip(skip).limit(quizPerPage).exec();
         
         let pages = Math.ceil(numbers / quizPerPage);
         
@@ -316,6 +310,7 @@ exports.fetchQuizes = async(req,res) => {
 // @desc   fetch attempting quiz for student
 // route   POST /api/v1/quiz/fetchAttemptQuiz
 // access  Private (Student)
+
 exports.fetchAttemptQuiz = async(req,res) => {
     try {
         const {quizId} = req.body ;
@@ -339,7 +334,7 @@ exports.fetchAttemptQuiz = async(req,res) => {
 
         return res.status(200).json({
             success: true,
-            message: "Quiz deleted successful",
+            message: "Attempted Quiz fetched successful",
             quiz: quiz,
         });
     } catch (error) {

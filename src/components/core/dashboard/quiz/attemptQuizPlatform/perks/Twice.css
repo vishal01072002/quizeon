@@ -4,14 +4,14 @@
     background: linear-gradient(#191c23, #2d3341);
 }
 
-.progress{
+.progress2{
     /* background:  repeating-linear-gradient(90deg, transparent 0 0.15em, #d783e3 0 0.75rem) 0.5rem, linear-gradient(#8b42ab, #9956b3); */
     
     /* background : repeating-linear-gradient(135deg,#a22215 0 0.15em, #f3473b 0 0.5rem); */
 
     /* background:  repeating-linear-gradient(90deg, transparent 0 0.15em, #f1c00c 0 0.75rem) 0.5rem, linear-gradient(#f3c402, #ed7401); */
 
-    background: conic-gradient(from -30deg at 25%, transparent 240deg, #8b42ab 0%) 0/ 1.25rem, conic-gradient(from -30deg at 75%, #8b42ab 240deg, #9956b3 0%) 0/ 1.25rem;
+    background: conic-gradient(from -30deg at 25%, transparent 240deg, #b63131 0%) 0/ 1.25rem, conic-gradient(from -30deg at 75%, #b63131 240deg, #c85c5c 0%) 0/ 1.25rem;
 
 }
 

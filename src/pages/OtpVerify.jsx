@@ -36,7 +36,7 @@ export const OtpVerify = () => {
       <div className="max-h-screen flex w-full">
         <img
           loading="lazy"
-          className="max-h-[87.5vh] rounded-8xs w-1/2 object-cover"
+          className="min-h-screen sm:max-h-[90vh] rounded-8xs w-1/2 object-cover"
           alt=""
           src={cool}
         />
@@ -57,11 +57,11 @@ export const OtpVerify = () => {
           <div className="absolute top-[70%] left-[40%] rounded-[50%] bg-[#242B7A] w-8 h-8" />
         </div>
       </div>
-     <img loading="lazy" className="absolute left-1/2 mt-6 -translate-x-1/2 w-36 top-0" src={hand} alt="background"/>
-      <div className="absolute bg-slate-50 top-0 left-1/2 -translate-x-1/2 mx-auto min-w-[512px] px-16 py-8 mt-[175px] rounded-md flex flex-col gap-5 items-center justify-between">
+     <img loading="lazy" className="absolute left-1/2 mt-6 -translate-x-1/2 w-28 sm:w-36 top-0" src={hand} alt="background"/>
+      <div className="absolute bg-slate-50 left-1/2 -translate-x-1/2 w-[95vw] sm:max-w-[512px] px-4 xs:px-8 sm:px-16 py-8 top-[160px] sm:top-[175px] rounded-md flex flex-col gap-5 items-center justify-between">
 
-        <p className="text-5xl font-bold text-blue-700">OTP verification</p>
-        <p className="text-xl text-blue-800">we will send you a one-time password to Your Email</p>
+        <p className="text-4xl sm:text-5xl font-bold text-blue-700">OTP verification</p>
+        <p className="text-lg sm:text-xl text-blue-800">we will send you a one-time password to Your Email</p>
 
         
         <form onSubmit={submitHandler} className="w-full flex flex-col gap-6 my-2">
@@ -74,7 +74,7 @@ export const OtpVerify = () => {
                 justifyContent: "space-between",
                 gap: "0 6px",
               }}
-              inputStyle={{width: "50px", height:"50px"}}
+              inputStyle={{width: "2.8rem", height:"2.8rem"}}
               // renderSeparator={<span>-</span>}
               renderInput={(props) => (
                 <input {...props} placeholder="-" className="border-0 bg-blue-500  text-blue-50 aspect-square text-center text-2xl font-medium focus:border-0 focus:outline-1 focus:outline-yellow-50" />
@@ -86,7 +86,7 @@ export const OtpVerify = () => {
           Didn’t receive the OTP? <span className="text-blue-600 hover:text-blue-800 font-semibold text-lg"> Resend OTP</span>
           </p>
 
-          <button type="submit" className='w-full text-yellow-50 text-xl rounded-lg font-bold bg-blue-700 px-4 py-2 mt-0 hover:bg-blue-800 duration-150'>Verify OTP</button>
+          <button type="submit" className='w-full text-yellow-50 text-lg sm:text-xl rounded-lg font-bold bg-blue-700 px-4 py-2 mt-0 hover:bg-blue-800 duration-150'>Verify OTP</button>
         </form>
 
       </div>

@@ -32,7 +32,7 @@ export const ForgotPassword = () => {
          <div className="max-h-screen flex w-full">
                 <img
                 loading="lazy"
-                className="max-h-[88.5vh] rounded-8xs w-1/2 object-cover"
+                className="min-h-screen sm:max-h-[90vh] rounded-8xs w-1/2 object-cover"
                 alt=""
                 src={cool}
                 />
@@ -54,11 +54,11 @@ export const ForgotPassword = () => {
                 </div>
           </div>
 
-            <img loading="lazy" className="absolute left-1/2 mt-6 -translate-x-1/2 w-36 top-0" src={hand} alt="background"/>
+            <img loading="lazy" className="absolute left-1/2 mt-6 -translate-x-1/2 w-28 sm:w-36 top-0" src={hand} alt="background"/>
 
-            <div className="absolute bg-slate-50 top-0 left-1/2 -translate-x-1/2 mx-auto w-[570px] min-w-[512px] px-8 py-8 mt-[175px] rounded-md flex flex-col gap-5 items-center justify-between">
+            <div className="absolute bg-slate-50 left-1/2 -translate-x-1/2 w-[95vw] sm:max-w-[512px] px-4 sm:px-8 py-8 top-[160px] sm:top-[175px] rounded-md flex flex-col gap-5 items-center justify-between">
 
-              <p className="text-5xl font-bold text-blue-700">{!sentEmail ? "Reset Your Password" : "Check Email"}</p>
+              <p className="text-4xl sm:text-5xl font-bold text-blue-700">{!sentEmail ? "Reset Your Password" : "Check Email"}</p>
               <p className="text-lg -mt-2 mb-3 text-sky-900">{!sentEmail ? "Have no fear. We will email you instructions to reset your password.If you dont have access to your email we can try account recovery." : `We have sent the reset email to Your email} `}</p>
 
                 
@@ -74,7 +74,7 @@ export const ForgotPassword = () => {
                     {errors.youremail && (<span className="absolute w-max -translate-x-full -ml-4 mt-3 text-pink-700">email is required</span>)}
                     </div>
 
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col gap-3 sm:gap-0 sm:flex-row justify-between items-center">
                   
                 <button type="submit" className='w-max text-yellow-50 text-lg rounded-lg font-semibold bg-blue-600 px-4 py-2 mt-3 hover:bg-blue-700 duration-150'>Reset Password</button>
 

@@ -26,11 +26,6 @@ export const UpdatePassword = () => {
         updatePassword(tempdata,navigate);
   }
 
-  // first check signUp data is available in slice or not
-  useEffect(()=>{
-    
-  },[]);
-
   return (
     
     <div className="relative">
@@ -64,7 +59,7 @@ export const UpdatePassword = () => {
             <img loading="lazy" className="absolute left-1/2 mt-6 -translate-x-1/2 w-36 top-0" src={hand} alt="background"/>
             <div className="absolute bg-slate-50 top-0 left-1/2 -translate-x-1/2 mx-auto min-w-[512px] px-16 py-8 mt-[175px] rounded-md flex flex-col gap-5 items-center justify-between">
 
-                <p className="text-5xl font-bold text-blue-700">Reset Your Password</p>
+                <p className="text-5xl font-bold text-blue-700">Update Your Password</p>
                 <p className="text-xl -mt-2 mb-3 text-blue-800">we will Update your password to new One</p>
 
                 

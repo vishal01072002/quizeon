@@ -56,7 +56,7 @@ export const Login = () => {
         </div>
       </div>
 
-      <div className="absolute bg-slate-50 top-0 left-1/2 -translate-x-1/2 mx-auto min-w-[20rem] xs:min-w-[400px] sm:min-w-[512px] px-5 xs:px-8 sm:px-16 py-4 mt-5 rounded-md flex flex-col gap-3 sm:gap-5 items-center justify-between">
+      <div className="absolute bg-slate-50 top-0 left-1/2 -translate-x-1/2 w-[95vw] sm:max-w-[400px] sm:min-w-[512px] px-5 xs:px-8 sm:px-16 py-4 mt-5 rounded-md flex flex-col gap-3 sm:gap-5 items-center justify-between">
         <p className="text-4xl md:text-5xl font-bold text-blue-800">Welcome Back</p>
 
         {/* student and instructor switch tab */}

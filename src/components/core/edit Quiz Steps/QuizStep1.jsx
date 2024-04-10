@@ -41,6 +41,7 @@ export const QuizStep1 = () => {
   const {step, editMode, viewMode, editQuiz} = useSelector((state) => state.quiz);
   const dispatch = useDispatch();
   const [showQues, setShowQues] = useState(false);
+  const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
 
   const isChange = (newData,oldData) =>{
@@ -88,6 +89,7 @@ export const QuizStep1 = () => {
   useEffect(()=>{
     // if edit mode fill the form
     //console.log(editQuiz);
+    console.log(viewMode,editMode);
     if((viewMode || editMode) && editQuiz){
       setValue("quizName", editQuiz.quizName);
       setValue("category", editQuiz.category);
@@ -100,7 +102,7 @@ export const QuizStep1 = () => {
       <div className='relative flex-col p-5 pr-0 lg:pr-5 w-full gap-5 items-center flex min-h-full  bg-slate-300'>
       <p className='text-xl pl-8 lg:p-0 font-bold'>Make Quiz in very easy & efficient way</p>
         <form onSubmit={handleSubmit(submitHandler)} className='flex flex-col gap-5 p-4 pl-8 lg:pl-4 items-start w-full lg:max-w-[756px]'>
-            <label className="quiz-label">
+          <label className="quiz-label">
               Quiz Name
             <input 
               id="quizName"
@@ -113,7 +115,7 @@ export const QuizStep1 = () => {
               className='quiz-input'
             />
             {errors.quizName && (<span className="ml-2 text-base font-normal tracking-wide text-pink-800">*Quiz Name required</span>)}
-            </label>
+          </label>
 
           <label className='quiz-label'>
             <p className='text-start'>Duration of Quiz (in Minutes)</p>
@@ -192,6 +194,17 @@ export const QuizStep1 = () => {
             </span>
           )}
           </div>
+
+          {((viewMode || editMode) && editQuiz) && <label className="quiz-label">
+              <p>Quiz Link</p>
+              <div className='flex w-full gap-4'>
+                <p className='text-blue-500 xs:hidden cursor-pointer underline hover:text-blue-600'>{(`http://localhost:3000/attemptquiz/quiz/${editQuiz?._id}`).slice(0,27)}...</p>
+                <p className='text-blue-500 hidden xs:block cursor-pointer underline hover:text-blue-600'>{(`http://localhost:3000/attemptquiz/quiz/${editQuiz?._id}`).slice(0,40)}...</p>
+                <span className='float-left relative cursor-pointer' onClick={() =>{  navigator.clipboard.writeText(`http://localhost:3000/attemptquiz/quiz/${editQuiz?._id}`);
+                setCopied(true);
+                setTimeout(()=> setCopied(false) , 3000)}}>Copy <p className={`absolute ${copied ? "opacity-100" : "opacity-0"} duration-300 transition-opacity text-white -top-9 -left-2 px-1 py-[1px] rounded-md bg-blue-400`}>Copied</p></span>
+              </div>
+          </label>}
 
           <div className='flex flex-wrap w-full items-center justify-between'>
             {!viewMode && <button type='submit' className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'>{editMode && editQuiz.status === "Draft"? "Save Changes" : "Next"}</button>}
