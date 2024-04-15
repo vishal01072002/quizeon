@@ -24,8 +24,7 @@ export const editProfile = (data,token,cancelEditMode)=>{
 
         } catch (error) {
             console.log("EDITPROFILE API ERROR............", error);
-            toast.error("Profile Updated Error");
-            console.log(error);
+            toast.error(error.response.data.message);
         }
         dispatch(setLoading(false));
         toast.dismiss(toastId);
@@ -50,8 +49,7 @@ export const resetPassword = (data,token,navigate)=>{
 
         } catch (error) {
             console.log("RESET PASSWORD API ERROR............", error);
-            toast.error("Password reset Error");
-            console.log(error);
+            toast.error(error.response.data.message);
         }
         navigate("/dashboard/profile");
         dispatch(setLoading(false));
@@ -83,8 +81,7 @@ export const uploadProfilePicture = (data,token,navigate)=>{
 
         } catch (error) {
             console.log("UPLOAD PROFILE PICTURE API ERROR............", error);
-            toast.error("Profile Picture Error");
-            console.log(error);
+            toast.error(error.response.data.message);
         }
         navigate("/dashboard/profile");
         dispatch(setLoading(false));

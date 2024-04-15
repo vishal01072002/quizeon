@@ -22,12 +22,11 @@ export const UpdatePassword = () => {
           password: data.newPassword,
           confirmPassword: data.confirmPassword,
         }
-        console.log(tempdata);
-        updatePassword(tempdata,navigate);
+    // console.log(tempdata);
+    updatePassword(tempdata,navigate);
   }
 
   return (
-    
     <div className="relative">
         <div className="relative max-h-screen">{
         loading ? <Loader/> :

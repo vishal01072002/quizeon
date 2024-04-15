@@ -29,8 +29,7 @@ export const makeQuiz = (data,token)=>{
 
         } catch (error) {
             console.log("MAKEQUIZ API ERROR............", error);
-            toast.error("Make Quiz Error");
-            console.log(error);
+            toast.error(error.response.data.message);
         }
         //dispatch(setLoading(false));
         toast.dismiss(toastId);
@@ -54,12 +53,10 @@ export const updateQuiz = (data,token)=>{
           dispatch(setQuiz(response.data.quiz));
           dispatch(setEditMode(true));
           toast.success("Quiz Updated Sucessful");
-          //cancelEditMode();
 
         } catch (error) {
             console.log("UPDATE QUIZ API ERROR............", error);
-            toast.error("Update Quiz Error");
-            console.log(error);
+            toast.error(error.response.data.message);
         }
         dispatch(setEditQuizLoading(false));
         toast.dismiss(toastId);
@@ -86,8 +83,7 @@ export const publishQuiz = (data,token)=>{
 
         } catch (error) {
             console.log("PUBLISH QUIZ API ERROR............", error);
-            toast.error("Publish Quiz Error");
-            console.log(error);
+            toast.error(error.response.data.message);
         }
         dispatch(setEditQuizLoading(false));
         toast.dismiss(toastId);
@@ -110,12 +106,10 @@ export const deleteQuiz = (data,token)=>{
 
           dispatch(setViewQuiz(response.data.quiz));
           toast.success("Quiz Deleted Sucessful");
-          //cancelEditMode();
 
         } catch (error) {
             console.log("DELETE QUIZ API ERROR............", error);
-            toast.error("Delete Quiz Error");
-            console.log(error);
+            toast.error(error.response.data.message);
         }
         //dispatch(setLoading(false));
         toast.dismiss(toastId);
@@ -142,8 +136,7 @@ export const fetchAllQuiz = (token)=>{
           
         } catch (error) {
             console.log("Fetch All QUIZ API ERROR............", error);
-            //toast.error("Fetch All Quiz Error");
-            //console.log(error);
+            toast.error(error.response.data.message);
         }
         dispatch(setLoading(false));
         toast.dismiss(toastId);
@@ -179,8 +172,7 @@ export const fetchOneQuiz = (data,navigate,isViewMode)=>{
 
         } catch (error) {
             console.log("FETCH ONE QUIZ API ERROR............", error);
-            toast.error("Fetch Quiz Error");
-            console.log(error);
+            toast.error(error.response.data.message);
         }
         dispatch(setLoading(false));
         toast.dismiss(toastId);
@@ -206,6 +198,7 @@ export const fetchQuizes = async(token,pageNo)=>{
         }
     } catch (error) {
         console.log("FETCH QUIZES API ERROR............", error);
+        toast.error(error.response.data.message);
     }
     
     toast.dismiss(toastId);
@@ -229,6 +222,7 @@ export const fetchAttemptQuiz = async(data,token) => {
         }
     } catch (error) {
         console.log("FETCH ATTEMPT QUIZES API ERROR............", error);
+        toast.error(error.response.data.message);
     }
     toast.dismiss(toastId);
     return result;
@@ -255,10 +249,8 @@ export const addQuestion = (data,navigate)=>{
           navigate("/dashboard/makeQuiz");
         } catch (error) {
             console.log("ADD QUES API ERROR............", error);
-            toast.error("Add Ques Error");
-            console.log(error);
+            toast.error(error.response.data.message);
         }
-        //dispatch(setLoading(false));
         toast.dismiss(toastId);
     }
 }
@@ -267,7 +259,6 @@ export const addQuestion = (data,navigate)=>{
 export const removeQuestion = (data)=>{
     return async(dispatch)=>{
         const toastId = toast.loading("Loading");
-        //dispatch(setLoading(true));
         try {
             const response = await apiConnector("POST",questionEndpoints.REMOVE_QUES,data);
 
@@ -284,8 +275,7 @@ export const removeQuestion = (data)=>{
           
         } catch (error) {
             console.log("REMOVE QUES API ERROR............", error);
-            toast.error("Remove Ques Error");
-            console.log(error);
+            toast.error(error.response.data.message);
         }
         //dispatch(setLoading(false));
         toast.dismiss(toastId);
@@ -316,8 +306,7 @@ export const editQuestion = (data)=>{
           
         } catch (error) {
             console.log("EDIT QUES API ERROR............", error);
-            toast.error("Edit Ques Error");
-            console.log(error);
+            toast.error(error.response.data.message);
         }
         //dispatch(setLoading(false));
         toast.dismiss(toastId);
@@ -339,6 +328,7 @@ export const submitQuiz = async(data,dispatch) => {
         toast.success("Quiz Submitted!")
     } catch (error) {
         console.log("SUBMIT QUIZES API ERROR............", error);
+        toast.error(error.response.data.message);
     }
     dispatch(setQuizPlatformLoading(false));
     toast.dismiss(toastId);
@@ -361,6 +351,7 @@ export const quizAnalytics = async(data,token) => {
         }
     } catch (error) {
         console.log("ANALYSE QUIZ API ERROR............", error);
+        toast.error(error.response.data.message);
     }
     toast.dismiss(toastId);
     return result;
@@ -383,6 +374,7 @@ export const leaderBoardQuiz = async(data) => {
         }
     } catch (error) {
         console.log("LEADERBOARD QUIZ API ERROR............", error);
+        toast.error(error.response.data.message);
     }
     toast.dismiss(toastId);
     return result;

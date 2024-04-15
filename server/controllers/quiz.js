@@ -9,10 +9,10 @@ const Score = require("../models/Score");
 
 exports.makeQuiz = async(req,res)=>{
     try {
-        const{quizName,duration,access,category,email} = req.body;
+        const{quizName,duration,access,category,email,scheduleTime,scheduleDate} = req.body;
 
         // validation
-        if(!quizName || !duration || !access || !category ||!email){
+        if(!quizName || !duration || !access || !category ||!email ||!scheduleTime || !scheduleDate){
             return res.status(400).json({
                 success: false,
                 message: "fill all details",
@@ -21,8 +21,10 @@ exports.makeQuiz = async(req,res)=>{
 
         const status = "Draft";
 
+        const schedule = [scheduleDate,scheduleTime];
+
         // make entry
-        const quizz = await Quiz.create({quizName,duration,category,status,access});
+        const quizz = await Quiz.create({quizName,duration,category,status,access,schedule});
         
         // update in user
         const user = await User.findOneAndUpdate({email:email},
@@ -63,22 +65,39 @@ exports.makeQuiz = async(req,res)=>{
 // access  Private
 exports.updateQuiz = async(req,res)=>{
     try {
-        const{quizName,duration,category,access,quizId,status} = req.body;
+        const{quizName,duration,category,access,quizId,status,scheduleTime,scheduleDate} = req.body;
 
         // validation
         // if status is publish this cant be updated
+
+        const quiz = await Quiz.findById({_id:quizId});
         
         if(status === "Publish"){
-            return res.status(500).json({
-                success: false,
-                message: "Can't Update quiz after publish",
-            });
+            const currDate = new Date;
+            console.log(currDate.toISOString()?.split("T")?.at(0) , quiz?.schedule[0]);
+
+            if(currDate.toISOString()?.split("T")?.at(0) > quiz?.schedule[0]){
+                return res.status(500).json({
+                    success: false,
+                    message: "Can't Update quiz after publish",
+                });
+            }
+            else if(currDate.toISOString()?.split("T")?.at(0) === quiz?.schedule[0]){
+                if(currDate.toTimeString()?.split(":").slice(0,2)?.join(":") >= quiz?.schedule[1]){
+                    return res.status(500).json({
+                        success: false,
+                        message: "Can't Update quiz after publish",
+                    });;
+                }
+            }        
         }
+        
         const quizz = await Quiz.findOneAndUpdate({_id:quizId},{
             quizName:quizName,
             duration:duration,
             category:category,
             access: access,
+            schedule: [scheduleDate,scheduleTime],
         },{new:true}).populate("questions").exec();
 
         return res.status(200).json({
@@ -275,12 +294,31 @@ exports.deleteQuiz = async(req,res)=>{
 exports.fetchQuizes = async(req,res) => {
     try {
         const {pageNo} = req.body;
-        const quizPerPage = 2; // show 10 quiz perpage
-        const skip = (pageNo - 1) * quizPerPage
+        const quizPerPage = 4; // show 10 quiz perpage
+        const skip = (pageNo - 1) * quizPerPage;
+
+        const currDate = new Date();
+        const todayDate = currDate.toISOString()?.split("T")?.at(0); 
+        const todayTime = currDate.toTimeString()?.split(":").slice(0,2)?.join(":");
 
         // reverse order for new first
-        const numbers = await Quiz.countDocuments({status:"Publish", access:"Public"});
-        const allQuiz = await Quiz.find({status:"Publish", access:"Public"}).sort({createdAt : -1}).skip(skip).limit(quizPerPage).exec();
+        const numbers = await Quiz.countDocuments({status:"Publish", access:"Public",
+        $or : [
+            {'schedule.0': {$lt : todayDate}},
+            {$and : [
+                {'schedule.0': {$eq : todayDate}},
+                {'schedule.1': {$lte : todayTime}}
+            ]}
+        ]});
+
+        const allQuiz = await Quiz.find({status:"Publish", access:"Public", 
+        $or : [
+            {'schedule.0': {$lt : todayDate}},
+            {$and : [
+                {'schedule.0': {$eq : todayDate}},
+                {'schedule.1': {$lte : todayTime}}
+            ]}
+        ]}).sort({createdAt : -1}).skip(skip).limit(quizPerPage).exec();
         
         let pages = Math.ceil(numbers / quizPerPage);
         

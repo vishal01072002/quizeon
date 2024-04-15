@@ -31,10 +31,17 @@
   @apply px-1 text-lg font-normal leading-[24px] text-gray-900 shadow-[0_1px_0_0] shadow-white/50 placeholder:text-gray-500 w-full xxs:w-10/12 sm:w-1/2 border-b-2 border-black focus:outline-none
 }
 
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: transparent;
+  appearance: none;
+
+}
 .appearance-remove::-webkit-inner-spin-button,
 .appearance-remove::-webkit-outer-spin-button{
-    -webkit-appearance: none;
-    appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .my-quiz-container {

@@ -4,6 +4,7 @@ import cool from "../assets/coolbackground-1-1@2x.png";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { login } from "../services/operations/auth";
+import { FcGoogle } from "react-icons/fc"
 
 export const Login = () => {
 
@@ -100,14 +101,14 @@ export const Login = () => {
           </div>
         
         <div className=" w-full">
-              <input 
-              id='password'
-              type="password"
-              placeholder='Enter Your Password'
-              {...register("yourPassword", {required:true})}
-              className='w-full form-style'
+          <input 
+          id='password'
+          type="password"
+          placeholder='Enter Your Password'
+          {...register("yourPassword", {required:true})}
+          className='w-full form-style'
           />
-              {errors.yourPassword && (<span className="absolute w-max -translate-x-full -ml-4 mt-3 text-pink-700">Password is required</span>)}
+          {errors.yourPassword && (<span className="absolute w-max -translate-x-full -ml-4 mt-3 text-pink-700">Password is required</span>)}
           </div>
 
         <Link to={"/forgotpassword"} className="text-blue-600 hover:text-blue-800 font-medium">
@@ -116,7 +117,9 @@ export const Login = () => {
 
         <button type="submit" className='w-full text-yellow-50 text-xl rounded-lg font-bold bg-blue-700 px-4 py-2 mt-4 hover:bg-blue-800 duration-150'>Sign In</button>
 
-        <Link to={"/signup"} className="text-blue-600 hover:text-blue-800 font-medium">
+        {/* <button className='w-full flex justify-center items-center rounded-[8px] font-medium text-richblack-100 border-2 border-gray-600 px-[12px] py-[8px] gap-x-2 mt-1 '><FcGoogle className="text-2xl"/> Sign in with Google</button> */}
+
+        <Link to={"/signup"} className="text-blue-600 hover:text-blue-800 font-medium mb-10 -mt-3">
           Don’t Have an Account? Sign Up
         </Link>
         </form>

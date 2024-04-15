@@ -16,7 +16,7 @@ export function sendOTP(email,navigate,setSignupData,newForm){
           console.log("SENDOTP API RESPONSE............", response);
 
           if(! response.data.success){
-              throw new Error(response.data.message);
+            throw new Error(response.data.message);
           }
 
           // add otp token
@@ -53,7 +53,7 @@ export const signup = (signupUpdated,navigate)=>{
         navigate("/login");
     } catch (error) {
       console.log("SIGNUP API ERROR............", error);
-      toast.error("Signup Fail");
+      toast.error(error.data.message);
       console.log(error);
     }
     dispatch(setLoading(false));
@@ -91,7 +91,7 @@ export const login = (data,navigate) => {
       
     } catch (error) {
       console.log("LOGIN API ERROR............", error);
-      toast.error("Login Failed");
+      toast.error(error.response.data.message);
     }
     
     toast.dismiss(toastId);
@@ -113,7 +113,7 @@ export const forgotMail = async(data,sentEmail)=>{
 
   } catch (error) {
     console.log("FORGOT PASWORD API ERROR............", error);
-      toast.error("EMAIL SEND Failed");
+    toast.error(error.response.data.message);
   }
   toast.dismiss(toastId);
 }
@@ -133,7 +133,7 @@ export const updatePassword = async(data,navigate)=>{
 
   } catch (error) {
     console.log("UPDATE PASWORD API ERROR............", error);
-      toast.error("Password Update Error");
+    toast.error(error.response.data.message);
   }
   toast.dismiss(toastId);
 }

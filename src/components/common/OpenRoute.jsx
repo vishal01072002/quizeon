@@ -8,9 +8,9 @@ export const OpenRoute = ({children}) => {
 
   return (
     <div>
-        {
-            !token ? <>{children}</> : <Navigate to={"/dashboard/profile"}/>
-        }
+      {
+        !token ? <>{children}</> : <Navigate to={"/dashboard/profile"}/>
+      }
     </div>
   )
 }

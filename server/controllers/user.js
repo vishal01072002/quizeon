@@ -83,11 +83,10 @@ exports.signup = async (req,res) => {
   try {
     const { firstName, lastName, email, password, confirmPassword, account, otp, otpToken} = req.body;
 
-    console.log("signup",otp,otpToken);
+    console.log("signup",otp,otpToken,firstName, lastName, email, password, confirmPassword, account);
     // validations on data
     if (
       !firstName ||
-      !lastName ||
       !email ||
       !password ||
       !confirmPassword ||
@@ -100,6 +99,10 @@ exports.signup = async (req,res) => {
       });
     }
 
+    if(!lastName){
+        lastName = "";
+    }
+    
     // check passwords are matched
     if (password !== confirmPassword) {
         return res.status(500).json({

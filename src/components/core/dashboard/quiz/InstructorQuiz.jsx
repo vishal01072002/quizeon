@@ -76,6 +76,24 @@ export const InstructorQuiz = () => {
 
     }
     
+    // check for published
+    const isPublish = (quiz)=>{
+      const currDate = new Date;
+      console.log(currDate.toISOString()?.split("T")?.at(0) >= quiz?.schedule[0] ,
+      currDate.toTimeString()?.split(":").slice(0,2)?.join(":") , quiz?.schedule[1]);
+      if(quiz?.status === "Draft") return false;
+      if(quiz?.status === "Publish"){
+        if(currDate.toISOString()?.split("T")?.at(0) > quiz?.schedule[0]){
+          return true;
+        }
+        else if(currDate.toISOString()?.split("T")?.at(0) === quiz?.schedule[0]){
+          if(currDate.toTimeString()?.split(":").slice(0,2)?.join(":") >= quiz?.schedule[1]){
+            return true;
+          }
+        }
+      }
+      return false;
+    }
     // if click on edit quiz
     function editQuiz(quizId){
         dispatch(fetchOneQuiz({quizId:quizId},navigate,false));
@@ -213,7 +231,7 @@ export const InstructorQuiz = () => {
                           </div>
                         </button>
 
-                        {quiz.status !== "Publish" ? <button onClick={()=> editQuiz(quiz._id)} className='w-min rounded-md relative group'>
+                        {!isPublish(quiz) ? <button onClick={()=> editQuiz(quiz._id)} className='w-min rounded-md relative group'>
                           <FaRegEdit className='text-green-700' size={21}/>
                           <div className='invisible opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100'>
                             <div className='h-4 absolute left-1 -top-5 w-4 rotate-45 bg-white cursor-default '></div><span className='absolute w-max bg-white cursor-default text-gray-700 font-normal px-2 -top-10 -right-8 rounded-lg'>edit Quiz</span>

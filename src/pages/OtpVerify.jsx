@@ -4,7 +4,8 @@ import OTPInput from "react-otp-input";
 import hand from "../assets/otp-1.svg"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { signup } from "../services/operations/auth";
+import { sendOTP, signup } from "../services/operations/auth";
+import { setSignupData } from "../slice/authSlice";
 
 export const OtpVerify = () => {
 
@@ -22,6 +23,10 @@ export const OtpVerify = () => {
     console.log(signupUpdated);
 
     dispatch(signup(signupUpdated,navigate));
+  }
+
+  const resendOtp = async() => {
+    dispatch(sendOTP(signupData.email,navigate,setSignupData,signupData));
   }
 
   // first check signUp data is available in slice or not
@@ -82,9 +87,9 @@ export const OtpVerify = () => {
             ></OTPInput>
           </div>
 
-          <p className="text-black mt-4 font-medium">
-          Didn’t receive the OTP? <span className="text-blue-600 hover:text-blue-800 font-semibold text-lg"> Resend OTP</span>
-          </p>
+          <button onClick={resendOtp} className="text-black mt-4 font-medium">
+          Didn’t receive the OTP? <span className="text-blue-600 hover:text-blue-800 font-semibold text-lg">Resend OTP</span>
+          </button>
 
           <button type="submit" className='w-full text-yellow-50 text-lg sm:text-xl rounded-lg font-bold bg-blue-700 px-4 py-2 mt-0 hover:bg-blue-800 duration-150'>Verify OTP</button>
         </form>

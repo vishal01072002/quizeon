@@ -64,11 +64,11 @@ function App() {
           <Route path='/dashboard/myquiz' element={<MyQuiz/>}/>
 
           {/* for instructor routes */}
-          {user && user.account === "Instructor" && (<Route path='/dashboard/MakeQuiz' element={<PrivateRoute><MakeQuizStep/></PrivateRoute>} />)}
+          {(<Route path='/dashboard/MakeQuiz' element={<PrivateRoute> {user && user.account === "Instructor" && <MakeQuizStep/>}</PrivateRoute>} />)}
           
           {/* for Students routes */}
-          {user && user.account === "Student" 
-          && (<Route path='/dashboard/AttemptQuiz/page/:pageNo' element={<PrivateRoute><AttemptQuiz/></PrivateRoute>} />)}
+          {(<Route path='/dashboard/AttemptQuiz/page/:pageNo' element={<PrivateRoute> {user && user.account === "Student" 
+          && <AttemptQuiz/>}</PrivateRoute>} />)}
 
         </Route>
         

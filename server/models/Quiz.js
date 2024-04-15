@@ -33,6 +33,10 @@ const QuizSchema = new mongoose.Schema({
         trim: true,
         enum: ["Draft","Publish"]
     },
+    schedule:{
+        type: Array,
+        trim:true,
+    },
     access:{
         type: String,
         trim: true,

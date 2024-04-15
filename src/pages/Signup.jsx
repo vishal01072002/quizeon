@@ -21,40 +21,35 @@ export const Signup = () => {
   const dispatch = useDispatch();
   const[accountType,setAccountType] = useState("Student");
   const submitHandler = async(data)=> {
-
-      // either we can access from data or getValues()
-      const currData = getValues();
-      // console.log(data);
-      // console.log(currData);
-      // console.log(currData.YourName,currData.YourEmail,currData.YourPassword,currData.confirmPassword);
-
-      // split name
-      const fullname = data.YourName.split(" ");
-      console.log(fullname);
-
-      //match password
-      if(data.YourPassword !== data.confirmPassword){
-        toast.error("Password Not Match");
-        return;
-      }
-
-      // create object variable to store that all data
-      const newForm = {
-        firstName : fullname[0],
-        lastName : fullname[1],
-        account : accountType,
-        email : data.YourEmail,
-        password : data.YourPassword,
-        confirmPassword : data.confirmPassword,
-      };
-
-      // store in slice
-      console.log(newForm);
-      dispatch(setSignupData(newForm));
-
-      // call send otp function
-      dispatch(sendOTP(data.YourEmail,navigate,setSignupData,newForm));
+    // either we can access from data or getValues()
+    const currData = getValues();
+      
+    // split name
+    const fullname = data.YourName.split(" ");
+      
+    //match password
+    if(data.YourPassword !== data.confirmPassword){
+      toast.error("Password Not Match");
+      return;
     }
+
+    // create object variable to store that all data
+    const newForm = {
+      firstName : fullname[0],
+      lastName : fullname[1],
+      account : accountType,
+      email : data.YourEmail,
+      password : data.YourPassword,
+      confirmPassword : data.confirmPassword,
+    };
+
+    // store in slice
+    console.log(newForm);
+    dispatch(setSignupData(newForm));
+    
+    // call send otp function
+    dispatch(sendOTP(data.YourEmail,navigate,setSignupData,newForm));
+  }
 
   return (
     <div className="relative max-h-screen">
@@ -116,47 +111,47 @@ export const Signup = () => {
       </div>
         <form onSubmit={handleSubmit(submitHandler)} className="w-full flex flex-col gap-3 sm:gap-5">
           <div className=" w-full">
-              <input 
-              id='Name'
-              type="text"
-              placeholder='Enter Your Full Name'
-              {...register("YourName", {required:true})}
-              className='w-full form-style'
+          <input 
+          id='Name'
+          type="text"
+          placeholder='Enter Your Full Name'
+          {...register("YourName", {required:true})}
+          className='w-full form-style'
           />
-              {errors.YourName && (<span>Name is required</span>)}
+          {errors.YourName && (<span className="absolute w-max -translate-x-full -ml-4 mt-3 text-pink-700">Name is required</span>)}
           </div>
 
           <div className=" w-full">
-              <input 
-              id='email'
-              type="email"
-              placeholder='Enter Your Email'
-              {...register("YourEmail", {required:true})}
-              className='w-full form-style'
+          <input 
+          id='email'
+          type="email"
+          placeholder='Enter Your Email'
+          {...register("YourEmail", {required:true})}
+          className='w-full form-style'
           />
-              {errors.YourEmail && (<span>Email is required</span>)}
+          {errors.YourEmail && (<span className="absolute w-max -translate-x-full -ml-4 mt-3 text-pink-700">Email is required</span>)}
           </div>
         
         <div className=" w-full">
-              <input 
-              id='password'
-              type="password"
-              placeholder='Enter Your Password'
-              {...register("YourPassword", {required:true})}
-              className='w-full form-style'
+          <input 
+          id='password'
+          type="password"
+          placeholder='Enter Your Password'
+          {...register("YourPassword", {required:true})}
+          className='w-full form-style'
           />
-              {errors.YourPassword && (<span>Password is required</span>)}
+          {errors.YourPassword && (<span className="absolute w-max -translate-x-full -ml-4 mt-3 text-pink-700">Password is required</span>)}
           </div>
 
         <div className=" w-full">
-              <input 
-              id='confirmPassword'
-              type="password"
-              placeholder='Enter Confirm Password'
-              {...register("confirmPassword", {required:true})}
-              className='w-full form-style'
+          <input 
+          id='confirmPassword'
+          type="password"
+          placeholder='Enter Confirm Password'
+          {...register("confirmPassword", {required:true})}
+          className='w-full form-style'
           />
-              {errors.confirmPassword && (<span>confirmPassword is required</span>)}
+          {errors.confirmPassword && (<span className="absolute w-max -translate-x-full -ml-4 mt-3 text-pink-700">Password is required</span>)}
           </div>
 
         <button type="submit" className='w-full text-yellow-50 text-xl rounded-lg font-bold bg-blue-700 px-4 py-2 mt-2 hover:bg-blue-800 duration-150'>Sign Up</button>

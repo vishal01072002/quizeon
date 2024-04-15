@@ -44,19 +44,37 @@ export const QuizStep1 = () => {
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
 
+  const isPublished = ()=>{
+    const currDate = new Date;
+      if(editQuiz?.status === "Draft") return false;
+      if(editQuiz?.status === "Publish"){
+        if(currDate.toISOString()?.split("T")?.at(0) > editQuiz?.schedule[0]){
+          return true;
+        }
+        else if(currDate.toISOString()?.split("T")?.at(0) === editQuiz?.schedule[0]){
+          if(currDate.toTimeString()?.split(":").slice(0,2)?.join(":") >= editQuiz?.schedule[1]){
+            return true;
+          }
+        }
+      }
+      return false;
+  }
+
   const isChange = (newData,oldData) =>{
-    console.log(newData,oldData);
+    // console.log(newData,oldData);
     if(newData.quizName !== oldData.quizName) return true;
     if(newData.category !== oldData.category) return true;
     if(newData.duration !== oldData.duration) return true;
-    if(newData.access !== oldData.access) return true
+    if(newData.access !== oldData.access) return true;
+    if(newData.scheduleDate !== oldData.schedule[0]) return true;
+    if(newData.scheduleTime !== oldData.schedule[1]) return true;
     return false;
   }
 
   const submitHandler = (data)=>{
     if(!editMode){
       //first time quiz is created 
-      console.log(data);
+      // console.log(data);
       const newData = {...data,email:user.email};
       console.log(newData);
       dispatch(makeQuiz(newData,token));
@@ -75,13 +93,6 @@ export const QuizStep1 = () => {
     }
   }
 
-  const scrolls = () =>{
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth'
-    });
-  }
-
   const publishingQuiz = () => {
     dispatch(publishQuiz({quizId:editQuiz._id},token))
   }
@@ -89,17 +100,20 @@ export const QuizStep1 = () => {
   useEffect(()=>{
     // if edit mode fill the form
     //console.log(editQuiz);
-    console.log(viewMode,editMode);
+    //console.log(viewMode,editMode);
     if((viewMode || editMode) && editQuiz){
       setValue("quizName", editQuiz.quizName);
       setValue("category", editQuiz.category);
       setValue("duration", editQuiz.duration);
       setValue("access", editQuiz.access);
+      setValue("scheduleDate", editQuiz.schedule[0]);
+      setValue("scheduleTime", editQuiz.schedule[1]);
     }
   });
+  
   return (
     <div className='w-full h-full'>
-      <div className='relative flex-col p-5 pr-0 lg:pr-5 w-full gap-5 items-center flex min-h-full  bg-slate-300'>
+      <div className='relative flex-col p-5 pr-0 lg:pr-5 w-full gap-5 items-center flex min-h-full bg-slate-300'>
       <p className='text-xl pl-8 lg:p-0 font-bold'>Make Quiz in very easy & efficient way</p>
         <form onSubmit={handleSubmit(submitHandler)} className='flex flex-col gap-5 p-4 pl-8 lg:pl-4 items-start w-full lg:max-w-[756px]'>
           <label className="quiz-label">
@@ -123,6 +137,7 @@ export const QuizStep1 = () => {
               id="duration"
               disabled={viewMode}
               type="number"
+              defaultValue={15}
               placeholder='duration in Minutes'
               {...register("duration",{require: true,
               valueAsNumber: true,
@@ -195,6 +210,36 @@ export const QuizStep1 = () => {
           )}
           </div>
 
+          <div className='quiz-label'>
+            <p className='text-start'>
+              Schedule the Quiz start Time
+            </p>
+
+            <label className='font-normal'>
+            <input 
+              id="private"
+              name="accessMode"
+              type='date'
+              defaultValue={(new Date)?.toISOString()?.split("T")?.at(0)}
+              className='quiz-input-schedule appearance-none'
+              {...register("scheduleDate",{required:true})}
+            />
+            <input 
+              id="private"
+              name="accessMode"
+              type='time'
+              defaultValue={(new Date).toTimeString()?.split(":").slice(0,2)?.join(":")}
+              className='quiz-input-schedule'
+              {...register("scheduleTime",{required:true})}
+            />
+            
+            </label>
+            {(errors.scheduleDate || errors.scheduleTime) && (
+            <span className="ml-2 text-base font-normal tracking-wide text-pink-800">*ScheduleTime is required
+            </span>
+          )}
+          </div>
+
           {((viewMode || editMode) && editQuiz) && <label className="quiz-label">
               <p>Quiz Link</p>
               <div className='flex w-full gap-4'>
@@ -207,13 +252,13 @@ export const QuizStep1 = () => {
           </label>}
 
           <div className='flex flex-wrap w-full items-center justify-between'>
-            {!viewMode && <button type='submit' className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'>{editMode && editQuiz.status === "Draft"? "Save Changes" : "Next"}</button>}
+            {!viewMode && <button type='submit' className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'>{editMode && !isPublished()? "Save Changes" : "Next"}</button>}
 
-            {editMode && editQuiz.status === "Draft" && <button type='button' onClick={()=>dispatch(setStep(2))} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>Add question</button>}
+            {editMode && !isPublished() && <button type='button' onClick={()=>dispatch(setStep(2))} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>Add question</button>}
             
-            {!viewMode && <button type='button' disabled={editMode && editQuiz.status === "Publish"} onClick={()=> publishingQuiz()} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>{editMode && editQuiz.status === "Publish" ? "Already Published" : "Publish"}</button>}
+            {editMode && editQuiz?.status !== "Publish" && <button type='button' disabled={isPublished()} onClick={()=> publishingQuiz()} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>{"Publish"}</button>}
 
-            <button type='button' onClick={()=>{setShowQues(!showQues); scrolls();}} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && !viewMode && "hidden"}`}>{showQues ? <span className='flex items-center gap-2'><FaChevronUp/>Hide All Question</span> : <span className='flex items-center gap-2'><FaChevronDown/>Show All Question</span>}</button>
+            <button type='button' onClick={()=>{setShowQues(!showQues);}} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && !viewMode && "hidden"}`}>{showQues ? <span className='flex items-center gap-2'><FaChevronUp/>Hide All Question</span> : <span className='flex items-center gap-2'><FaChevronDown/>Show All Question</span>}</button>
           </div>
         </form>
         
