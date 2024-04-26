@@ -3,7 +3,7 @@ const User =  require("../models/User");
 const bcrypt = require("bcrypt");
 const mailsender = require("../utils/mailsernder");
 const passwordReset = require("../utils/mailtemplate/passwordReset");
-const cloudinaryFileUpload = require("../utils/fileUpload")
+const {cloudinaryFileUpload} = require("../utils/fileUpload")
 
 
 // @desc   edit profile information
@@ -114,18 +114,18 @@ exports.resetPassword = async(req,res)=>{
 
 exports.uploadProfile = async(req,res) =>{
     try {
-        const profilePicture = req.file.profilePicture
+        const profilePic = req?.files?.profilePicture
         const userId = req.user.id;
 
-        if(!profilePicture){
+        if(!profilePic){
             return res.status(404).json({
                 success: false,
                 message: "file not found in body",
             });
-        }
+        }        
 
         const image = await cloudinaryFileUpload(
-            profilePicture,
+            profilePic,
             process.env.FOLDER_NAME,
             1000,
             100,

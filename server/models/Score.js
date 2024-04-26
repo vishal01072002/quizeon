@@ -15,6 +15,10 @@ const ScoreSchema = new mongoose.Schema({
         // in minutes:second
         type: String,
     },
+    image:{
+        type:String,
+        trim:true,
+    },
     gender:{
         type:String,
         enum:["Male","Female",null]

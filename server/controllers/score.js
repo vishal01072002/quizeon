@@ -8,10 +8,10 @@ const User = require("../models/User");
 
 exports.createScore = async(req,res) => {
     try {
-        const {quizId, studentId, studentName, completedTime, score, correct, wrong, unAttempted, totalQuestion, gender, totalTime} = req.body;
+        const {quizId, studentId, studentName, completedTime, score, correct, wrong, unAttempted, totalQuestion, gender, totalTime, image} = req.body;
  
         // validation
-        if(!quizId || !studentId || !studentName || !completedTime || (score === undefined || null) || (correct === undefined || null) || (wrong === undefined || null) || (unAttempted === undefined || null) || !totalQuestion || !totalTime || !gender){
+        if(!quizId || !studentId || !studentName || !completedTime || (score === undefined || null) || (correct === undefined || null) || (wrong === undefined || null) || (unAttempted === undefined || null) || !totalQuestion || !totalTime || !gender || !image){
             return res.status(404).json({
                 success: false,
                 message: "fill all details",
@@ -34,7 +34,7 @@ exports.createScore = async(req,res) => {
         const complete = (completedTime[0]).toString() + "," + (completedTime[1]).toString() 
 
         // create entry
-        const newScore = await Score.create({studentId, studentName, completedTime:complete, score, correct, wrong, unAttempted, totalQuestion, totalTime});
+        const newScore = await Score.create({studentId, studentName, completedTime:complete, score, correct, wrong, unAttempted, totalQuestion, totalTime, image});
 
         // add in quiz about new score of student
         const updatedquiz = await Quiz.findByIdAndUpdate({_id: quizId},{

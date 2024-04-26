@@ -13,7 +13,7 @@ export const authEndpoints = {
 export const profileEndpoints = {
     EDIT_PROFILE : BASE_URL + "/user/auth/editprofile",
     RESET_PASSWORD : BASE_URL + "/user/auth/resetpassword",
-    UPLOAD_PROFILE_PICTURE : BASE_URL + "/user/uploadProfile",
+    UPLOAD_PROFILE_PICTURE : BASE_URL + "/user/auth/uploadProfile",
     DELETE_ACCOUNT : BASE_URL
 }
 

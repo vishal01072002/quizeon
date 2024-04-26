@@ -58,12 +58,13 @@ export const resetPassword = (data,token,navigate)=>{
 }
 
 // UPLOAD PROFILE PICTURE
-export const uploadProfilePicture = (data,token,navigate)=>{
+export const uploadProfilePicture = (formData,token,navigate)=>{
     return async(dispatch)=>{
         const toastId = toast.loading("Uploading...");
+        console.log(formData.get("profilePicture"));
         dispatch(setLoading(true));
         try {
-            const response = await apiConnector("PUT",profileEndpoints.UPLOAD_PROFILE_PICTURE,data,
+            const response = await apiConnector("PUT",profileEndpoints.UPLOAD_PROFILE_PICTURE,formData,
             {
                 "Content-Type": "multipart/form-data",
                 Authorization: `bearer ${token}`,

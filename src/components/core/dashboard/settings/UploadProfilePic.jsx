@@ -42,10 +42,10 @@ export const UploadProfilePic = ({profile, altName}) => {
   const handleUpload = async() => {
     setLoading(true);
       try {
-        const data = new FormData();
-        data.append("profilePicture", imgfile);
+        const formData = new FormData();
+        formData.append("profilePicture",imgfile)
         // api call
-        dispatch(uploadProfilePicture(data,token,navigate)).then(() => {
+        dispatch(uploadProfilePicture(formData,token,navigate)).then(() => {
           setLoading(false);
         });
       } catch (error) {
@@ -54,8 +54,11 @@ export const UploadProfilePic = ({profile, altName}) => {
     setLoading(false);
   }
   return (
-    <div className='w-[200px] h-[200px] flex flex-col justify-between bg-gray-500 rounded-md'>
-      <img src={preview || profile} alt={altName} className='w-[200px] bg-contain min-h-[200px] rounded-lg'/>
+    <>
+      <div className='w-[200px] h-[200px] flex flex-col justify-between bg-white rounded-md'>
+      <img src={preview || profile} alt={altName} className='w-[200px] h-[200px] rounded-md object-cover'/>
+      </div>
+
       <input 
         type='file'
         className='hidden'
@@ -63,7 +66,6 @@ export const UploadProfilePic = ({profile, altName}) => {
         onChange={handleFileChange}
         ref={imgInput} 
       />
-
       <div className='flex mt-3 items-center justify-between'>
         <button 
           disabled={loading}
@@ -79,6 +81,6 @@ export const UploadProfilePic = ({profile, altName}) => {
             <FiUpload/>
         </button>
       </div>
-    </div>
+    </>
   )
 }

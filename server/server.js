@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const {connect} = require("./config/database");
+const fileUpload = require("express-fileupload");
 const {cloudinaryConnect} = require("./config/cloudinary")
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -23,6 +24,11 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(fileUpload({
+  useTempFiles:true,
+  tempFileDir:"/temp/",
+}));
 
 app.use(cors({
   origin:"http://localhost:3000",

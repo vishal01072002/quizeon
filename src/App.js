@@ -1,7 +1,6 @@
 import './App.css';
 import { Route,Routes, useLocation } from 'react-router-dom';
 import {Home} from './pages/Home'
-import {Yoho} from './pages/Yoho'
 import {Login} from './pages/Login'
 import {Signup} from './pages/Signup'
 import {OtpVerify} from './pages/OtpVerify'
@@ -45,9 +44,6 @@ function App() {
   },[location.pathname])
   return (
     <div className="App overflow-x-hidden">
-      {/* <Routes>
-      <Route path='/yoho' element={<Yoho/>}/>
-      </Routes> */}
       <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
@@ -80,12 +76,7 @@ function App() {
 
         <Route path='/error' element={<Error/>}/>
         <Route path='/loading' element={<Loader/>}/>
-        {/* <Route path='*' element={<Error/>}/> */}
-
-
-        {/* {user && user.accountType && (<div></div>)} */}
-
-
+        <Route path='*' element={<Error/>}/>
 
         <Route path='/resetpassword' element={<PrivateRoute><ResetPassword/></PrivateRoute>} />
       </Routes>

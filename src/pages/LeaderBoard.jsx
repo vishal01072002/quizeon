@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 
 export const LeaderBoard = () => {
 
+  // handle image for every user
   const location = useLocation();
   const navigate = useNavigate();
   const {quizId, pageNo} = useParams();

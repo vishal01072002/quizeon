@@ -13,6 +13,6 @@ router.post("/auth/editProfile",auth,editProfile);
 router.post("/auth/resetPassword",auth,resetPassword);
 
 // Route for upload profile picture
-router.post("/auth/uploadProfile",auth,uploadProfile);
+router.put("/auth/uploadProfile",auth,uploadProfile);
 
 module.exports = router;

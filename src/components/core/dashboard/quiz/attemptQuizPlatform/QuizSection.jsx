@@ -140,6 +140,7 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
     const data = {
       quizId : quizes._id,
       studentId : user._id, 
+      image : user.image,
       studentName : user?.firstName + " " + user?.lastName,
       completedTime : [completedTimeMin,completedTimeSec], 
       score : score, 
