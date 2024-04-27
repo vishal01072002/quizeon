@@ -1,4 +1,4 @@
-const BASE_URL = "http://127.0.0.1:4000/api/v1";
+const BASE_URL = "https://quizeon.onrender.com/api/v1";
 
 // AUTH ENDPOINTS
 export const authEndpoints = {
