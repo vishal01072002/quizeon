@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form';
 import { OneQues } from './OneQues';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +17,6 @@ export const QuizStep2 = () => {
     register,
     setValue,
     handleSubmit,
-    getValues,
     formState : {errors},
   } = useForm();
 
@@ -53,9 +52,7 @@ export const QuizStep2 = () => {
         if(data.answer === 4){correctAns = data.Option4;}
       }; 
     
-    
       if(!editQuesMode){
-
         // combine all data
         const newData = {
           question:data.question,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import cool from "../assets/coolbackground-1-1@2x.png";
 import hand from "../assets/otp-1.svg"
 import { useDispatch, useSelector } from "react-redux";

@@ -1,5 +1,4 @@
 import React, { memo, useEffect, useMemo, useState } from 'react'
-import { FaChevronRight } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import "./Fiftyfifty.css"
 import { setPerks } from '../../../../../../slice/quizPlatformSlice';
@@ -67,6 +66,7 @@ export const FiftyFifty = memo(({score}) => {
 
   useEffect(() => {
     handleScoreCount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[score]);
   return (
     <div className='text-white'>

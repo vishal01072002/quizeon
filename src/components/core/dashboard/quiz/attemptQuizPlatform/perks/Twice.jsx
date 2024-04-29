@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FaChevronRight} from "react-icons/fa"
 import "./Twice.css"
 import { setPerks } from '../../../../../../slice/quizPlatformSlice'
 
@@ -69,6 +68,7 @@ export const Twice = memo(({streek, setStreek}) => {
 
   useEffect(() => {
     handlePerksCount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[streek])
   return (
     <div className='text-start w-[300px]'>

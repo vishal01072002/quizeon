@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FaChevronDown,FaChevronUp,FaRegEdit } from "react-icons/fa";
+import { FaChevronDown,FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import ConfirmationModal from '../../common/ConfirmModal';
 import { removeQuestion } from '../../../services/operations/quiz';

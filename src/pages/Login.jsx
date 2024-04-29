@@ -4,7 +4,6 @@ import cool from "../assets/coolbackground-1-1@2x.png";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { login } from "../services/operations/auth";
-import { FcGoogle } from "react-icons/fc"
 
 export const Login = () => {
 
@@ -13,7 +12,6 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm();
 

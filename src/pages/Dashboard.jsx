@@ -47,6 +47,7 @@ export const Dashboard = () => {
   ]
   useEffect(()=>{
     dispatch(fetchAllQuiz(token));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
   return (
     <div className='relative min-h-[89vh]'>

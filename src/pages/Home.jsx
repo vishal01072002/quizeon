@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import logo from "../assets/rectangle-11.svg";
 import group5 from "../assets/group-5.svg";
 import rect15 from "../assets/rectangle-15.svg";
 import rect16 from "../assets/rectangle-16.svg";
@@ -7,7 +6,6 @@ import rect17 from "../assets/rectangle-17.svg";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {logOut} from '../slice/authSlice'
-import { toast } from "react-toastify";
 
 export const Home = () => {
 

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import cool from "../assets/coolbackground-1-1@2x.png";
 import hand from "../assets/otp-1.svg"
 import { BsArrowLeft } from "react-icons/bs";
-import { Link ,useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Loader } from "../components/common/Loader";
 import { useForm } from "react-hook-form";
 import { forgotMail } from "../services/operations/auth";
@@ -13,8 +13,6 @@ export const ForgotPassword = () => {
   
   const { loading } = useSelector((state) => state.auth);
   const [sentEmail, setsentEmail] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   function submitHandler(data) {
     const tempdata = {

@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchOneQuiz,deleteQuiz } from '../../../../services/operations/quiz';
 import { Loader } from "../../../common/Loader"
 import { useNavigate } from 'react-router-dom';
 import {FaRegEdit, FaEye, FaChartPie} from "react-icons/fa"
-import { FaChevronDown,FaChevronUp } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import ConfirmationModal from '../../../common/ConfirmModal';
 
@@ -78,7 +78,7 @@ export const InstructorQuiz = () => {
     
     // check for published
     const isPublish = (quiz)=>{
-      const currDate = new Date;
+      const currDate = new Date();
       console.log(currDate.toISOString()?.split("T")?.at(0) >= quiz?.schedule[0] ,
       currDate.toTimeString()?.split(":").slice(0,2)?.join(":") , quiz?.schedule[1]);
       if(quiz?.status === "Draft") return false;

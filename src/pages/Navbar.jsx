@@ -1,12 +1,11 @@
 import React from "react";
 import quizon from "../assets/photo-20230918-114700removebgpreview-1@2x.png";
 import signin from "../assets/sign-1@2x.png";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {setToken,setTokenExpires,logOut} from "../slice/authSlice"
+import {logOut} from "../slice/authSlice"
 import {setUser} from "../slice/profileSlice"
 import { toast } from "react-toastify";
-import {FiMenu} from "react-icons/fi"
 
 export const Navbar = () => {
 

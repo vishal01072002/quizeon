@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { FaEye, FaRegEdit } from 'react-icons/fa';
-import { MdDelete } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,7 +29,6 @@ export const QuizList = ({quizes,parentName}) => {
     
     const {allQuiz} = useSelector((state) => state.viewQuiz);
     const navigate = useNavigate();
-    const [modal,setModal] = useState(null);
     const [data,setData] = useState(quizes);
     const [filters, setFilters] = useState({
       category: "All",

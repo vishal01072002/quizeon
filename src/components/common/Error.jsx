@@ -1,5 +1,4 @@
 import ErrorSvg from "../../assets/404_page_cover.jpg";
-import { Link } from "react-router-dom";
 
 export default function Error() {
   return (

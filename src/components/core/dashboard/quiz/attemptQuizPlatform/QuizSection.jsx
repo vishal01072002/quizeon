@@ -1,6 +1,5 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import { FaRegCircleCheck, FaRegCircleXmark} from "react-icons/fa6"
 import { QuizTimer } from './QuizTimer';
 import { setPerks, setQuizStatus } from '../../../../../slice/quizPlatformSlice';
@@ -10,7 +9,7 @@ import { submitQuiz } from '../../../../../services/operations/quiz';
 
 export const QuizSection = memo(({setShowScores, warningCount, setWarningCount}) => {
 
-  const {quizes, quizStatus, perks, warnCount} = useSelector((state) => state.quizPlatform);
+  const {quizes, quizStatus, perks} = useSelector((state) => state.quizPlatform);
   const {user} = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 

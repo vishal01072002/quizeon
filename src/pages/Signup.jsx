@@ -13,7 +13,6 @@ export const Signup = () => {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm();
 
@@ -22,7 +21,7 @@ export const Signup = () => {
   const[accountType,setAccountType] = useState("Student");
   const submitHandler = async(data)=> {
     // either we can access from data or getValues()
-    const currData = getValues();
+    // const currData = getValues();
       
     // split name
     const fullname = data.YourName.split(" ");

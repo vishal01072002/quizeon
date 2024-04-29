@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import cool from "../assets/coolbackground-1-1@2x.png";
 import hand from "../assets/otp-1.svg"
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Loader } from "../components/common/Loader";
@@ -10,9 +10,8 @@ import { updatePassword } from "../services/operations/auth";
 
 export const UpdatePassword = () => {
 
-  const {loading, user} = useSelector((state) => state.profile);
+  const {loading} = useSelector((state) => state.profile);
   const {userToken} = useParams();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const {register, handleSubmit, formState : {errors}} = useForm();
   

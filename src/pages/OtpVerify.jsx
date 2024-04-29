@@ -9,7 +9,7 @@ import { setSignupData } from "../slice/authSlice";
 
 export const OtpVerify = () => {
 
-  const {loading, signupData} = useSelector((state) => state.auth);
+  const {signupData} = useSelector((state) => state.auth);
   const [otp, setOtp] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 function useIsTabOpen() {
   const [isTabOpen, setIsTabOpen] = useState(!document.hidden);

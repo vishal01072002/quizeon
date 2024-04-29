@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { makeQuiz, publishQuiz, updateQuiz } from '../../../services/operations/quiz';
-import { useNavigate } from 'react-router-dom';
 import { FaChevronDown,FaChevronUp } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import { setStep } from '../../../slice/quizSlice';
@@ -32,20 +31,18 @@ export const QuizStep1 = () => {
     register,
     setValue,
     handleSubmit,
-    getValues,
     formState : {errors},
   } = useForm();
 
   const {token} = useSelector((state) => state.auth);
   const {user} = useSelector((state) => state.profile);
-  const {step, editMode, viewMode, editQuiz} = useSelector((state) => state.quiz);
+  const {editMode, viewMode, editQuiz} = useSelector((state) => state.quiz);
   const dispatch = useDispatch();
   const [showQues, setShowQues] = useState(false);
   const [copied, setCopied] = useState(false);
-  const navigate = useNavigate();
 
   const isPublished = ()=>{
-    const currDate = new Date;
+    const currDate = new Date();
       if(editQuiz?.status === "Draft") return false;
       if(editQuiz?.status === "Publish"){
         if(currDate.toISOString()?.split("T")?.at(0) > editQuiz?.schedule[0]){

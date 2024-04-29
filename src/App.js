@@ -41,6 +41,7 @@ function App() {
       dispatch(setQues(null));
       dispatch(setQuiz(null));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[location.pathname])
   return (
     <div className="App overflow-x-hidden">

@@ -4,7 +4,6 @@ import { useLocation, useParams } from 'react-router-dom';
 import { IoWarning } from "react-icons/io5"
 import { MdOutlineZoomOutMap, MdLaptopMac} from "react-icons/md"
 import { BsPersonX } from "react-icons/bs"
-import { toast } from 'react-toastify';
 import { setPlatformQuiz, setQuizStatus } from '../../../../../slice/quizPlatformSlice';
 import { fetchAttemptQuiz } from '../../../../../services/operations/quiz';
 import isTabOpen from "./useIsTabOpen";

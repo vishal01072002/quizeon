@@ -2,7 +2,6 @@ import { toast } from "react-toastify"
 import {apiConnector} from "../apiConnector"
 import {profileEndpoints} from "../apis"
 import { setLoading, setUser } from "../../slice/profileSlice"
-import { useSelector } from "react-redux"
 
 // EDIT PROFILE API
 export const editProfile = (data,token,cancelEditMode)=>{

@@ -31,13 +31,15 @@ export const QuizTimer = ({duration,setRemainTime,isLastQuesSelected,handleSubmi
     if(min === 0 && sec === 0){
       handleSubmitQuiz();
     }
-  },[sec]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sec]);
 
   useEffect(() => {
     if(isLastQuesSelected){
       setRemainTime([min,sec])
     }
-  },[isLastQuesSelected]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLastQuesSelected]);
   return (
     <div className='flex flex-col xs:flex-row items-center gap-0 xs:gap-2 bg-slate-300 py-2 xs:py-[4px] px-1 xs:pl-2 rounded-sm'>
       <p>Time Left</p>

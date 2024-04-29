@@ -7,17 +7,6 @@ import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 import { GiClick } from "react-icons/gi"
 import { UploadProfilePic } from './settings/UploadProfilePic'
-
-const dummy = {
-    firstName:"Vishal",
-    lastName:"Prajapati",
-    email:"vishalbavakumar0000@gmail.com",
-    about:"I am vishal ,currently doing web development (MERN Stack) from codehelp teach us by Love Babbar",
-    gender:"Male",
-    number:"6969696969",
-    dateOfBirth:"01/04/2003"
-}
-
  
 export const Profile = () => {
     // featch user info from slice
