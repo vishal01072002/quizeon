@@ -11,7 +11,7 @@ export const editProfile = (data,token,cancelEditMode)=>{
         try {
             const response = await apiConnector("POST",profileEndpoints.EDIT_PROFILE,data,{Authorization: `bearer ${token}`});
 
-            console.log("EDITPROFILE API RESPONSE............", response);
+            // console.log("EDITPROFILE API RESPONSE............", response);
 
           if(! response.data.success){
               throw new Error(response.data.message);
@@ -22,7 +22,7 @@ export const editProfile = (data,token,cancelEditMode)=>{
           cancelEditMode();
 
         } catch (error) {
-            console.log("EDITPROFILE API ERROR............", error);
+            // console.log("EDITPROFILE API ERROR............", error);
             toast.error(error.response.data.message);
         }
         dispatch(setLoading(false));
@@ -38,7 +38,7 @@ export const resetPassword = (data,token,navigate)=>{
         try {
             const response = await apiConnector("POST",profileEndpoints.RESET_PASSWORD,data,{Authorization: `bearer ${token}`});
 
-            console.log("RESET PASSWORD API RESPONSE............", response);
+            // console.log("RESET PASSWORD API RESPONSE............", response);
 
           if(! response.data.success){
               throw new Error(response.data.message);
@@ -47,7 +47,7 @@ export const resetPassword = (data,token,navigate)=>{
           toast.success("Password Updated Sucessful");
 
         } catch (error) {
-            console.log("RESET PASSWORD API ERROR............", error);
+            // console.log("RESET PASSWORD API ERROR............", error);
             toast.error(error.response.data.message);
         }
         navigate("/dashboard/profile");
@@ -60,7 +60,7 @@ export const resetPassword = (data,token,navigate)=>{
 export const uploadProfilePicture = (formData,token,navigate)=>{
     return async(dispatch)=>{
         const toastId = toast.loading("Uploading...");
-        console.log(formData.get("profilePicture"));
+        // console.log(formData.get("profilePicture"));
         dispatch(setLoading(true));
         try {
             const response = await apiConnector("PUT",profileEndpoints.UPLOAD_PROFILE_PICTURE,formData,
@@ -69,7 +69,7 @@ export const uploadProfilePicture = (formData,token,navigate)=>{
                 Authorization: `bearer ${token}`,
             });
 
-            console.log("UPLOAD PROFILE PICTURE API RESPONSE............", response);
+            // console.log("UPLOAD PROFILE PICTURE API RESPONSE............", response);
 
           if(! response.data.success){
               throw new Error(response.data.message);
@@ -80,7 +80,7 @@ export const uploadProfilePicture = (formData,token,navigate)=>{
           }
 
         } catch (error) {
-            console.log("UPLOAD PROFILE PICTURE API ERROR............", error);
+            // console.log("UPLOAD PROFILE PICTURE API ERROR............", error);
             toast.error(error.response.data.message);
         }
         navigate("/dashboard/profile");

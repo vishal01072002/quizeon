@@ -27,7 +27,7 @@ export const Home = () => {
     <>
     <div className="m-0 p-0 w-[100vw] ">
       {/* bg-gradient-to-r from-[#5B32B5] via-[#5b36a5] to-[#8169b3] */}
-      <div className="w-full h-full overflow-hidden pt-10 min-h-[88.5vh] relative z-10">
+      <div className="w-full h-full overflow-hidden pt-10 min-h-[89.5vh] relative z-10">
 
         {/* <img loading="lazy" className="max-w-[100vw] inset-0 absolute -z-10" src={logo}/> */}
         <div className="inset-0 absolute -z-10 bg-gradient-to-r from-[#5B32B5] to-[#7452bd]"></div>

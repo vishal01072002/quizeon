@@ -93,7 +93,6 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
   const handleFiftyPerks = () =>{
     if(perks[0] === true && fiftyOption[0] === null && fiftyOption[1] === true){
       // 50-50 activated
-      console.log("called 2");
       const currOptions = questions[currentQuestion].options;
       const correctOption = questions[currentQuestion].correct;
       const newOptions = currOptions.filter((oneOption) => oneOption !== correctOption);
@@ -104,7 +103,7 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
       }
       setFiftyOption([filteredOption,false]); 
     }
-    if(perks[0] == false){
+    if(perks[0] === false){
       setFiftyOption([null,true]);
     }
   }
@@ -133,7 +132,7 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
     dispatch(setQuizStatus("End"));
     setWarningCount(0);
     setShowScores([null,score]);
-    console.log(remainTime);
+    // console.log(remainTime);
     const completedTimeSec = (remainTime[1] !== 0) ? 60 - remainTime[1] : 0;
     const completedTimeMin = (remainTime[1] === 0) ? quizes.duration - remainTime[0] : quizes.duration - remainTime[0] - 1;
     const data = {
@@ -150,7 +149,7 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
       totalQuestion : quizes.questions.length,
       totalTime : [quizes.duration,0],
     }
-    console.log(data);
+    // console.log(data);
     await submitQuiz(data,dispatch);
   }
 
@@ -158,6 +157,7 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
     if(selectedOption === ""){
       handleFiftyPerks();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[perks])
 
   useEffect(() => {
@@ -165,6 +165,7 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
       handleSubmitQuiz();
       // console.log("Submit");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[warningCount]);
 
   return (

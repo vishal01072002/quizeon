@@ -37,12 +37,13 @@ export const LeaderBoard = () => {
     setLoading(true);
     const result = await leaderBoardQuiz({quizId:quizId,pageNo:pageNo});
     setLeaderBoardData(result);
-    console.log(result);
+    // console.log(result);
     setLoading(false);
   }
 
   useEffect(()=>{
     fetLeaderBoardQuiz();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[location.pathname])
   return (
     <>

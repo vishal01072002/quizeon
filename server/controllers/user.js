@@ -15,7 +15,7 @@ const passwordReset = require("../utils/mailtemplate/passwordReset");
 exports.sendOtp = async(req,res)=> {
     try {
         const {email} = req.body;
-        console.log(email);
+        // console.log(email);
     if(!email){
         return res.status(400).json({
             success: false,
@@ -24,7 +24,7 @@ exports.sendOtp = async(req,res)=> {
     }
 
     const {otp,otpToken} = createOtp(email);
-    console.log(otp,otpToken);
+    // console.log(otp,otpToken);
 
     // if user exist then cant signup
     const user = await User.findOne({email:email});
@@ -83,7 +83,6 @@ exports.signup = async (req,res) => {
   try {
     const { firstName, lastName, email, password, confirmPassword, account, otp, otpToken} = req.body;
 
-    console.log("signup",otp,otpToken,firstName, lastName, email, password, confirmPassword, account);
     // validations on data
     if (
       !firstName ||
@@ -197,7 +196,6 @@ exports.login = async (req,res) => {
     try {
       const {email, password, account} = req.body;
       
-      console.log(email,password,account);
       // validations on data
       if (
         !email ||

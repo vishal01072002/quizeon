@@ -51,7 +51,7 @@ exports.makeQuiz = async(req,res)=>{
         });
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return res.status(400).json({
             success:false,
             message:"internal server error in create quiz",
@@ -74,7 +74,7 @@ exports.updateQuiz = async(req,res)=>{
         
         if(status === "Publish"){
             const currDate = new Date;
-            console.log(currDate.toISOString()?.split("T")?.at(0) , quiz?.schedule[0]);
+            // console.log(currDate.toISOString()?.split("T")?.at(0) , quiz?.schedule[0]);
 
             if(currDate.toISOString()?.split("T")?.at(0) > quiz?.schedule[0]){
                 return res.status(500).json({
@@ -107,7 +107,7 @@ exports.updateQuiz = async(req,res)=>{
         });
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return res.status(400).json({
             success:false,
             message:"internal server error in update quiz",
@@ -134,7 +134,7 @@ exports.publishQuiz = async(req,res)=>{
         });
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return res.status(400).json({
             success:false,
             message:"internal server error in publish quiz",
@@ -184,7 +184,7 @@ exports.fetchAllQuiz = async(req,res)=>{
         });
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return res.status(400).json({
             success:false,
             message:"internal server error in fetching all quiz",
@@ -217,7 +217,7 @@ exports.fetchOneQuiz = async(req,res)=>{
         });
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return res.status(400).json({
             success:false,
             message:"internal server error in fetching one quiz",
@@ -278,7 +278,7 @@ exports.deleteQuiz = async(req,res)=>{
         });
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return res.status(400).json({
             success:false,
             message:"internal server error in deleting quiz",

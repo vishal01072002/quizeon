@@ -20,17 +20,16 @@ export const ForgotPassword = () => {
     };
 
     forgotMail(tempdata,sentEmail);
-    console.log(data,tempdata);
+    // console.log(data,tempdata);
   }
   return (
-      <div className="relative">
-        <div className="relative max-h-screen">{
+        <div className="relative min-h-screen">{
         loading ? <Loader/> :
          <>
-         <div className="max-h-screen flex w-full">
+         <div className="max-h-[90vh] flex w-full">
                 <img
                 loading="lazy"
-                className="min-h-screen sm:max-h-[90vh] rounded-8xs w-1/2 object-cover"
+                className="min-h-[90vh] sm:max-h-[90vh] rounded-8xs w-1/2 object-cover"
                 alt=""
                 src={cool}
                 />
@@ -54,7 +53,7 @@ export const ForgotPassword = () => {
 
             <img loading="lazy" className="absolute left-1/2 mt-6 -translate-x-1/2 w-28 sm:w-36 top-0" src={hand} alt="background"/>
 
-            <div className="absolute bg-slate-50 left-1/2 -translate-x-1/2 w-[95vw] sm:max-w-[512px] px-4 sm:px-8 py-8 top-[160px] sm:top-[175px] rounded-md flex flex-col gap-5 items-center justify-between">
+            <div className="absolute bg-slate-50 left-1/2 -translate-x-1/2 w-[95vw] sm:max-w-[560px] px-4 sm:px-8 mb-3 py-8 top-[160px] sm:top-[175px] rounded-md flex flex-col gap-5 items-center justify-between">
 
               <p className="text-4xl sm:text-5xl font-bold text-blue-700">{!sentEmail ? "Reset Your Password" : "Check Email"}</p>
               <p className="text-lg -mt-2 mb-3 text-sky-900">{!sentEmail ? "Have no fear. We will email you instructions to reset your password.If you dont have access to your email we can try account recovery." : `We have sent the reset email to Your email} `}</p>
@@ -85,7 +84,5 @@ export const ForgotPassword = () => {
             
             
          </>
-        }</div>
-    </div>
-  );
+        }</div>);
 };

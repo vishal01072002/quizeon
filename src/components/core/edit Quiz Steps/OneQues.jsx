@@ -44,13 +44,14 @@ function removeOption(){
   useEffect( ()=> {
     if(editQues){
         // console.log(editQues);
-        console.log(check);
+        // console.log(check);
         setValue("question", editQues.question);
         editQues.options.forEach((element,indx) => {
           setValue("answer", check);
           setValue(`Option${indx+1}`,element);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[editQues])
   return (
     <>

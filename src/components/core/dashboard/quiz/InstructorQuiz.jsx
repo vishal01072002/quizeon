@@ -79,8 +79,7 @@ export const InstructorQuiz = () => {
     // check for published
     const isPublish = (quiz)=>{
       const currDate = new Date();
-      console.log(currDate.toISOString()?.split("T")?.at(0) >= quiz?.schedule[0] ,
-      currDate.toTimeString()?.split(":").slice(0,2)?.join(":") , quiz?.schedule[1]);
+      // console.log(currDate.toISOString()?.split("T")?.at(0) >= quiz?.schedule[0] , currDate.toTimeString()?.split(":").slice(0,2)?.join(":") , quiz?.schedule[1]);
       if(quiz?.status === "Draft") return false;
       if(quiz?.status === "Publish"){
         if(currDate.toISOString()?.split("T")?.at(0) > quiz?.schedule[0]){
@@ -106,11 +105,12 @@ export const InstructorQuiz = () => {
     
     function deleteQuizz(quizId){
       dispatch(deleteQuiz({quizId:quizId},token));
+      setModal(null);
     }
 
     function dateModify(dates){
       let newDate = dates.split("T")[0].split("-");
-      let formatedDate = "" + newDate[2] + " /" + newDate[1] + " /" + newDate[0]; 
+      let formatedDate = "" + newDate[2] + "/" + newDate[1] + "/" + newDate[0]?.split("")?.slice(2,4)?.join(""); 
       return formatedDate;
     }
 
@@ -120,13 +120,13 @@ export const InstructorQuiz = () => {
 
   return (
     <div className='min-h-[89vh] w-full'>
-        MyQuiz
+    <p className='pl-12 pt-3 text-2xl md:text-3xl font-medium text-left'>Dashboard/MyQuiz</p>
     {
         loading ? <Loader/> : 
         <>
            { (!data) ? <p>Not Quiz Yet first create one</p> : 
             <>
-            <div className='pl-8 xxs:hidden flex gap-3 xs:gap-5 justify-center'>
+            <div className='pl-8 xxs:hidden flex gap-3 mt-5 mb-3 xs:gap-5 justify-center'>
             <div className='py-1 relative'>
               <span>Category</span> 
               <select
@@ -163,7 +163,7 @@ export const InstructorQuiz = () => {
             </div>
             <table className='ml-12 w-[86%] xs:w-[89%] xxs:w-11/12 md:w-[93%] lg:w-[95%] mx-auto rounded-md h-full'>
                 <tr className='text-start text-xl h-[50px] font-medium gap-3 border-b-[12px] border-white bg-slate-800 text-gray-100'>
-                    <td className='pl-2'>QuizName</td>
+                    <td className='pl-2 font-normal text-lg xs:text-xl xs:font-medium'>QuizName</td>
                     <td className='relative hidden xxs:table-cell'>
                       <span>Category</span> 
                       <select
@@ -199,7 +199,7 @@ export const InstructorQuiz = () => {
                     </td>
 
                     <td className='py-2 relative'>
-                      <span>Created</span>
+                      <span className='font-normal text-lg xs:text-xl xs:font-medium'>Created</span>
                       <select
                         className="my-quiz-input absolute"
                         name='created'
@@ -214,9 +214,9 @@ export const InstructorQuiz = () => {
                       </select>
                     </td>
                     <td className='py-2 hidden sm:block'>Duration</td>
-                    <td className='py-2 text-center'>Options</td>
+                    <td className='py-2 font-normal text-lg xs:text-xl xs:font-medium text-center'>Options</td>
                 </tr>
-                {data.length !== 0 && data.map((quiz,index) => (<tr className={`text-start text-lg font-semibold border-b-8 border-white px-4 ${index&1 ? "bg-gray-300" : "bg-gray-200"}`} key={index}>
+                {data.length !== 0 && data.map((quiz,index) => (<tr className={`text-start text-base xxs:text-lg font-normal xxs:font-semibold border-b-8 border-white px-4 ${index&1 ? "bg-gray-300" : "bg-gray-200"}`} key={index}>
                     <td className='pl-3'>{index+1}. {quiz.quizName}</td>
                     <td className='py-2 hidden xxs:table-cell'>{quiz.category}</td>
                     <td className='py-2 hidden xxs:table-cell'>{quiz.status}</td>
@@ -225,20 +225,20 @@ export const InstructorQuiz = () => {
                     <td className='py-2  content-start' >
                         <div className='flex justify-around'>
                         <button onClick={()=> viewQuiz(quiz._id)} className=' w-min rounded-md relative group'>
-                          <FaEye className='text-blue-800' size={23}/>
+                          <FaEye className='text-blue-800 text-xl sm:text-2xl'/>
                           <div className='invisible opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100'>
                             <div className='h-4 absolute left-1 -top-5 w-4 rotate-45 bg-white cursor-default '></div><span className='absolute w-max bg-white cursor-default text-gray-700 font-normal px-2 -top-10 -right-8 rounded-lg'>View Quiz</span>
                           </div>
                         </button>
 
                         {!isPublish(quiz) ? <button onClick={()=> editQuiz(quiz._id)} className='w-min rounded-md relative group'>
-                          <FaRegEdit className='text-green-700' size={21}/>
+                          <FaRegEdit className='text-green-700 text-xl'/>
                           <div className='invisible opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100'>
                             <div className='h-4 absolute left-1 -top-5 w-4 rotate-45 bg-white cursor-default '></div><span className='absolute w-max bg-white cursor-default text-gray-700 font-normal px-2 -top-10 -right-8 rounded-lg'>edit Quiz</span>
                           </div>  
                         </button> : 
                         <button className='w-min rounded-md relative group' onClick={() => navigate(`/analytic/${quiz._id}`)}>
-                          <FaChartPie className='text-purple-500'/>
+                          <FaChartPie className='text-purple-500 text-lg sm:text-xl'/>
                           <div className='invisible opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100'>
                             <div className='h-4 absolute left-1 -top-5 w-4 rotate-45 bg-white cursor-default '></div><span className='absolute w-max bg-white cursor-default text-gray-700 font-normal px-2 -top-10 -right-14 rounded-lg'>Analyse Quiz</span>
                           </div>
@@ -252,7 +252,7 @@ export const InstructorQuiz = () => {
                                 btn2Text: "Cancel",
                                 btn1Handler: () => deleteQuizz(quiz._id),
                                 btn2Handler: () => setModal(null)})
-                        } className=' w-min rounded-md'><MdDelete size={23} className='text-red-600'/></button>
+                        } className=' w-min rounded-md'><MdDelete className='text-red-600 text-xl sm:text-2xl'/></button>
                         </div>
                     </td>
                 </tr>))}

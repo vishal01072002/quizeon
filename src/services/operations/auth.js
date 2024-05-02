@@ -13,7 +13,7 @@ export function sendOTP(email,navigate,setSignupData,newForm){
 
       try {
           const response = await apiConnector("POST",authEndpoints.SENDOTP_API, {email});
-          console.log("SENDOTP API RESPONSE............", response);
+          // console.log("SENDOTP API RESPONSE............", response);
 
           if(! response.data.success){
             throw new Error(response.data.message);
@@ -25,9 +25,9 @@ export function sendOTP(email,navigate,setSignupData,newForm){
 
           navigate("/otpverify");
       } catch (error) {
-          console.log("SENDOTP API ERROR............", error);
+          // console.log("SENDOTP API ERROR............", error);
           toast.error("Could Not Send OTP");
-          console.log(error);
+          // console.log(error);
       }
       dispatch(setLoading(false));
       toast.dismiss(toastId);
@@ -43,7 +43,7 @@ export const signup = (signupUpdated,navigate)=>{
 
     try {
       const response = await apiConnector("POST",authEndpoints.SIGNUP_API,signupUpdated);
-        console.log("SENDOTP API RESPONSE............", response);
+        // console.log("SENDOTP API RESPONSE............", response);
 
         if(! response.data.success){
           throw new Error(response.data.message);
@@ -52,9 +52,9 @@ export const signup = (signupUpdated,navigate)=>{
         toast.success("Signup Successfully");
         navigate("/login");
     } catch (error) {
-      console.log("SIGNUP API ERROR............", error);
+      // console.log("SIGNUP API ERROR............", error);
       toast.error(error.data.message);
-      console.log(error);
+      // console.log(error);
     }
     dispatch(setLoading(false));
     toast.dismiss(toastId);
@@ -69,7 +69,7 @@ export const login = (data,navigate) => {
     
     try {
       const response = await apiConnector("POST",authEndpoints.LOGIN_API,data);
-      console.log("LOGIN API RESPONSE \n", response);
+      // console.log("LOGIN API RESPONSE \n", response);
       
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -90,7 +90,7 @@ export const login = (data,navigate) => {
       navigate("/dashboard/profile");
       
     } catch (error) {
-      console.log("LOGIN API ERROR............", error);
+      // console.log("LOGIN API ERROR............", error);
       toast.error(error.response.data.message);
     }
     
@@ -102,17 +102,17 @@ export const forgotMail = async(data,sentEmail)=>{
   const toastId = toast.loading("Loading");
   try {
     const response = await apiConnector("POST",authEndpoints.FORGOTPASWORD_API,data);
-      console.log("FORGOT PASWORD API RESPONSE \n", response);
+      // console.log("FORGOT PASWORD API RESPONSE \n", response);
       
       if (!response.data.success) {
         throw new Error(response.data.message);
       }
       
-      console.log(response.data.url);
+      // console.log(response.data.url);
       toast.success("Check Your Email");
 
   } catch (error) {
-    console.log("FORGOT PASWORD API ERROR............", error);
+    // console.log("FORGOT PASWORD API ERROR............", error);
     toast.error(error.response.data.message);
   }
   toast.dismiss(toastId);
@@ -122,7 +122,7 @@ export const updatePassword = async(data,navigate)=>{
   const toastId = toast.loading("Loading");
   try {
     const response = await apiConnector("POST",authEndpoints.UPDATEPASSWORD_API,data);
-      console.log("UPDATE PASWORD API RESPONSE \n", response);
+      // console.log("UPDATE PASWORD API RESPONSE \n", response);
       
       if (!response.data.success) {
         toast.error(response.data.message);
@@ -132,7 +132,7 @@ export const updatePassword = async(data,navigate)=>{
       toast.success("Password Updated Sucessful");
 
   } catch (error) {
-    console.log("UPDATE PASWORD API ERROR............", error);
+    // console.log("UPDATE PASWORD API ERROR............", error);
     toast.error(error.response.data.message);
   }
   toast.dismiss(toastId);

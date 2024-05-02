@@ -49,7 +49,7 @@ export const UploadProfilePic = ({profile, altName}) => {
           setLoading(false);
         });
       } catch (error) {
-        console.log(error.message);
+        // console.log(error.message);
       }
     setLoading(false);
   }

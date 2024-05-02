@@ -8,19 +8,20 @@ import { setQuizPlatformLoading } from "../../slice/quizPlatformSlice";
 
 
 // MAKE QUIZ API
-export const makeQuiz = (data,token)=>{
+export const makeQuiz = (data,token,allQuiz)=>{
     return async(dispatch)=>{
         const toastId = toast.loading("Loading");
         //dispatch(setLoading(true));
         try {
             const response = await apiConnector("POST",quizEndpoints.MAKE_QUIZ,data,{Authorization: `bearer ${token}`});
 
-            console.log("MAKEQUIZ API RESPONSE............", response);
+            // console.log("MAKEQUIZ API RESPONSE............", response);
 
           if(! response.data.success){
               throw new Error(response.data.message);
           }
 
+          dispatch(setViewQuiz([...allQuiz,response?.data?.quiz]))
           dispatch(setQuiz(response.data.quiz));
           dispatch(setEditMode(true));
           dispatch(setStep(2));
@@ -28,7 +29,7 @@ export const makeQuiz = (data,token)=>{
           //cancelEditMode();
 
         } catch (error) {
-            console.log("MAKEQUIZ API ERROR............", error);
+            // console.log("MAKEQUIZ API ERROR............", error);
             toast.error(error.response.data.message);
         }
         //dispatch(setLoading(false));
@@ -44,7 +45,7 @@ export const updateQuiz = (data,token)=>{
         try {
             const response = await apiConnector("POST",quizEndpoints.UPDATE_QUIZ,data,{Authorization: `bearer ${token}`});
 
-            console.log("UPDATE QUIZ API RESPONSE............", response);
+            // console.log("UPDATE QUIZ API RESPONSE............", response);
 
           if(! response.data.success){
               throw new Error(response.data.message);
@@ -55,7 +56,7 @@ export const updateQuiz = (data,token)=>{
           toast.success("Quiz Updated Sucessful");
 
         } catch (error) {
-            console.log("UPDATE QUIZ API ERROR............", error);
+            // console.log("UPDATE QUIZ API ERROR............", error);
             toast.error(error.response.data.message);
         }
         dispatch(setEditQuizLoading(false));
@@ -71,7 +72,7 @@ export const publishQuiz = (data,token)=>{
         try {
             const response = await apiConnector("POST",quizEndpoints.PUBLISH_QUIZ,data,{Authorization: `bearer ${token}`});
 
-            console.log("PUBLISH QUIZ API RESPONSE............", response);
+            // console.log("PUBLISH QUIZ API RESPONSE............", response);
 
           if(! response.data.success){
               throw new Error(response.data.message);
@@ -82,7 +83,7 @@ export const publishQuiz = (data,token)=>{
           toast.success("Quiz Publish Sucessful");
 
         } catch (error) {
-            console.log("PUBLISH QUIZ API ERROR............", error);
+            // console.log("PUBLISH QUIZ API ERROR............", error);
             toast.error(error.response.data.message);
         }
         dispatch(setEditQuizLoading(false));
@@ -98,7 +99,7 @@ export const deleteQuiz = (data,token)=>{
         try {
             const response = await apiConnector("POST",quizEndpoints.DELETE_QUIZ,data,{Authorization: `bearer ${token}`});
 
-            console.log("DELETE QUIZ API RESPONSE............", response);
+            // console.log("DELETE QUIZ API RESPONSE............", response);
 
           if(! response.data.success){
               throw new Error(response.data.message);
@@ -108,7 +109,7 @@ export const deleteQuiz = (data,token)=>{
           toast.success("Quiz Deleted Sucessful");
 
         } catch (error) {
-            console.log("DELETE QUIZ API ERROR............", error);
+            // console.log("DELETE QUIZ API ERROR............", error);
             toast.error(error.response.data.message);
         }
         //dispatch(setLoading(false));
@@ -124,7 +125,7 @@ export const fetchAllQuiz = (token)=>{
         try {
             const response = await apiConnector("POST",quizEndpoints.FETCH_ALL_QUIZ,null,{Authorization: `bearer ${token}`});
 
-            console.log("FETCH ALL QUIZ API RESPONSE............", response);
+            // console.log("FETCH ALL QUIZ API RESPONSE............", response);
 
           if(! response.data.success){
               throw new Error(response.data.message);
@@ -135,7 +136,7 @@ export const fetchAllQuiz = (token)=>{
           //toast.success("Quiz fetched Sucessful");
           
         } catch (error) {
-            console.log("Fetch All QUIZ API ERROR............", error);
+            // console.log("Fetch All QUIZ API ERROR............", error);
             toast.error(error.response.data.message);
         }
         dispatch(setLoading(false));
@@ -152,7 +153,7 @@ export const fetchOneQuiz = (data,navigate,isViewMode)=>{
         try {
             const response = await apiConnector("POST",quizEndpoints.FETCH_ONE_QUIZ,data);
 
-            console.log("FETCH ONE QUIZ API RESPONSE............", response);
+            // console.log("FETCH ONE QUIZ API RESPONSE............", response);
 
           if(! response.data.success){
               throw new Error(response.data.message);
@@ -171,7 +172,7 @@ export const fetchOneQuiz = (data,navigate,isViewMode)=>{
           toast.success(response.data.message);
 
         } catch (error) {
-            console.log("FETCH ONE QUIZ API ERROR............", error);
+            // console.log("FETCH ONE QUIZ API ERROR............", error);
             toast.error(error.response.data.message);
         }
         dispatch(setLoading(false));
@@ -187,7 +188,7 @@ export const fetchQuizes = async(token,pageNo)=>{
     try {
         const response = await apiConnector("POST",quizEndpoints.FETCH_QUIZES,{pageNo:pageNo},{Authorization: `bearer ${token}`});
 
-        console.log("FETCH QUIZES API RESPONSE............", response);
+        // console.log("FETCH QUIZES API RESPONSE............", response);
 
         if(! response.data.success){
             throw new Error(response.data.message);
@@ -197,7 +198,7 @@ export const fetchQuizes = async(token,pageNo)=>{
             result[1] = (response.data.totalPages);
         }
     } catch (error) {
-        console.log("FETCH QUIZES API ERROR............", error);
+        // console.log("FETCH QUIZES API ERROR............", error);
         toast.error(error.response.data.message);
     }
     
@@ -212,7 +213,7 @@ export const fetchAttemptQuiz = async(data,token) => {
     try {
         const response = await apiConnector("POST",quizEndpoints.FETCH_ATTEMPT_QUIZ,data,{Authorization: `bearer ${token}`});
 
-        console.log("FETCH ATTEMPT QUIZES API RESPONSE............", response);
+        // console.log("FETCH ATTEMPT QUIZES API RESPONSE............", response);
 
         if(! response.data.success){
             throw new Error(response.data.message);
@@ -221,7 +222,7 @@ export const fetchAttemptQuiz = async(data,token) => {
             result = (response.data.quiz);
         }
     } catch (error) {
-        console.log("FETCH ATTEMPT QUIZES API ERROR............", error);
+        // console.log("FETCH ATTEMPT QUIZES API ERROR............", error);
         toast.error(error.response.data.message);
     }
     toast.dismiss(toastId);
@@ -236,7 +237,7 @@ export const addQuestion = (data,navigate)=>{
         try {
             const response = await apiConnector("POST",questionEndpoints.ADD_QUES,data);
 
-            console.log("ADD QUES API RESPONSE............", response);
+            // console.log("ADD QUES API RESPONSE............", response);
 
           if(! response.data.success){
               throw new Error(response.data.message);
@@ -248,7 +249,7 @@ export const addQuestion = (data,navigate)=>{
           toast.success("Question added Sucessful");
           navigate("/dashboard/makeQuiz");
         } catch (error) {
-            console.log("ADD QUES API ERROR............", error);
+            // console.log("ADD QUES API ERROR............", error);
             toast.error(error.response.data.message);
         }
         toast.dismiss(toastId);
@@ -262,7 +263,7 @@ export const removeQuestion = (data)=>{
         try {
             const response = await apiConnector("POST",questionEndpoints.REMOVE_QUES,data);
 
-            console.log("REMOVE QUES API RESPONSE............", response);
+            // console.log("REMOVE QUES API RESPONSE............", response);
 
           if(! response.data.success){
               throw new Error(response.data.message);
@@ -274,7 +275,7 @@ export const removeQuestion = (data)=>{
           toast.success("Question removed Sucessful");
           
         } catch (error) {
-            console.log("REMOVE QUES API ERROR............", error);
+            // console.log("REMOVE QUES API ERROR............", error);
             toast.error(error.response.data.message);
         }
         //dispatch(setLoading(false));
@@ -290,7 +291,7 @@ export const editQuestion = (data)=>{
         try {
             const response = await apiConnector("POST",questionEndpoints.EDIT_QUES,data);
 
-            console.log("EDIT QUES API RESPONSE............", response);
+            // console.log("EDIT QUES API RESPONSE............", response);
 
           if(! response.data.success){
               throw new Error(response.data.message);
@@ -305,7 +306,7 @@ export const editQuestion = (data)=>{
           toast.success("Question Edit Sucessful");
           
         } catch (error) {
-            console.log("EDIT QUES API ERROR............", error);
+            // console.log("EDIT QUES API ERROR............", error);
             toast.error(error.response.data.message);
         }
         //dispatch(setLoading(false));
@@ -320,14 +321,14 @@ export const submitQuiz = async(data,dispatch) => {
     try {
         const response = await apiConnector("POST",quizEndpoints.SUBMIT_QUIZ,data);
 
-        console.log("SUBMIT QUIZES API RESPONSE............", response);
+        // console.log("SUBMIT QUIZES API RESPONSE............", response);
 
         if(! response.data.success){
             throw new Error(response.data.message);
         }
         toast.success("Quiz Submitted!")
     } catch (error) {
-        console.log("SUBMIT QUIZES API ERROR............", error);
+        // console.log("SUBMIT QUIZES API ERROR............", error);
         toast.error(error.response.data.message);
     }
     dispatch(setQuizPlatformLoading(false));
@@ -341,7 +342,7 @@ export const quizAnalytics = async(data,token) => {
     try {
         const response = await apiConnector("POST",quizEndpoints.ANALYSE_QUIZ,data,{Authorization: `bearer ${token}`});
 
-        console.log("ANALYSE QUIZ API RESPONSE............", response);
+        // console.log("ANALYSE QUIZ API RESPONSE............", response);
 
         if(! response.data.success){
             throw new Error(response.data.message);
@@ -350,7 +351,7 @@ export const quizAnalytics = async(data,token) => {
             result = (response.data);
         }
     } catch (error) {
-        console.log("ANALYSE QUIZ API ERROR............", error);
+        // console.log("ANALYSE QUIZ API ERROR............", error);
         toast.error(error.response.data.message);
     }
     toast.dismiss(toastId);
@@ -364,7 +365,7 @@ export const leaderBoardQuiz = async(data) => {
     try {
         const response = await apiConnector("POST",quizEndpoints.QUIZ_LEADERBOARD,data);
 
-        console.log("LEADERBOARD QUIZ API RESPONSE............", response);
+        // console.log("LEADERBOARD QUIZ API RESPONSE............", response);
 
         if(! response.data.success){
             throw new Error(response.data.message);
@@ -373,7 +374,7 @@ export const leaderBoardQuiz = async(data) => {
             result = (response.data);
         }
     } catch (error) {
-        console.log("LEADERBOARD QUIZ API ERROR............", error);
+        // console.log("LEADERBOARD QUIZ API ERROR............", error);
         toast.error(error.response.data.message);
     }
     toast.dismiss(toastId);

@@ -43,7 +43,7 @@ exports.addQuestion = async(req,res)=>{
         });
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return res.status(400).json({
             success:false,
             message:"internal server error in add ques",
@@ -93,7 +93,7 @@ exports.removeQuestion = async(req,res)=>{
         });
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return res.status(400).json({
             success:false,
             message:"internal server error in remove ques",
@@ -147,7 +147,7 @@ exports.editQuestion = async(req,res)=>{
         });
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return res.status(400).json({
             success:false,
             message:"internal server error in edit ques",

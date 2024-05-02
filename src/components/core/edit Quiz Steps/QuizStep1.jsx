@@ -36,8 +36,11 @@ export const QuizStep1 = () => {
 
   const {token} = useSelector((state) => state.auth);
   const {user} = useSelector((state) => state.profile);
+  const {allQuiz} = useSelector((state) => state.viewQuiz);
   const {editMode, viewMode, editQuiz} = useSelector((state) => state.quiz);
   const dispatch = useDispatch();
+  // console.log((window.location.href).split("/").at(2))
+  const URL = (window.location.href).split("/").at(2)
   const [showQues, setShowQues] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -73,15 +76,15 @@ export const QuizStep1 = () => {
       //first time quiz is created 
       // console.log(data);
       const newData = {...data,email:user.email};
-      console.log(newData);
-      dispatch(makeQuiz(newData,token));
+      // console.log(newData);
+      dispatch(makeQuiz(newData,token,allQuiz));
     }
     else{
       // this is for update quiz
       if(isChange(data,editQuiz)){
         // api call for update
         const newData = {...data,quizId:editQuiz._id,status:editQuiz.status};
-        console.log(newData);
+        // console.log(newData);
         dispatch(updateQuiz(newData,token));
       }
       else{
@@ -110,8 +113,9 @@ export const QuizStep1 = () => {
   
   return (
     <div className='w-full h-full'>
-      <div className='relative flex-col p-5 pr-0 lg:pr-5 w-full gap-5 items-center flex min-h-full bg-slate-300'>
-      <p className='text-xl pl-8 lg:p-0 font-bold'>Make Quiz in very easy & efficient way</p>
+      <div className='relative flex-col p-5 pr-0 lg:pr-5 w-full gap-0 sm:gap-5 items-center flex min-h-full bg-slate-300'>
+        <p className='pl-8 -mt-1 mb-5 sm:mb-0 w-full text-2xl md:text-3xl font-medium text-left'>Dashboard/MakeQuiz</p>
+        <p className='w-full text-start sm:text-center text-lg sm:text-xl pl-8 font-semibold sm:font-bold'>Make Quiz in very easy & efficient way</p>
         <form onSubmit={handleSubmit(submitHandler)} className='flex flex-col gap-5 p-4 pl-8 lg:pl-4 items-start w-full lg:max-w-[756px]'>
           <label className="quiz-label">
               Quiz Name
@@ -212,20 +216,20 @@ export const QuizStep1 = () => {
               Schedule the Quiz start Time
             </p>
 
-            <label className='font-normal'>
+            <label className='flex items-start flex-wrap font-normal'>
             <input 
               id="private"
               name="accessMode"
               type='date'
-              defaultValue={(new Date)?.toISOString()?.split("T")?.at(0)}
-              className='quiz-input-schedule appearance-none'
+              defaultValue={(new Date())?.toISOString()?.split("T")?.at(0)}
+              className='quiz-input-schedule'
               {...register("scheduleDate",{required:true})}
             />
             <input 
               id="private"
               name="accessMode"
               type='time'
-              defaultValue={(new Date).toTimeString()?.split(":").slice(0,2)?.join(":")}
+              defaultValue={(new Date()).toTimeString()?.split(":").slice(0,2)?.join(":")}
               className='quiz-input-schedule'
               {...register("scheduleTime",{required:true})}
             />
@@ -238,13 +242,11 @@ export const QuizStep1 = () => {
           </div>
 
           {((viewMode || editMode) && editQuiz) && <label className="quiz-label">
-              <p>Quiz Link</p>
-              <div className='flex w-full gap-4'>
-                <p className='text-blue-500 xs:hidden cursor-pointer underline hover:text-blue-600'>{(`http://localhost:3000/attemptquiz/quiz/${editQuiz?._id}`).slice(0,27)}...</p>
-                <p className='text-blue-500 hidden xs:block cursor-pointer underline hover:text-blue-600'>{(`http://localhost:3000/attemptquiz/quiz/${editQuiz?._id}`).slice(0,40)}...</p>
-                <span className='float-left relative cursor-pointer' onClick={() =>{  navigator.clipboard.writeText(`http://localhost:3000/attemptquiz/quiz/${editQuiz?._id}`);
+              <div className='flex justify-between w-full gap-4'>
+                <p>Quiz Link</p>
+                <span className='text-blue-500 font-semibold pr-2 relative cursor-pointer' onClick={() =>{  navigator.clipboard.writeText(`https://${URL}/attemptquiz/quiz/${editQuiz?._id}`);
                 setCopied(true);
-                setTimeout(()=> setCopied(false) , 3000)}}>Copy <p className={`absolute ${copied ? "opacity-100" : "opacity-0"} duration-300 transition-opacity text-white -top-9 -left-2 px-1 py-[1px] rounded-md bg-blue-400`}>Copied</p></span>
+                setTimeout(()=> setCopied(false) , 3000)}}>Copy Link<p className={`absolute ${copied ? "opacity-100" : "opacity-0"} duration-300 transition-opacity text-white -top-9 font-normal -left-2 px-1 py-[1px] rounded-md bg-blue-400`}>Copied</p></span>
               </div>
           </label>}
 

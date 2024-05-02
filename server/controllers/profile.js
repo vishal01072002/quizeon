@@ -61,7 +61,6 @@ exports.resetPassword = async(req,res)=>{
     try{
         const {oldPassword,newPassword,email} = req.body;
 
-        console.log(oldPassword,newPassword,email);
         if(!email || !oldPassword || !newPassword){
             return res.status(401).json({
                 success: false,

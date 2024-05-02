@@ -18,9 +18,9 @@ export const OtpVerify = () => {
   const submitHandler = async(event)=> {
     event.preventDefault();
 
-    console.log(otp);
+    // console.log(otp);
     const signupUpdated = {...signupData,otp:otp}
-    console.log(signupUpdated);
+    // console.log(signupUpdated);
 
     dispatch(signup(signupUpdated,navigate));
   }
@@ -34,14 +34,15 @@ export const OtpVerify = () => {
     if(!signupData){
       navigate("/signup")
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   return (
     <div className="relative max-h-screen">
-      <div className="max-h-screen flex w-full">
+      <div className="max-h-[90vh] flex w-full">
         <img
           loading="lazy"
-          className="min-h-screen sm:max-h-[90vh] rounded-8xs w-1/2 object-cover"
+          className="min-h-full sm:max-h-full rounded-8xs w-1/2 object-cover"
           alt=""
           src={cool}
         />

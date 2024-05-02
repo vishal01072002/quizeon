@@ -26,13 +26,13 @@ export const Profile = () => {
     // personal detail form handler
     const editProfileHandler = (data)=> {
       
-      console.log(displayData);
+      // console.log(displayData);
       if(!editMode){
         openEditMode();
         return;
       }
       
-      console.log(data);
+      // console.log(data);
         // make edit call whwn some change occur
         if(changeHappen(data)){
           dispatch(editProfile(data,token,cancelEditMode));
@@ -68,16 +68,16 @@ export const Profile = () => {
     }
 
     function changeHappen(data) {
-      if(data.about != displayData.about){
+      if(data.about !== displayData.about){
         return true;
       }
-      else if(data.gender != displayData.gender){
+      else if(data.gender !== displayData.gender){
         return true;
       }
-      else if(data.number != displayData.number){
+      else if(data.number !== displayData.number){
         return true;
       }
-      else if((data.dateOfBirth).split("T")[0] != (displayData.dateOfBirth).split("T")[0]){
+      else if((data.dateOfBirth).split("T")[0] !== (displayData.dateOfBirth).split("T")[0]){
         return true;
       }
       else{
@@ -106,7 +106,7 @@ export const Profile = () => {
                 <div>
                     <UploadProfilePic profile={displayData.image} altName={displayData.firstName + " " + displayData.lastName}/>
                 </div>
-                <div className='flex gap-2 mt-14 text-2xl font-medium'>
+                <div className='flex gap-2 mt-5 xxs:mt-8 sm:mt-12 text-2xl font-medium'>
                     <p className=''>{displayData.firstName}</p>
                     <p>{displayData.lastName}</p>
                 </div>
@@ -120,9 +120,9 @@ export const Profile = () => {
             <div className='w-[90%] md:w-[70%] lg:w-[60%] flex-col text-lg lg:px-6 py-2 mr-0 md:mx-auto'>
 
                 {/* additional information */}
-                <form onSubmit={handleSubmit(editProfileHandler)} className='flex flex-col mb-8 py-4 bg-white rounded-md px-4 md:pr-10 gap-7 sm:gap-2 shadow-lg'>
+                <form onSubmit={handleSubmit(editProfileHandler)} className='flex flex-col mb-8 py-4 bg-white rounded-md px-4 md:pr-10 gap-5 sm:gap-2 shadow-lg'>
                     <h3 className='text-left mb-4 text-xl font-medium'>Personal Information</h3>
-                    <div className='flex flex-col sm:flex-row items-start gap-2 sm:gap-7'>
+                    <div className='flex flex-col sm:flex-row items-start gap-1 sm:gap-7'>
                         <p className='w-[130px] font-normal text-left mt-0'>About</p>
 
                         {
@@ -228,7 +228,6 @@ export const Profile = () => {
 
                     <div className='flex flex-row items-start gap-5'>
                         <button type='submit' className='text-left bg-blue-400 my-2 px-2 rounded-md text-lg py-[3px] font-medium w-max hover:bg-blue-500 text-white duration-200'>{editMode ? "Save Changes": "Edit Profile"}</button>
-
                         {
                             editMode && <button onClick={()=>cancelEditMode()} className='text-left bg-yellow-400 my-2 px-2 rounded-md border-orange-300 text-lg py-[1px] font-medium border-2 w-max text-white duration-200'>Cancel</button>
                         }

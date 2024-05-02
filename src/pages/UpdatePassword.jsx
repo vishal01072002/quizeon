@@ -27,13 +27,13 @@ export const UpdatePassword = () => {
 
   return (
     <div className="relative">
-        <div className="relative max-h-screen">{
+        <div className="relative max-h-[88.5vh]">{
         loading ? <Loader/> :
          <>
          <div className="max-h-screen flex w-full">
                 <img
                 loading="lazy"
-                className="max-h-[88.5vh] rounded-8xs w-1/2 object-cover"
+                className="max-h-full rounded-8xs w-1/2 object-cover"
                 alt=""
                 src={cool}
                 />

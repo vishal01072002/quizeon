@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { fetchAllQuiz } from '../services/operations/quiz';
 import { FiMenu } from "react-icons/fi"
 import { RxCross2 } from "react-icons/rx"
 import { HiOutlineHome} from "react-icons/hi"
@@ -11,8 +10,6 @@ import { MdOutlineAssignment} from "react-icons/md"
 
 export const Dashboard = () => {
 
-  const dispatch = useDispatch();
-  const {token} = useSelector((state)=> state.auth);
   const {user} = useSelector((state)=> state.profile);
   const [open,setOpen] = useState(false);
   const location = useLocation();
@@ -45,10 +42,7 @@ export const Dashboard = () => {
       icon: <IoIosCreate fontSize={25}/>,
     },
   ]
-  useEffect(()=>{
-    dispatch(fetchAllQuiz(token));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  
   return (
     <div className='relative min-h-[89vh]'>
         <div className={` bg-indigo-800 absolute text-white flex flex-col items-end top-0 h-full z-10 w-56 text-xl ${open ? "" : "-translate-x-[calc(100%-40px)]"} transition-all duration-700`}>

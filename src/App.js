@@ -26,10 +26,12 @@ import { useEffect } from 'react';
 import { QuizPlatform } from './components/core/dashboard/quiz/attemptQuizPlatform/QuizPlatform';
 import { QuizAnalysis } from './components/core/dashboard/instructor/QuizAnalysis';
 import { LeaderBoard } from './pages/LeaderBoard';
+import { fetchAllQuiz } from './services/operations/quiz';
 
 function App() {
 
   const {user} = useSelector((state) => state.profile);
+  const {token} = useSelector((state)=> state.auth);
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -43,6 +45,13 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[location.pathname])
+
+  // set all dashoard data
+  useEffect(()=>{
+    dispatch(fetchAllQuiz(token));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
+
   return (
     <div className="App overflow-x-hidden">
       <Navbar/>

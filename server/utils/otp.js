@@ -12,7 +12,7 @@ exports.createOtp = (email)=>{
             upperCaseAlphabets: false,
         });
 
-        console.log(otp);
+        // console.log(otp);
         // use JWT to encrypt
         const payload = {
             email: email,
@@ -26,7 +26,7 @@ exports.createOtp = (email)=>{
         ans = {otp,otpToken};
         return ans;
     } catch (error) {
-        console.log("error in creating otp ",error)
+        // console.log("error in creating otp ",error)
     }
 } 
 
