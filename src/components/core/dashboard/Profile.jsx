@@ -26,8 +26,9 @@ export const Profile = () => {
     // personal detail form handler
     const editProfileHandler = (data)=> {
       
-      // console.log(displayData);
+      console.log(editMode," enter in handler");
       if(!editMode){
+        console.log(editMode," enter in if");
         openEditMode();
         return;
       }
@@ -60,11 +61,13 @@ export const Profile = () => {
 
     // open edit mode
     function openEditMode(){
+      console.log(editMode," enter in openEdit");
       setValue("about",displayData?.about);
       setValue("gender",displayData?.gender);
       setValue("number",displayData?.number);
       setValue("dateOfBirth",(displayData?.dateOfBirth).split("T")[0]);
       setEditMode(true);
+      console.log(editMode," enter in setValue");
     }
 
     function changeHappen(data) {
