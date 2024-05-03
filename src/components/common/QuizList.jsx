@@ -63,7 +63,7 @@ export const QuizList = ({quizes,parentName}) => {
     }
 
     function dateModify(dates){
-      let newDate = dates.split("T")[0].split("-");
+      let newDate = dates?.split("T")?.at(0)?.split("-");
       let formatedDate = "" + newDate[2] + "/" + newDate[1] + "/" + newDate[0]; 
       return formatedDate;
     }

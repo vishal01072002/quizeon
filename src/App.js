@@ -48,7 +48,9 @@ function App() {
 
   // set all dashoard data
   useEffect(()=>{
-    dispatch(fetchAllQuiz(token));
+    if(token){
+      dispatch(fetchAllQuiz(token));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 

@@ -59,7 +59,7 @@ export const ShowScoreCard = memo(({scoreData, closeCard}) => {
           </div>
           <div className='flex items-center mt-5'>
             <div className='flex-1 flex items-center justify-center gap-2 text-lg font-semibold bg-white px-2 py-4 rounded-tl-2xl border-r-2 hover:scale-105 duration-300 text-orange-600'>
-              <MdOutlineTimer fontSize={22}/> <p>{scoreData?.completedTime.split(",").join(":")} min</p>
+              <MdOutlineTimer fontSize={22}/> <p>{scoreData?.completedTime?.split(",")?.join(":")} min</p>
             </div>
             <div className='flex items-center justify-center gap-2 text-lg font-semibold flex-1 bg-white px-2 py-4 border-l-2 rounded-tr-2xl hover:scale-105 duration-300 text-blue-600'>
               <MdBarChart fontSize={22}/><p>{scoreData?.score} Score</p>

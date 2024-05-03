@@ -65,7 +65,7 @@ export const Profile = () => {
       setValue("about",displayData?.about);
       setValue("gender",displayData?.gender);
       setValue("number",displayData?.number);
-      setValue("dateOfBirth",(displayData?.dateOfBirth).split("T")[0]);
+      setValue("dateOfBirth",(displayData?.dateOfBirth)?.split("T")?.at(0));
       setEditMode(true);
       console.log(editMode," enter in setValue");
     }
@@ -80,7 +80,7 @@ export const Profile = () => {
       else if(data.number !== displayData.number){
         return true;
       }
-      else if((data.dateOfBirth).split("T")[0] !== (displayData.dateOfBirth).split("T")[0]){
+      else if((data.dateOfBirth)?.split("T").at(0) !== (displayData.dateOfBirth)?.split("T").at(0)){
         return true;
       }
       else{
@@ -204,7 +204,7 @@ export const Profile = () => {
                         <p className='w-[130px] font-normal text-left'>Date of Birth</p>
 
                         {
-                          !editMode ? <p className="p-1 mb-1 px-4 rounded-md w-full sm:w-[calc(100%-155px)] text-left shadow shadow-gray-400">{checkValid(displayData?.dateOfBirth).split("T")[0]}</p> : 
+                          !editMode ? <p className="p-1 mb-1 px-4 rounded-md w-full sm:w-[calc(100%-155px)] text-left shadow shadow-gray-400">{checkValid(displayData?.dateOfBirth)?.split("T")?.at(0)}</p> : 
                         <>
                         <input
                             type="date"
