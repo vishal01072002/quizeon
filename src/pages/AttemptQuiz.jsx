@@ -45,21 +45,21 @@ export const AttemptQuiz = () => {
       {
         loading ? <Loader/> : 
         <div className='w-[95%] sm:w-11/12 md:w-4/5 mx-auto'>
-          <p>Available Quiz</p>
+          <p className='py-3 text-2xl pl-8 sm:pl-0 font-semibold text-gray-700'>Available Quiz</p>
           {
-            data.length === 0 ? <p>No Quizes are Available to Attempt</p> :
+            data.length === 0 ? <p className='text-red-500 ml-8 xs:ml-0 text-xl mt-16'>No Quizes are Available to Attempt</p> :
             <>
               <div className='ml-8 sm:ml-5 md:pl-0'>
                 <QuizList quizes={data} parentName={"attemptQuiz"}/>
               </div>
 
+              <div className='ml-8 sm:ml-5 md:pl-0 w-max mt-5 flex gap-4'>
+                  <p>{pageNo}/{totalPage}</p>
+                  {pageNo > 1 && <button disabled={loading} onClick={prevPage}>Previous</button>}
+                  {pageNo < totalPage && <button disabled={loading} onClick={nextPage}>Next</button>}
+              </div>
             </>
           }
-          <div className='ml-8 sm:ml-5 md:pl-0 w-max mt-5 flex gap-4'>
-              <p>{pageNo}/{totalPage}</p>
-              {pageNo > 1 && <button disabled={loading} onClick={prevPage}>Previous</button>}
-              {pageNo < totalPage && <button disabled={loading} onClick={nextPage}>Next</button>}
-          </div>
         </div>
       }
 

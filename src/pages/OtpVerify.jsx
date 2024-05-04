@@ -42,7 +42,7 @@ export const OtpVerify = () => {
       <div className="max-h-[90vh] flex w-full">
         <img
           loading="lazy"
-          className="min-h-full sm:max-h-full rounded-8xs w-1/2 object-cover"
+          className="min-h-[100vh] sm:max-h-[100vh] rounded-8xs w-1/2 object-cover"
           alt=""
           src={cool}
         />

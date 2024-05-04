@@ -266,7 +266,7 @@ exports.instructorAnalytics = async(req,res) => {
 exports.quizLeaderBoard = async(req,res) => {
     try {
         const {quizId,pageNo} = req.body;
-        const scorePerPage = 5; // show 5 score perpage
+        const scorePerPage = 10; // show 5 score perpage
         const skip = (pageNo - 1) * scorePerPage;
 
         if(!quizId){

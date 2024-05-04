@@ -1,42 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdBarChart, MdOutlineTimer } from "react-icons/md"
 import { CiCalendarDate } from "react-icons/ci"
 import { Loader } from '../../../common/Loader';
+import Categoriess from '../../../../utils/categgoryIndex';
 
 export const StudentQuiz = () => {
 
-  const Categories = [
-    {
-      _id : 0,
-      name: "All",
-    },
-    {
-      _id : 1,
-      name: "Cpp",
-    },
-    {
-      _id : 2,
-      name: "Java",
-    },
-    {
-      _id : 3,
-      name: "C",
-    },
-    {
-      _id : 4,
-      name: "General",
-    },
-  ];
+  const Categories = useMemo(() => Categoriess(),[]);
 
   const {loading,allQuiz} = useSelector((state)=> state.viewQuiz);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
   function dateModify(dates){
-    let newDate = dates?.split("T")[0]?.split("-");
-    let formatedDate = "" + newDate[2] + " / " + newDate[1] + " / " + newDate[0]; 
+    let tempDate = dates?.split("T")?.at(0)?.split("-");
+    let formatedDate = "" + tempDate?.at(2) + " / " + tempDate?.at(1) + " / " + tempDate?.at(0); 
     return formatedDate;
   }
 
@@ -86,21 +66,21 @@ export const StudentQuiz = () => {
   return (
     <>
         <p className='py-5 text-2xl pl-8 sm:pl-0 font-semibold text-gray-700'>Quiz Attempted By You</p>
-        <div className='relative text-lg w-2/5 flex flex-col sm:flex-row mb-8 justify-center items-center gap-1 mx-auto sm:gap-3'>
+        <div className='relative text-lg w-full flex flex-col sm:flex-row mb-8 justify-center items-center gap-1 mx-auto sm:gap-3'>
           <span>Select Category</span>
           <select
-            className='border px-2 rounded-md border-gray-500 focus:border-gray-500'
+            className='border ml-10 xs:ml-0 px-2 rounded-md border-gray-500 focus:border-gray-500'
             onChange={HandleFilter}
           >
-            {Categories.map((one,indx) => (
+            {Categories?.map((one,indx) => (
               <option className='text-base text-black' key={indx}>{one?.name}</option>
             ))}
           </select>
         </div>
         {loading ? <Loader/> : 
-            <>{(data.length === 0) ? 
+            <>{(data?.length === 0) ? 
                 <div className='h-full mt-5'>
-                    <p className='mb-4'>No Quiz is attempted yet</p>
+                    <p className='text-red-500 ml-8 xs:ml-0 text-xl mt-16 mb-4'>No Quiz is attempted yet</p>
                     <Link to={"/dashboard/attemptQuiz/page/1"} className='mt-8 p-1 px-2 bg-blue-400 text-white rounded-md text-xl' >
                         Attempt Quiz
                     </Link>

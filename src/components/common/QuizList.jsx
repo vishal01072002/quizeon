@@ -1,31 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Categoriess from '../../utils/categgoryIndex';
 
 export const QuizList = ({quizes,parentName}) => {
 
-    const Categories = [
-        {
-          _id : 0,
-          name: "All"
-        },
-        {
-          _id : 1,
-          name: "Cpp"
-        },
-        {
-          _id : 2,
-          name: "Java"
-        },
-        {
-          _id : 3,
-          name: "C"
-        },
-        {
-          _id : 4,
-          name: "General"
-        },
-      ];
+    const Categories = useMemo(() => Categoriess(),[]); 
     
     const {allQuiz} = useSelector((state) => state.viewQuiz);
     const navigate = useNavigate();

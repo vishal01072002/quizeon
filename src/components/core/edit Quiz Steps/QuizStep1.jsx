@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { makeQuiz, publishQuiz, updateQuiz } from '../../../services/operations/quiz';
@@ -6,26 +6,10 @@ import { FaChevronDown,FaChevronUp } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import { setStep } from '../../../slice/quizSlice';
 import { ShowQues } from './ShowQues';
+import Categoriess from '../../../utils/categgoryIndex';
 
 export const QuizStep1 = () => {
-  const Categories = [
-  {
-    _id : 1,
-    name: "Cpp"
-  },
-  {
-    _id : 2,
-    name: "Java"
-  },
-  {
-    _id : 3,
-    name: "C"
-  },
-  {
-    _id : 4,
-    name: "General"
-  },
-  ];
+  const Categories = useMemo(() => Categoriess(),[]); 
 
   const {
     register,
@@ -221,6 +205,7 @@ export const QuizStep1 = () => {
               id="private"
               name="accessMode"
               type='date'
+              disabled={viewMode}
               defaultValue={(new Date())?.toISOString()?.split("T")?.at(0)}
               className='quiz-input-schedule'
               {...register("scheduleDate",{required:true})}
@@ -229,6 +214,7 @@ export const QuizStep1 = () => {
               id="private"
               name="accessMode"
               type='time'
+              disabled={viewMode}
               defaultValue={(new Date()).toTimeString()?.split(":").slice(0,2)?.join(":")}
               className='quiz-input-schedule'
               {...register("scheduleTime",{required:true})}

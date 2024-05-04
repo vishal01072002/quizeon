@@ -294,7 +294,7 @@ exports.deleteQuiz = async(req,res)=>{
 exports.fetchQuizes = async(req,res) => {
     try {
         const {pageNo} = req.body;
-        const quizPerPage = 4; // show 10 quiz perpage
+        const quizPerPage = 10; // show 10 quiz perpage
         const skip = (pageNo - 1) * quizPerPage;
 
         const currDate = new Date();

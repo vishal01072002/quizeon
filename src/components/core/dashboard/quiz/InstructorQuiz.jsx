@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchOneQuiz,deleteQuiz } from '../../../../services/operations/quiz';
 import { Loader } from "../../../common/Loader"
@@ -7,31 +7,11 @@ import {FaRegEdit, FaEye, FaChartPie} from "react-icons/fa"
 import { FaChevronDown } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import ConfirmationModal from '../../../common/ConfirmModal';
+import Categoriess from '../../../../utils/categgoryIndex';
 
 
 export const InstructorQuiz = () => {
-    const Categories = [
-      {
-        _id : 0,
-        name: "All",
-      },
-      {
-        _id : 1,
-        name: "Cpp",
-      },
-      {
-        _id : 2,
-        name: "Java",
-      },
-      {
-        _id : 3,
-        name: "C",
-      },
-      {
-        _id : 4,
-        name: "General",
-      },
-    ];
+    const Categories = useMemo(() => Categoriess(),[]);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -124,18 +104,18 @@ export const InstructorQuiz = () => {
     {
         loading ? <Loader/> : 
         <>
-           { (!data) ? <p>Not Quiz Yet first create one</p> : 
+           { (!data) ? <p className='text-red-500 ml-8 xs:ml-0 text-xl mt-16'>Not Quiz Yet first create one</p> : 
             <>
             <div className='pl-8 xxs:hidden flex gap-3 mt-5 mb-3 xs:gap-5 justify-center'>
             <div className='py-1 relative'>
               <span>Category</span> 
               <select
-                className="text-black focus:outline-none border-2 ml-2 border-gray-700 rounded-[4px]"
+                className="text-black focus:outline-none border-2 ml-2 border-gray-700 rounded-[4px] max-w-[150px]"
                 name='category'
                 onChange={HandleFilter}
               >
                 {Categories?.map((category, indx) => (
-                  <option key={indx} className='text-black text-lg' value={category?.name}>
+                  <option key={indx} className='text-black focus:outline-none text-lg' value={category?.name}>
                     {category?.name}
                   </option>
                 ))}

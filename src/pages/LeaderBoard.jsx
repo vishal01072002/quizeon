@@ -49,7 +49,7 @@ export const LeaderBoard = () => {
     <>
       {
         loading ? <Loader/> : 
-        <div className='bg-white min-h-[88vh] p-3 pt-0 sm:p-5 sm:pt-5 relative'>
+        <div className='bg-white min-h-[88vh] p-3 sm:p-5 relative'>
           {/* top div */}
           <div className='flex flex-col xs:flex-row relative gap-1 xs:gap-3 sm:gap-10 justify-end w-full sm:w-[95%] lg:w-10/12 mx-auto mb-8 mt-5'>
             <div onClick={() => user.account === "Instructor" ? navigate(`/analytic/${quizId}`) : navigate("/dashboard/myQuiz")} className='absolute cursor-pointer left-5 top-5 px-3 py-2 bg-purple-500 rounded-sm text-white '>Back</div>
