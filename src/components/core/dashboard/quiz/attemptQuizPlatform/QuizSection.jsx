@@ -13,7 +13,7 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
   const {user} = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
-  const [questions, _] = useState(quizes.questions) 
+  const [questions, _] = useState(quizes?.questions) 
   const [score, setScore] = useState(0);
   const [correctOrNot,setCorrectOrNot] = useState([0,0]);
   const [remainTime,setRemainTime] = useState([0,0]);

@@ -121,31 +121,31 @@ const generateWarning = () => {
 
     // quiz Instructions data
     const perks2XCount = useMemo(()=>{
-      if(quizes.questions.length <= 5) return 1 ; 
-      if(quizes.questions.length < 15) return 2 ;
-      if(quizes.questions.length <= 25 ) return 3 ;
-      if(quizes.questions.length <= 40 ) return 4 ;
+      if(quizes?.questions?.length <= 5) return 1 ; 
+      if(quizes?.questions?.length < 15) return 2 ;
+      if(quizes?.questions?.length <= 25 ) return 3 ;
+      if(quizes?.questions?.length <= 40 ) return 4 ;
       return 5;
     },[quizes]);
 
     const neededStreek = useMemo(()=>{
-      if(quizes.questions.length <= 5) return 3 ;
-      if(quizes.questions.length < 15) return 4 ;
-      if(quizes.questions.length <= 25 ) return 5 ;
-      if(quizes.questions.length <= 40 ) return 6 ;
+      if(quizes?.questions?.length <= 5) return 3 ;
+      if(quizes?.questions?.length < 15) return 4 ;
+      if(quizes?.questions?.length <= 25 ) return 5 ;
+      if(quizes?.questions?.length <= 40 ) return 6 ;
       return 7;
     },[quizes]);
 
     const perks50_50Count = useMemo(()=>{
-      if(quizes.questions.length < 15) return 1 ;
-      if(quizes.questions.length <= 40 ) return 2 ;
+      if(quizes?.questions?.length < 15) return 1 ;
+      if(quizes?.questions?.length <= 40 ) return 2 ;
       return 3;
     },[quizes]);
 
     const neededScore = useMemo(()=>{
-      if(quizes.questions.length <= 5) return [80] ;
-      if(quizes.questions.length < 15) return [70] ;
-      if(quizes.questions.length <= 40 ) return [50,75] ;
+      if(quizes?.questions?.length <= 5) return [80] ;
+      if(quizes?.questions?.length < 15) return [70] ;
+      if(quizes?.questions?.length <= 40 ) return [50,75] ;
       return [40,60,80];
     },[quizes]);
 

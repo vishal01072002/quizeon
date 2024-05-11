@@ -128,7 +128,7 @@ exports.uploadProfile = async(req,res) =>{
             process.env.FOLDER_NAME,
             1000,
             100,
-        )
+        );
 
         // update in user
         const updatedUser = await User.findByIdAndUpdate({_id:userId},{image:image.secure_url},{new:true});

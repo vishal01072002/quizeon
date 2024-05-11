@@ -14,15 +14,15 @@ export const FiftyFifty = memo(({score}) => {
   const dispatch = useDispatch();
   
   const perksCountCalculate = useMemo(()=>{
-      if(quizes.questions.length < 15) return 1 ;
-      if(quizes.questions.length <= 40 ) return 2 ;
+      if(quizes?.questions?.length < 15) return 1 ;
+      if(quizes?.questions?.length <= 40 ) return 2 ;
       return 3;
   },[quizes]);
 
   const neededScore = useMemo(()=>{
-      if(quizes.questions.length <= 5) return [80] ;
-      if(quizes.questions.length < 15) return [70] ;
-      if(quizes.questions.length <= 40 ) return [50,75] ;
+      if(quizes?.questions?.length <= 5) return [80] ;
+      if(quizes?.questions?.length < 15) return [70] ;
+      if(quizes?.questions?.length <= 40 ) return [50,75] ;
       return [40,60,80];
   },[quizes]);
 

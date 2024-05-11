@@ -15,18 +15,18 @@ export const Twice = memo(({streek, setStreek}) => {
   const dispatch = useDispatch();
   
   const perksCountCalculate = useMemo(()=>{
-      if(quizes.questions.length <= 5) return 1 ; 
-      if(quizes.questions.length < 15) return 2 ;
-      if(quizes.questions.length <= 25 ) return 3 ;
-      if(quizes.questions.length <= 40 ) return 4 ;
+      if(quizes?.questions?.length <= 5) return 1 ; 
+      if(quizes?.questions?.length < 15) return 2 ;
+      if(quizes?.questions?.length <= 25 ) return 3 ;
+      if(quizes?.questions?.length <= 40 ) return 4 ;
       return 5;
   },[quizes]);
 
   const neededStreek = useMemo(()=>{
-      if(quizes.questions.length <= 5) return 3 ;
-      if(quizes.questions.length < 15) return 4 ;
-      if(quizes.questions.length <= 25 ) return 5 ;
-      if(quizes.questions.length <= 40 ) return 6 ;
+      if(quizes?.questions?.length <= 5) return 3 ;
+      if(quizes?.questions?.length < 15) return 4 ;
+      if(quizes?.questions?.length <= 25 ) return 5 ;
+      if(quizes?.questions?.length <= 40 ) return 6 ;
       return 7;
   },[quizes]);
 

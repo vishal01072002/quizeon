@@ -66,10 +66,10 @@ export const StudentQuiz = () => {
   return (
     <>
         <p className='py-5 text-2xl pl-8 sm:pl-0 font-semibold text-gray-700'>Quiz Attempted By You</p>
-        <div className='relative text-lg w-full flex flex-col sm:flex-row mb-8 justify-center items-center gap-1 mx-auto sm:gap-3'>
-          <span>Select Category</span>
+        <div className='relative text-lg ml-8 sm:ml-0 w-full flex flex-row mb-8 justify-center items-center gap-3 mx-auto'>
+          <span>Category</span>
           <select
-            className='border ml-10 xs:ml-0 px-2 rounded-md border-gray-500 focus:border-gray-500'
+            className='border px-2 rounded-md border-gray-500 focus:border-gray-500 focus:outline-none max-w-[150px]'
             onChange={HandleFilter}
           >
             {Categories?.map((one,indx) => (
