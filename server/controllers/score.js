@@ -11,7 +11,7 @@ exports.createScore = async(req,res) => {
         const {quizId, studentId, studentName, completedTime, score, correct, wrong, unAttempted, totalQuestion, gender, totalTime, image} = req.body;
  
         // validation
-        if(!quizId || !studentId || !studentName || !completedTime || (score === undefined || null) || (correct === undefined || null) || (wrong === undefined || null) || (unAttempted === undefined || null) || !totalQuestion || !totalTime || !gender || !image){
+        if(!quizId || !studentId || !studentName || !completedTime || (score === undefined || score === null) || (correct === undefined || correct === null) || (wrong === undefined || wrong === null) || (unAttempted === undefined || unAttempted === null) || !totalQuestion || !totalTime || !gender || !image){
             return res.status(404).json({
                 success: false,
                 message: "fill all details",
@@ -180,7 +180,7 @@ exports.instructorAnalytics = async(req,res) => {
           }
           else{
             for(let i=0; i<intervals.length; i++){
-              if(score.score >= intervals[i][0] && score.score <= intervals[i][1]){
+              if(score.score >= intervals[i][0] || score.score <= intervals[i][1]){
                 temp[i] = temp[i] + 1;
                 break;
               }
