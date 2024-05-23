@@ -180,7 +180,7 @@ exports.instructorAnalytics = async(req,res) => {
           }
           else{
             for(let i=0; i<intervals.length; i++){
-              if(score.score >= intervals[i][0] || score.score <= intervals[i][1]){
+              if(Number(score.score) >= intervals[i][0] && Number(score.score) <= intervals[i][1]){
                 temp[i] = temp[i] + 1;
                 break;
               }

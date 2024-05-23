@@ -3,8 +3,10 @@ const router = Router();
 
 // import auth middleware and profile controller
 const {editProfile,resetPassword,uploadProfile} = require("../controllers/profile");
-const {auth} = require("../middlewares/auth");
+const {auth,checkAuth} = require("../middlewares/auth");
 
+// Route for Check Auth
+router.post("/checkAuth",checkAuth);
 
 // Route for update profile
 router.post("/auth/editProfile",auth,editProfile);

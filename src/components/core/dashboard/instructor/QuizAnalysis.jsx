@@ -23,7 +23,7 @@ export const QuizAnalysis = () => {
   const fetchAnalyseData = async() => {
     setLoading(true);
     const result = await quizAnalytics({quizId:quizId},token);
-    // console.log(result);
+    console.log(result);
     setAnlyticalData(result);
     setLoading(false);
   }

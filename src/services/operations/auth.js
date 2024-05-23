@@ -137,3 +137,27 @@ export const updatePassword = async(data,navigate)=>{
   }
   toast.dismiss(toastId);
 }
+
+// CHECK TOKEN
+export const checkToken = async(token)=>{
+  const toastId = toast.loading("Loading...");
+  try {
+      const response = await apiConnector("POST",authEndpoints.CHECK_AUTH,{check:true},{Authorization: `bearer ${token}`});
+
+      // console.log("CHECK TOKEN API RESPONSE............", response);
+
+      if(! response.data.success){
+        throw new Error(response.data.message);
+      }
+      else{
+        toast.dismiss(toastId);
+        return true;
+      }
+    } catch (error) {
+      // console.log("CHECK TOKEN API ERROR............", error);
+      toast.error(error.response.data.message);
+    }
+    
+  toast.dismiss(toastId);
+  return false;
+}

@@ -275,7 +275,7 @@ const generateWarning = () => {
           
 
           { quizStatus === "End" && showScores[0] === null && 
-            <div>
+            <div className='relative top-1/2'>
               <button type='button' onClick={()=>{exitsFullScreen(); showScore()}} className='px-4 py-1 rounded-md mt-5 bg-opacity-90 hover:bg-opacity-100 transition-opacity duration-200 bg-white'>{submitLoading ? "Calculating Score..." : "See your Score"}</button>
             </div>
           }

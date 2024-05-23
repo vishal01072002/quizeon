@@ -82,3 +82,41 @@ exports.isInstructor = async (req, res, next) => {
         });
 	}
 };
+
+exports.checkAuth= async(req,res)=>{
+    try {
+        // fetch token
+        const token = req.body.token ||
+                      req.cookies.token ||
+                      req.header("Authorization").replaceAll("bearer ","");
+
+        // validate token
+        if(!token){
+            return res.status(401).json({
+                success: false,
+                message: "Token is missing",
+            });
+        }
+
+        // decode token
+        try {
+            const decodedToken = Jwt.verify(token,process.env.JWT_SECRET_KEY);
+            return res.status(200).json({
+                success:true,
+                message: "Token is Valid"
+            })
+        } catch (error) {
+            return res.status(401).json({
+                success: false,
+                message: "Token Expires",
+                error: error.message,
+            });
+        }
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Token Expires",
+            error: error.message,
+        });
+    }
+}

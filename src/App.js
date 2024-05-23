@@ -27,6 +27,7 @@ import { QuizPlatform } from './components/core/dashboard/quiz/attemptQuizPlatfo
 import { QuizAnalysis } from './components/core/dashboard/instructor/QuizAnalysis';
 import { LeaderBoard } from './pages/LeaderBoard';
 import { fetchAllQuiz } from './services/operations/quiz';
+import { checkToken } from './services/operations/auth';
 
 function App() {
 
@@ -45,18 +46,23 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[location.pathname])
+  
 
-  // set all dashoard data
-  useEffect(()=>{
+  // authantication for token expires and fetch quizes
+  const initialCall = async()=>{
     if(token){
-      dispatch(fetchAllQuiz(token));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+      const result = await checkToken(token);
+      console.log(result);
 
-  // authantication for token expires
+      if(result){
+        dispatch(fetchAllQuiz(token));
+      }
+    }
+  }
+
   useEffect(()=>{
-    
+    initialCall();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]); 
 
   return (
