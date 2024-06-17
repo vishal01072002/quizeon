@@ -306,7 +306,7 @@ exports.fetchQuizes = async(req,res) => {
         $or : [
             {'schedule.0': {$lt : todayDate}},
             {$and : [
-                {'schedule.0': {$eq : todayDate}},
+                {'schedule.0': todayDate},
                 {'schedule.1': {$lte : todayTime}}
             ]}
         ]});
@@ -320,6 +320,8 @@ exports.fetchQuizes = async(req,res) => {
             ]}
         ]}).sort({createdAt : -1}).skip(skip).limit(quizPerPage).exec();
         
+        console.log(currDate,todayDate,todayTime);
+        console.log(new Date(`${todayDate}T${todayTime}:00+05:30`));
         let pages = Math.ceil(numbers / quizPerPage);
         
         if(!allQuiz){

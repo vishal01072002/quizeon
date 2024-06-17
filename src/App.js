@@ -52,7 +52,7 @@ function App() {
   const initialCall = async()=>{
     if(token){
       const result = await checkToken(token);
-      console.log(result);
+      // console.log(result);
 
       if(result){
         dispatch(fetchAllQuiz(token));

@@ -68,7 +68,7 @@ export const QuizList = ({quizes,parentName}) => {
           <p className='flex gap-2 justify-center text-lg py-2 xs:hidden text-center'>
             Category 
             <select
-              className=" text-black border rounded-md border-gray-600 px-1 py-[2px]"
+              className=" text-black border rounded-md border-gray-600 px-1 py-[2px] focus:outline-none max-w-[150px]"
               name='category'
               onChange={HandleFilter}
             >

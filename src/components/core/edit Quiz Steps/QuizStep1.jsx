@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { setStep } from '../../../slice/quizSlice';
 import { ShowQues } from './ShowQues';
 import Categoriess from '../../../utils/categgoryIndex';
+import { useNavigate } from 'react-router-dom';
 
 export const QuizStep1 = () => {
   const Categories = useMemo(() => Categoriess(),[]); 
@@ -23,6 +24,7 @@ export const QuizStep1 = () => {
   const {allQuiz} = useSelector((state) => state.viewQuiz);
   const {editMode, viewMode, editQuiz} = useSelector((state) => state.quiz);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // console.log((window.location.href).split("/").at(2))
   const URL = (window.location.href).split("/").at(2)
   const [showQues, setShowQues] = useState(false);
@@ -78,7 +80,7 @@ export const QuizStep1 = () => {
   }
 
   const publishingQuiz = () => {
-    dispatch(publishQuiz({quizId:editQuiz._id},token))
+    dispatch(publishQuiz({quizId:editQuiz._id},token,navigate))
   }
 
   useEffect(()=>{
@@ -86,6 +88,7 @@ export const QuizStep1 = () => {
     //console.log(editQuiz);
     //console.log(viewMode,editMode);
     if((viewMode || editMode) && editQuiz){
+      console.log(editQuiz);
       setValue("quizName", editQuiz.quizName);
       setValue("category", editQuiz.category);
       setValue("duration", editQuiz.duration);
@@ -105,7 +108,7 @@ export const QuizStep1 = () => {
               Quiz Name
             <input 
               id="quizName"
-              disabled={viewMode}
+              disabled={viewMode && editQuiz}
               type="text"
               placeholder='Enter Quiz Name'
               {...register("quizName",{require:true, minLength:1,
@@ -120,7 +123,7 @@ export const QuizStep1 = () => {
             <p className='text-start'>Duration of Quiz (in Minutes)</p>
             <input 
               id="duration"
-              disabled={viewMode}
+              disabled={viewMode && editQuiz}
               type="number"
               defaultValue={15}
               placeholder='duration in Minutes'
@@ -144,7 +147,7 @@ export const QuizStep1 = () => {
             <label className='font-normal'>
             <input 
               id="public"
-              disabled={viewMode}
+              disabled={viewMode && editQuiz}
               name="accessMode"
               type="radio"
               value={"Public"}
@@ -178,7 +181,7 @@ export const QuizStep1 = () => {
             defaultValue=""
             id="category"
             className="quiz-input"
-            disabled={viewMode}
+            disabled={viewMode && editQuiz}
           >
             <option value="" disabled>
               Choose a Category
@@ -205,7 +208,7 @@ export const QuizStep1 = () => {
               id="private"
               name="accessMode"
               type='date'
-              disabled={viewMode}
+              disabled={viewMode && editQuiz}
               defaultValue={(new Date())?.toISOString()?.split("T")?.at(0)}
               className='quiz-input-schedule'
               {...register("scheduleDate",{required:true})}
@@ -214,7 +217,7 @@ export const QuizStep1 = () => {
               id="private"
               name="accessMode"
               type='time'
-              disabled={viewMode}
+              disabled={viewMode && editQuiz}
               defaultValue={(new Date()).toTimeString()?.split(":").slice(0,2)?.join(":")}
               className='quiz-input-schedule'
               {...register("scheduleTime",{required:true})}

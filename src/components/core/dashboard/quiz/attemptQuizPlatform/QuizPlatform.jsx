@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { IoWarning } from "react-icons/io5"
 import { MdOutlineZoomOutMap, MdLaptopMac} from "react-icons/md"
 import { BsPersonX } from "react-icons/bs"
@@ -23,6 +23,7 @@ export const QuizPlatform = ({docu = document}) => {
     const [loading, setLoading] = useState(true);
     const [warningCount, setWarningCount] = useState(0);
     const [warn, setWarn] = useState(false);
+    const navigate = useNavigate();
 
     // reffernce for make full screen
     const fullScreenMode = useRef(null);
@@ -174,7 +175,7 @@ const generateWarning = () => {
          <div ref={fullScreenMode} className={`relative flex items-center flex-col min-h-[88.5vh] overflow-x-hidden w-full ${quizStatus === "Start" ? "bg-violet-500" : "bg-violet-950"}`}>
           {/* <div className='h-32 w-32 left-0 bg-amber-400 absolute rounded-full'></div> */}
           {
-            quizStatus === "None" && quizes && showScores[0] === null && <div className='text-white w-11/12 lg:w-3/4'>
+            quizStatus !== "None" && quizes && showScores[0] === null && <div className='text-white w-11/12 lg:w-3/4'>
               {
                 <>
                   <div className='px-1 xs:px-4 mt-5 rounded-sm py-3 flex flex-col gap-5 text-lg drop-shadow-lg'>
@@ -274,14 +275,15 @@ const generateWarning = () => {
           <QuizSection setShowScores={setShowScores} warningCount={warningCount} setWarningCount={setWarningCount}/>
           
 
-          { quizStatus === "End" && showScores[0] === null && 
-            <div className='relative top-1/2'>
+          { showScores[0] === null && 
+            <div className='relative mt-1/2'>
               <button type='button' onClick={()=>{exitsFullScreen(); showScore()}} className='px-4 py-1 rounded-md mt-5 bg-opacity-90 hover:bg-opacity-100 transition-opacity duration-200 bg-white'>{submitLoading ? "Calculating Score..." : "See your Score"}</button>
             </div>
           }
 
           {
-            showScores[0] !== null && <div className='w-[300px] h-full my-auto px-2 bg-white rounded-md text-black flex flex-col py-4 items-center text-2xl'>
+            showScores[0] !== null && <>
+            <div className='w-[300px] h-full my-8 px-2 bg-white rounded-md text-black flex flex-col py-4 items-center text-2xl'>
               <img src={trophy1} alt='trophy' loading='lazy'/>
               <div className='mt-3 flex flex-col items-center gap-4'>
                 <p className='font-extrabold text-blue-950'>Congrats!</p>
@@ -289,6 +291,8 @@ const generateWarning = () => {
                 <p className='text-xl'>Quiz completed sucessfully.</p>
               </div>  
             </div>
+            <button onClick={() => navigate(`/leaderBoard/quiz/${quizes?._id}/page/1`)} className='px-8 py-[6px] rounded-sm bg-purple-500 text-white text-lg font-semibold hover:bg-purple-600 duration-300'>Go To LeaderBoard</button>
+            </>
           }
 
           {

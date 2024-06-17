@@ -65,7 +65,7 @@ export const updateQuiz = (data,token)=>{
 }
 
 // PUBLISH QUIZ API
-export const publishQuiz = (data,token)=>{
+export const publishQuiz = (data,token,navigate)=>{
     return async(dispatch)=>{
         const toastId = toast.loading("Loading");
         dispatch(setEditQuizLoading(true));
@@ -81,6 +81,7 @@ export const publishQuiz = (data,token)=>{
           dispatch(setQuiz(response.data.quiz));
           dispatch(setEditMode(true));
           toast.success("Quiz Publish Sucessful");
+          navigate("/dashboard/myQuiz");
 
         } catch (error) {
             // console.log("PUBLISH QUIZ API ERROR............", error);

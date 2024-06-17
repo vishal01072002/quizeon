@@ -169,10 +169,10 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
   },[warningCount]);
 
   return (
-    <div className='flex w-full h-full pt-10 pb-16 justify-center text-lg'>
+    <div className='flex w-full h-full justify-center text-lg'>
       {
         quizStatus === "Start" && 
-        <div className='flex flex-col h-full lg:flex-row gap-12 lg:gap-0 w-full items-center px-2 xs:px-5'>
+        <div className='flex flex-col h-full mt-10 mb-16 lg:flex-row gap-12 lg:gap-0 w-full items-center px-2 xs:px-5'>
           <div className='hidden lg:block'>
             <Twice streek={streek} setStreek={setStreek} perks={perks}/>
           </div>

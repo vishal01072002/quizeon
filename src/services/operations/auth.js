@@ -140,7 +140,7 @@ export const updatePassword = async(data,navigate)=>{
 
 // CHECK TOKEN
 export const checkToken = async(token)=>{
-  const toastId = toast.loading("Loading...");
+  const toastId = toast.loading("Verifying Token...");
   try {
       const response = await apiConnector("POST",authEndpoints.CHECK_AUTH,{check:true},{Authorization: `bearer ${token}`});
 
