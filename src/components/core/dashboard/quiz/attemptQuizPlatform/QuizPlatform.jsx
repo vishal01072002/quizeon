@@ -175,7 +175,7 @@ const generateWarning = () => {
          <div ref={fullScreenMode} className={`relative flex items-center flex-col min-h-[88.5vh] overflow-x-hidden w-full ${quizStatus === "Start" ? "bg-violet-500" : "bg-violet-950"}`}>
           {/* <div className='h-32 w-32 left-0 bg-amber-400 absolute rounded-full'></div> */}
           {
-            quizStatus !== "None" && quizes && showScores[0] === null && <div className='text-white w-11/12 lg:w-3/4'>
+            quizStatus === "None" && quizes && showScores[0] === null && <div className='text-white w-11/12 lg:w-3/4'>
               {
                 <>
                   <div className='px-1 xs:px-4 mt-5 rounded-sm py-3 flex flex-col gap-5 text-lg drop-shadow-lg'>
@@ -275,7 +275,7 @@ const generateWarning = () => {
           <QuizSection setShowScores={setShowScores} warningCount={warningCount} setWarningCount={setWarningCount}/>
           
 
-          { showScores[0] === null && 
+          { quizStatus === "End" && showScores[0] === null && 
             <div className='relative mt-1/2'>
               <button type='button' onClick={()=>{exitsFullScreen(); showScore()}} className='px-4 py-1 rounded-md mt-5 bg-opacity-90 hover:bg-opacity-100 transition-opacity duration-200 bg-white'>{submitLoading ? "Calculating Score..." : "See your Score"}</button>
             </div>
