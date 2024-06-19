@@ -306,7 +306,7 @@ exports.fetchQuizes = async(req,res) => {
         $or : [
             {'schedule.0': {$lt : todayDate}},
             {$and : [
-                {'schedule.0': todayDate},
+                {'schedule.0': {$eq : todayDate}},
                 {'schedule.1': {$lte : todayTime}}
             ]}
         ]});

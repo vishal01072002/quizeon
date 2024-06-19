@@ -269,14 +269,13 @@ const generateWarning = () => {
               }
               <button type='button' onClick={()=>startQuiz()} className='px-10 py-2 rounded-[30px] mt-16 font-semibold mb-5 text-2xl gradient bg-gradient-to-br from-violet-600 to-fuchsia-600 text-violet-50 hover:scale-95 duration-150'>Start Quiz</button>
             </div>
-
           }
 
           <QuizSection setShowScores={setShowScores} warningCount={warningCount} setWarningCount={setWarningCount}/>
           
 
           { quizStatus === "End" && showScores[0] === null && 
-            <div className='relative mt-1/2'>
+            <div className='absolute top-1/3 w-full mx-auto'>
               <button type='button' onClick={()=>{exitsFullScreen(); showScore()}} className='px-4 py-1 rounded-md mt-5 bg-opacity-90 hover:bg-opacity-100 transition-opacity duration-200 bg-white'>{submitLoading ? "Calculating Score..." : "See your Score"}</button>
             </div>
           }

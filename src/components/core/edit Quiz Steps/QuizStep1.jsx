@@ -240,13 +240,13 @@ export const QuizStep1 = () => {
           </label>}
 
           <div className='flex flex-wrap w-full items-center justify-between'>
-            {!viewMode && <button type='submit' className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'>{editMode && !isPublished()? "Save Changes" : "Next"}</button>}
+            {(!viewMode || !editQuiz) && <button type='submit' className='w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150'>{editMode && !isPublished()? "Save Changes" : "Next"}</button>}
 
             {editMode && !isPublished() && <button type='button' onClick={()=>dispatch(setStep(2))} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>Add question</button>}
             
             {editMode && editQuiz?.status !== "Publish" && <button type='button' disabled={isPublished()} onClick={()=> publishingQuiz()} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && "hidden"}`}>{"Publish"}</button>}
 
-            <button type='button' onClick={()=>{setShowQues(!showQues);}} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editMode && !viewMode && "hidden"}`}>{showQues ? <span className='flex items-center gap-2'><FaChevronUp/>Hide All Question</span> : <span className='flex items-center gap-2'><FaChevronDown/>Show All Question</span>}</button>
+            <button type='button' onClick={()=>{setShowQues(!showQues);}} className={`w-max text-yellow-50 text-lg rounded-sm font-medium bg-blue-600 px-8 py-1 mt-2 hover:bg-blue-700 duration-150 ${!editQuiz && "hidden"}`}>{showQues ? <span className='flex items-center gap-2'><FaChevronUp/>Hide All Question</span> : <span className='flex items-center gap-2'><FaChevronDown/>Show All Question</span>}</button>
           </div>
         </form>
         

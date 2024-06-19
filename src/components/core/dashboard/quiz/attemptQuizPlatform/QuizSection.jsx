@@ -90,11 +90,12 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
     }
   }
 
-  const handleFiftyPerks = () =>{
+  const handleFiftyPerks = (forNext) =>{
     if(perks[0] === true && fiftyOption[0] === null && fiftyOption[1] === true){
       // 50-50 activated
-      const currOptions = questions[currentQuestion].options;
-      const correctOption = questions[currentQuestion].correct;
+      const quesNum = (forNext && currentQuestion +1 < questions.length) ? currentQuestion + 1 : currentQuestion ;
+      const currOptions = questions[quesNum].options;
+      const correctOption = questions[quesNum].correct;
       const newOptions = currOptions.filter((oneOption) => oneOption !== correctOption);
       let filteredOption = [];
       filteredOption.push(correctOption);
@@ -112,7 +113,7 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
     setFadeTransition("fadeOut-card");
     setTimeout(() => {
       // handle 50-50
-      handleFiftyPerks();
+      handleFiftyPerks(true);
 
       if(currentQuestion === questions.length-1){
         // last question
@@ -123,6 +124,7 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
         // not last question
         setCurrentQuestion((state) => state + 1);
       }
+
       setSelectedOption("");
       setFadeTransition("fadeIn-card");
     }, 1000);
@@ -142,7 +144,7 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
       studentName : user?.firstName + " " + user?.lastName,
       completedTime : [completedTimeMin,completedTimeSec], 
       score : score, 
-      gender: user?.additionalDetail?.gender,
+      gender: (user?.additionalDetail?.gender !== null) ? user?.additionalDetail?.gender : "Male",
       correct : correctOrNot[0], 
       wrong : correctOrNot[1],
       unAttempted : (quizes.questions.length - correctOrNot[0] - correctOrNot[1]),
@@ -155,7 +157,7 @@ export const QuizSection = memo(({setShowScores, warningCount, setWarningCount})
 
   useEffect(() => {
     if(selectedOption === ""){
-      handleFiftyPerks();
+      handleFiftyPerks(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[perks])
