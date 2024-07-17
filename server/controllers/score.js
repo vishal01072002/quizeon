@@ -206,12 +206,21 @@ exports.instructorAnalytics = async(req,res) => {
             // let d = new Date("2024-03-25")
             const element = quiz.scoreList[i].createdAt;
             let dd = element.getDate().toString();
-            let mm = element.getMonth().toString();
+            let mm = element?.toLocaleDateString()?.toString()?.split("/")?.at(0);
             let yyyy = element.getFullYear().toString();
             perDaySorted.push(dd + "-" + mm + "-" + yyyy);
         }
 
-        perDaySorted.sort();
+        perDaySorted.sort((a,b)=>{
+            let temp1 = a.split("-");
+            let temp2 = b.split("-");
+            if(Number(temp1[0]) <= Number(temp2[0]) && Number(temp1[1]) <= Number(temp2[1]) && Number(temp1[2]) <= Number(temp2[2])) {
+                return -1;
+            }
+            else{
+                return 1;
+            }
+        });
         
         // algo to find how many diff date exist in sorted array 
         let first = perDaySorted[0];

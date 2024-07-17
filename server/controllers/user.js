@@ -238,12 +238,12 @@ exports.login = async (req,res) => {
         return res.cookie("token", token, {
             secure:true,
             httpOnly:true,
-            expires: new Date (Date.now() + 3 * 60 * 60 * 24 * 1000),
+            expires: new Date (Date.now() + 60 * 60 * 4 * 1000),
 
         }).status(200).json({
             success: true,
             token,
-            tokenExpires: (Date.now() + 3 * 60 * 60 * 24 * 1000),
+            tokenExpires: (Date.now() + 60 * 60 * 4 * 1000),
             user,
             message: "Login successful",
         });

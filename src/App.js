@@ -28,9 +28,11 @@ import { QuizAnalysis } from './components/core/dashboard/instructor/QuizAnalysi
 import { LeaderBoard } from './pages/LeaderBoard';
 import { fetchAllQuiz } from './services/operations/quiz';
 import { checkToken } from './services/operations/auth';
+import { logOut } from './slice/authSlice';
 
 function App() {
 
+  const {tokenExpires} = useSelector((state)=> state.auth);
   const {user} = useSelector((state) => state.profile);
   const {token} = useSelector((state)=> state.auth);
   const location = useLocation();
@@ -50,13 +52,22 @@ function App() {
 
   // authantication for token expires and fetch quizes
   const initialCall = async()=>{
+    // console.log(token,tokenExpires,Date.now());
+    // console.log(tokenExpires - Date.now());
+    if(tokenExpires - Date.now() < 0){
+      //logOut
+      dispatch(logOut());
+      return;
+      // toast.success("Token Expires");
+      // toast.success("Logout Sucessful");
+    }
     if(token){
-      const result = await checkToken(token);
+      // const result = await checkToken(token);
       // console.log(result);
 
-      if(result){
-        dispatch(fetchAllQuiz(token));
-      }
+      // if(result){
+      dispatch(fetchAllQuiz(token));
+      //}
     }
   }
 
